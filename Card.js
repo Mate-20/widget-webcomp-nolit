@@ -1,17 +1,18 @@
 class Cards extends HTMLElement {
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     // Initialize properties if needed
     this.image = 'https://media.licdn.com/dms/image/C4D12AQGFCeWmvrviVA/article-cover_image-shrink_600_2000/0/1635965553910?e=2147483647&v=beta&t=WP5YW7PcD57xmcjDQ4Fse6NR3xaO8XZxWwuyDdyDvmU';
+    this.eventname = 'Theatre';
     this.date = '12-1-24';
-    this.eventName = 'TED X';
     this.location = 'Berlin, Germany';
     this.render();
   }
 
   static get observedAttributes() {
-    return ['image', 'date', 'eventName', 'location'];
+    return ['image','eventname','date','location'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -96,7 +97,7 @@ class Cards extends HTMLElement {
         <div class="content">
           <div class="tag">Events</div>
           <div class="date">${this.date}</div>
-          <div class="eventName">${this.eventName}</div>
+          <div class="eventName">${this.eventname}</div>
           <div class="location">
             <div>Location Icon</div>
             <div>${this.location}</div>

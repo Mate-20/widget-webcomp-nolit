@@ -3,15 +3,15 @@ class MultipleData extends HTMLElement {
       super();
       this.attachShadow({ mode: 'open' });
       this.cardData = [
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Tokyo, Japan" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Delhi, India" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Delhi, India" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Delhi, India" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
-          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" }
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Bhramak", date: "February 3 - 8, 2024", location: "Berlin, Germany" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Pune Highway", date: "February 3 - 7, 2024", location: "Tokyo, Japan" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "TED x", date: "February 3 - 7, 2024", location: "Delhi, India" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Marathon", date: "February 3 - 7, 2024", location: "Delhi, India" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Marathon", date: "February 3 - 7, 2024", location: "Delhi, India" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
+          { image: "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg", eventname: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" }
       ];
       // this.IsModalOpen = false;
       this.render();
@@ -58,10 +58,10 @@ class MultipleData extends HTMLElement {
               <div class="cardContainer">
                   ${this.cardData.map((item, key) => `
                       <card-component
-                          .image="${item.image}"
-                          .date="${item.date}"
-                          .eventName="${item.eventName}"
-                          .location="${item.location}"
+                          image="${item.image}"
+                          date="${item.date}"
+                          eventName="${item.eventname}"
+                          location="${item.location}"
                           key="${key}"
                       ></card-component>
                   `).join('')}
@@ -69,7 +69,7 @@ class MultipleData extends HTMLElement {
           </div>
           ${this.IsModalOpen ? `
               <div class="modal">
-                  <modal-component .handleModal="${this.handleModal}" .dataNumber="${3}"></modal-component>
+                  <modal-component handleModal="${this.handleModal}" dataNumber="${3}"></modal-component>
               </div>
           ` : ''}
       `;
