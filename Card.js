@@ -11,18 +11,35 @@ class Cards extends HTMLElement {
     this.render();
   }
 
+  connectedCallback() {
+
+    // For getting the passed call back function
+    const openModalEvent = new CustomEvent('modal-open', {
+      detail: {
+        // Optionally pass relevant data to parent component
+        cardData: this.cardData, // Assuming you have `cardData` defined
+      },
+      bubbles: true, // Allow event to bubble up
+      composed: true, // Allow event to cross shadow DOM boundaries
+    });
+
+    let cards = this.shadowRoot.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        console.log("card clicked");
+        this.dispatchEvent(openModalEvent);
+      });
+    });
+
+  }
+
   static get observedAttributes() {
-    return ['image','eventname','date','location'];
+    return ['image', 'eventname', 'date', 'location'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     this[name] = newValue;
     this.render();
-  }
-
-  handleModal() {
-    // Implement your modal functionality here
-    console.log('Modal clicked');
   }
 
   render() {
@@ -102,7 +119,7 @@ class Cards extends HTMLElement {
             <div>Location Icon</div>
             <div>${this.location}</div>
           </div>
-          <div class="btn" @click="${this.handleModal}">
+          <div class="btn" @click="${this.handlemodal}">
             <div>Register</div>
           </div>
         </div>

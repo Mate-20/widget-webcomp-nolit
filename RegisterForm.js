@@ -1,21 +1,28 @@
 class RegisterForm extends HTMLElement {
-  constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.dataNumber = 3; // Set default value for dataNumber
-      this.render();
-  }
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.render();
+    }
 
-  connectedCallback() {
-      this.render();
-  }
+    connectedCallback() {
+        this.render();
+    }
+    // To accept the incoming props
+    get datanumber() {
+        return this.getAttribute('datanumber');
+    }
+    set datanumber(value) {
+        this.setAttribute('datanumber', value);
+    }
 
-  handleFormModal() {
-      this.dispatchEvent(new CustomEvent('close-modal', { bubbles: true, composed: true }));
-  }
 
-  render() {
-      this.shadowRoot.innerHTML = `
+    handleFormModal() {
+        this.dispatchEvent(new CustomEvent('close-modal', { bubbles: true, composed: true }));
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
           <style>
               /* Add your CSS styles here */
               .backBtn {
@@ -129,7 +136,7 @@ class RegisterForm extends HTMLElement {
               </div>
           </div>
       `;
-  }
+    }
 }
 
 customElements.define('register-form', RegisterForm);

@@ -9,6 +9,14 @@ class Modal extends HTMLElement {
         this.render();
     }
 
+    // To accept the incoming props
+    get datanumber() {
+        return this.getAttribute('datanumber');
+    }
+    set datanumber(value) {
+        this.setAttribute('datanumber', value);
+    }
+
     connectedCallback() {
         this.updateTime();
         this.attachEventListeners();
@@ -17,7 +25,7 @@ class Modal extends HTMLElement {
     attachEventListeners() {
         this.shadowRoot.addEventListener('click', (event) => {
             const target = event.target;
-    
+
             // Check if the clicked element is a time button
             if (target.classList.contains('time')) {
                 const time = target.textContent.trim(); // Remove leading and trailing spaces
@@ -33,7 +41,7 @@ class Modal extends HTMLElement {
                 }
             }
         });
-        
+
     }
     handleTime(time) {
         this.IsTimeSelected = time;
@@ -42,13 +50,8 @@ class Modal extends HTMLElement {
 
     handleFormModal(value) {
         this.IsFormOpen = value;
-        console.log(this.IsFormOpen)
         this.render();
     }
-    
-    // static get observedAttributes() {
-    //     return ['dataNumber'];
-    // }
 
     // attributeChangedCallback(name, oldValue, newValue) {
     //     if (name === 'dataNumber') {
@@ -152,20 +155,20 @@ class Modal extends HTMLElement {
                         <div class="timeSlots">
                             <h1>Time Slots</h1>
                             ${this.timeData.map(
-                                (item) => `
+            (item) => `
                                     <div class="time ${this.IsTimeSelected === item ? 'selectedTime' : ''}">
                                         ${item}
                                     </div>
                                 `
-                            )}
+        )}
                             <div class="btns">
                                 <button class="nextBtn">Next</button>
                                 <button class="cancelBtn" @click="${this.handleModal}">x</button>
                             </div>
                         </div>
                     </div>
-                ` : 
-                `<register-form></register-form>`
+                ` :
+                `<register-form datanumber="${this.datanumber}"></register-form>`
             }
         `;
     }

@@ -4,6 +4,6 @@ module.exports = {
   entry: './index.js', // Entry point of your application
   output: {
     path: path.resolve(__dirname, 'dist'), // Output directory
-    filename: 'bundle.js', // Output filename
+    filename: 'eventgeni.js', // Output filename
   },
 };
