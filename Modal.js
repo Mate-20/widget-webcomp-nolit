@@ -4,7 +4,7 @@ class Modal extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.timeData = ['10:00 am', '11:00 am', '2:00 pm'];
         this.IsTimeSelected = "";
-        this.Time = '';
+        this.Time = "";
         this.IsFormOpen = false;
         this.render();
     }
