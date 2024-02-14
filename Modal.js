@@ -3,7 +3,7 @@ class Modal extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.timeData = ['10:00 am', '11:00 am', '2:00 pm'];
-        this.IsTimeSelected = null;
+        this.IsTimeSelected = "";
         this.Time = '';
         this.IsFormOpen = false;
         this.render();
@@ -11,46 +11,70 @@ class Modal extends HTMLElement {
 
     connectedCallback() {
         this.updateTime();
+        this.attachEventListeners();
     }
 
-    static get observedAttributes() {
-        return ['dataNumber'];
+    attachEventListeners() {
+        this.shadowRoot.addEventListener('click', (event) => {
+            const target = event.target;
+    
+            // Check if the clicked element is a time button
+            if (target.classList.contains('time')) {
+                const time = target.textContent.trim(); // Remove leading and trailing spaces
+                this.handleTime(time);
+            }
+
+            // Check if the clicked element is the next button
+            if (target.classList.contains('nextBtn')) {
+                if (this.IsFormOpen) {
+                    this.handleFormModal(false);
+                } else {
+                    this.handleFormModal(true);
+                }
+            }
+        });
+        
+    }
+    handleTime(time) {
+        this.IsTimeSelected = time;
+        this.render();
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'dataNumber') {
-            this.dataNumber = Number(newValue);
-        }
+    handleFormModal(value) {
+        this.IsFormOpen = value;
+        console.log(this.IsFormOpen)
+        this.render();
     }
+    
+    // static get observedAttributes() {
+    //     return ['dataNumber'];
+    // }
+
+    // attributeChangedCallback(name, oldValue, newValue) {
+    //     if (name === 'dataNumber') {
+    //         this.dataNumber = Number(newValue);
+    //     }
+    // }
 
     updateTime() {
         const date = new Date();
         this.Time = date.toLocaleTimeString();
     }
 
-    handleTime(time) {
-        this.IsTimeSelected = time;
-        this.render();
-    }
-
     handleModal() {
         this.dispatchEvent(new CustomEvent('modal-closed', { bubbles: true, composed: true }));
-    }
-
-    handleFormModal(value) {
-        this.IsFormOpen = value;
-        this.render();
     }
 
     render() {
         this.shadowRoot.innerHTML = `
             <style>
-                /* Add your CSS styles here */
-                .container {
-                    display: flex;
-                    flex-direction: column;
-                }
-
+            .container {
+                display: flex;
+                justify-content: center;
+                background-color: rgb(238, 238, 238);
+                padding: 50px;
+                border-radius: 10px;
+            }
                 .calendar {
                     display: flex;
                     justify-content: space-between;
@@ -120,26 +144,29 @@ class Modal extends HTMLElement {
                     margin-top: 10px;
                 }
             </style>
-            <div class="container">
-                <div class="calendar">
-                    <input type="date" class="dateInput" />
-                </div>
-                <div class="timeSlots">
-                    <h1>Time Slots</h1>
-                    ${this.timeData.map(
-                        (item) => `
-                            <div class="time ${this.IsTimeSelected === item ? 'selectedTime' : ''}" 
-                                onclick="this.parentNode.host.handleTime('${item}')">
-                                ${item}
+            ${!this.IsFormOpen ? `
+                    <div class="container">
+                        <div class="calendar">
+                            <input type="date" class="dateInput" />
+                        </div>
+                        <div class="timeSlots">
+                            <h1>Time Slots</h1>
+                            ${this.timeData.map(
+                                (item) => `
+                                    <div class="time ${this.IsTimeSelected === item ? 'selectedTime' : ''}">
+                                        ${item}
+                                    </div>
+                                `
+                            )}
+                            <div class="btns">
+                                <button class="nextBtn">Next</button>
+                                <button class="cancelBtn" @click="${this.handleModal}">x</button>
                             </div>
-                        `
-                    ).join('')}
-                    <div class="btns">
-                        <button class="nextBtn" onclick="this.parentNode.host.handleFormModal(true)">Next</button>
-                        <button class="cancelBtn" onclick="this.parentNode.host.handleModal()">x</button>
+                        </div>
                     </div>
-                </div>
-            </div>
+                ` : 
+                `<register-form></register-form>`
+            }
         `;
     }
 }

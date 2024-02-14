@@ -6,7 +6,7 @@ class SingleData extends HTMLElement {
       this.cardData = [
           { image: "https://media.licdn.com/dms/image/C4D12AQGFCeWmvrviVA/article-cover_image-shrink_600_2000/0/1635965553910?e=2147483647&v=beta&t=WP5YW7PcD57xmcjDQ4Fse6NR3xaO8XZxWwuyDdyDvmU", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
       ];
-      this.name = "Alvin";
+      this.isModalOpen = false;
       this.render();
   }
 
@@ -89,6 +89,10 @@ class SingleData extends HTMLElement {
                           </div>
                       </div>
                   `).join('')}
+                  <div class="modal">
+                    <div class="schedule">Schedule</div>
+                    <modal-component .handleModal="${this.handleModal}" .dataNumber="${1}"></modal-component>
+                </div>
               </div>
           </div>
       `;
