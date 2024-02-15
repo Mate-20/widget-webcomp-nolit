@@ -33,7 +33,6 @@ class MultipleData extends HTMLElement {
     updateLayout() {
         const cardContainer = this.shadowRoot.querySelector('.cardContainer');
         const containerWidth = cardContainer.offsetWidth;
-        console.log("container width:",containerWidth)
         let columns = Math.floor(containerWidth / 330); // Assuming each card has a fixed width of 330px
         columns = Math.max(columns, 1); // Ensure there is at least one column
         cardContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
@@ -48,6 +47,8 @@ class MultipleData extends HTMLElement {
         this.shadowRoot.innerHTML = `
           <style>
               .container {
+                height:100%;
+                overflow:scroll;
                 position:relative;
                   padding: 50px;
                   background: linear-gradient(118deg, rgba(36,36,36,1) 0%, rgba(0,0,0,1) 100%);
@@ -63,6 +64,7 @@ class MultipleData extends HTMLElement {
                   font-weight: 900;
               }
               .cardContainer {
+                height:100%;
                 display: grid;  
                 row-gap:30px;
                 margin-top: 30px;
