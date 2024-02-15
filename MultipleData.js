@@ -69,6 +69,7 @@ class MultipleData extends HTMLElement {
                 justify-items:center;
               }
               .modal {
+                  width : 90%;  
                   position: absolute;
                   left: 50%;
                   top: 100px;

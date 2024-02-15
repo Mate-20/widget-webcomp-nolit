@@ -85,6 +85,7 @@ class Modal extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
             .container {
+                width:80%;
                 display: flex;
                 justify-content: center;
                 background-color: rgb(238, 238, 238);

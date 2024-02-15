@@ -37,7 +37,11 @@ class RegisterForm extends HTMLElement {
                   margin-top: 40px;
               }
               .content {
-                  width: 30vw;
+                  width: 100%;
+              }
+              .img img{
+                width: 100%;
+                height: 40%;
               }
               .date {
                   font-size: 20px;
@@ -125,8 +129,6 @@ class RegisterForm extends HTMLElement {
                       <div class="img">
                           <img
                               src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg"
-                              width="500"
-                              height="350"
                               alt="Author"
                               style="border-radius: 20px;"
                           />
