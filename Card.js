@@ -43,7 +43,7 @@ class Cards extends HTMLElement {
       <style>
       .card{
         background-color: rgb(233, 233, 233);
-        width: 350px;
+        width:350px;
         border-radius: 15px;
         cursor: pointer;
     }
@@ -102,10 +102,11 @@ class Cards extends HTMLElement {
         transition-duration: .3s;
         color: white;
     }
+    
       </style>
       <div class="card">
         <div class="img">
-          <img src="${this.image}" width="350" height="200" alt="author" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+          <img src="${this.image}" alt="author" width=350 style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
         </div>
         <div class="content">
           <div class="tag">Events</div>

@@ -50,7 +50,7 @@ class MultipleData extends HTMLElement {
               .cardContainer {
                   margin-top: 30px;
                   display: grid;
-                  grid-template-columns: repeat(3, 1fr); /* Three columns in each row */
+                  grid-template-columns: repeat(4, 1fr); /* Three columns in each row */
                   justify-items: center;
                   row-gap: 30px;
               }
@@ -60,6 +60,20 @@ class MultipleData extends HTMLElement {
                   top: 50%;
                   transform: translate(-50%, -50%);
               }
+            
+              @media screen and (max-width: 1560px) {
+                .cardContainer {
+                    grid-template-columns: repeat(3, 1fr); /* Two columns in each row when screen width is at most 1200px */
+                }
+            }
+            
+              @media screen and (max-width: 1200px) {
+                .cardContainer {
+                    grid-template-columns: repeat(2, 1fr); /* Two columns in each row when screen width is at most 1200px */
+                }
+            }
+            
+            
           </style>
           <div class="container">
               <div class="heading">Your Events</div>
