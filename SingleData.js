@@ -1,32 +1,39 @@
 class SingleData extends HTMLElement {
-  constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.getData = [];
-      this.cardData = [
-          { image: "https://media.licdn.com/dms/image/C4D12AQGFCeWmvrviVA/article-cover_image-shrink_600_2000/0/1635965553910?e=2147483647&v=beta&t=WP5YW7PcD57xmcjDQ4Fse6NR3xaO8XZxWwuyDdyDvmU", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
-      ];
-      this.isModalOpen = false;
-      this.render();
-  }
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.getData = [];
+        this.cardData = [
+            { image: "https://media.licdn.com/dms/image/C4D12AQGFCeWmvrviVA/article-cover_image-shrink_600_2000/0/1635965553910?e=2147483647&v=beta&t=WP5YW7PcD57xmcjDQ4Fse6NR3xaO8XZxWwuyDdyDvmU", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
+        ];
+        this.isModalOpen = false;
+        this.render();
+    }
 
-  connectedCallback() {
-      this.render();
-  }
+    connectedCallback() {
+        // this.render();
+    }
+    updateLayout() {
+        const cardContainer = this.shadowRoot.querySelector('.cardContainer');
+        const containerWidth = cardContainer.offsetWidth;
+        let columns = Math.floor(containerWidth / 330); // Assuming each card has a fixed width of 330px
+        columns = Math.max(columns, 1); // Ensure there is at least one column
+        cardContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    }
 
-  render() {
-      this.shadowRoot.innerHTML = `
+    render() {
+        this.shadowRoot.innerHTML = `
           <style>
-              /* Add your CSS styles here */
               .container {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
                   padding: 50px;
                   background: linear-gradient(118deg, rgba(236,235,255,1) 0%, rgba(68,99,190,1) 100%);
               }
               .eventContainer {
                   display: flex;
+                  align-items:center;
                   justify-content: center;
               }
               .eventDetails {
@@ -58,6 +65,7 @@ class SingleData extends HTMLElement {
                   font-weight: 900; 
               }
               .eventImg {
+                margin-top:10px;
                   filter: drop-shadow(1px 1px 6px rgb(65, 65, 65));
               }
               .schedule {
@@ -67,9 +75,21 @@ class SingleData extends HTMLElement {
                   margin-bottom: 10px;
               }
               .modal {
-                  width: fit-content;
+                  width: 50vw;
                   margin-top: 100px;
               }
+              @media screen and (max-width: 960px) {
+                .eventDetails {
+                    width: 100%; /* Adjust the width of event details for smaller screens */
+                  }
+                  .eventContainer {
+                    flex-direction: column; /* Change flex direction for smaller screens */
+                  }
+                  .modal {
+                    width: fit-content;
+                    margin-top: 100px;
+                }
+            }
           </style>
           <div class="body">
               <div class="container">
@@ -89,14 +109,14 @@ class SingleData extends HTMLElement {
                           </div>
                       </div>
                   `).join('')}
-                  <div class="modal">
-                    <div class="schedule">Schedule</div>
-                    <modal-component handlemodal="${this.handlemodal}" datanumber="${1}"></modal-component>
-                </div>
+            <div class="modal">
+                <div class="schedule">Schedule</div>
+                <modal-component handlemodal="${this.handlemodal}" datanumber="${1}"></modal-component>
+            </div>
               </div>
           </div>
       `;
-  }
+    }
 }
 
 customElements.define('single-data', SingleData);
