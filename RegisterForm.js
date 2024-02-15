@@ -16,7 +16,6 @@ class RegisterForm extends HTMLElement {
         this.setAttribute('datanumber', value);
     }
 
-
     handleFormModal() {
         this.dispatchEvent(new CustomEvent('close-modal', { bubbles: true, composed: true }));
     }
@@ -105,7 +104,7 @@ class RegisterForm extends HTMLElement {
                   <div class="details">
                       <div class="content">
                           <div class="date">February 7, 2024</div>
-                          ${this.dataNumber >= 2 ? `
+                          ${this.datanumber >= "2" ? `
                               <div class="eventName">Marathon</div>
                               <div class="location">Berlin, Germany</div>
                           ` : ''}
@@ -122,7 +121,7 @@ class RegisterForm extends HTMLElement {
                           </div>
                       </form>
                   </div>
-                  ${this.dataNumber >= 2 ? `
+                  ${this.datanumber >= "2" ? `
                       <div class="img">
                           <img
                               src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg"

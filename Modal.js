@@ -2,7 +2,7 @@ class Modal extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.timeData = ['10:00 am', '11:00 am', '2:00 pm'];
+        this.timeData = ['10:00 am', '11:00 am', '3:00 pm'];
         this.IsTimeSelected = "";
         this.Time = "";
         this.IsFormOpen = false;
@@ -20,6 +20,7 @@ class Modal extends HTMLElement {
     connectedCallback() {
         this.updateTime();
         this.attachEventListeners();
+
     }
 
     attachEventListeners() {
@@ -31,7 +32,6 @@ class Modal extends HTMLElement {
                 const time = target.textContent.trim(); // Remove leading and trailing spaces
                 this.handleTime(time);
             }
-
             // Check if the clicked element is the next button
             if (target.classList.contains('nextBtn')) {
                 if (this.IsFormOpen) {
@@ -40,9 +40,22 @@ class Modal extends HTMLElement {
                     this.handleFormModal(true);
                 }
             }
-        });
+            if (target.classList.contains('cancelBtn')) {
+                const openModalEvent = new CustomEvent('modal-open', {
+                    detail: {
+                        // Optionally pass relevant data to parent component
+                        open: false, // Assuming you have `cardData` defined
+                    },
+                    bubbles: true, // Allow event to bubble up
+                    composed: true, // Allow event to cross shadow DOM boundaries
+                });
+                this.dispatchEvent(openModalEvent)
+            }
 
+
+        });
     }
+
     handleTime(time) {
         this.IsTimeSelected = time;
         this.render();
@@ -90,7 +103,6 @@ class Modal extends HTMLElement {
                     border-radius: 5px;
                     padding: 5px;
                 }
-
                 .timeSlots h1 {
                     font-size: 25px;
                     color: rgb(96, 63, 240);
@@ -154,21 +166,18 @@ class Modal extends HTMLElement {
                         </div>
                         <div class="timeSlots">
                             <h1>Time Slots</h1>
-                            ${this.timeData.map(
-            (item) => `
-                                    <div class="time ${this.IsTimeSelected === item ? 'selectedTime' : ''}">
-                                        ${item}
-                                    </div>
-                                `
-        )}
+                            ${this.timeData.map((item) =>
+            '<div class="time ' + (this.IsTimeSelected === item ? 'selectedTime' : '') + '">' + item + '</div>'
+        ).join('')}
+                            
                             <div class="btns">
                                 <button class="nextBtn">Next</button>
-                                <button class="cancelBtn" @click="${this.handleModal}">x</button>
+                                <button class="cancelBtn">x</button>
                             </div>
                         </div>
                     </div>
                 ` :
-                `<register-form datanumber="${this.datanumber}"></register-form>`
+                `<register-form datanumber="${this.datanumber}" class="container"></register-form>`
             }
         `;
     }

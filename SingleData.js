@@ -91,7 +91,7 @@ class SingleData extends HTMLElement {
                   `).join('')}
                   <div class="modal">
                     <div class="schedule">Schedule</div>
-                    <modal-component handlemodal="${this.handlemodal}" datanumber="${2}"></modal-component>
+                    <modal-component handlemodal="${this.handlemodal}" datanumber="${1}"></modal-component>
                 </div>
               </div>
           </div>

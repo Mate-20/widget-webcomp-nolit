@@ -21,13 +21,12 @@ class MultipleData extends HTMLElement {
     connectedCallback() {
         // for passing the call back function
         this.shadowRoot.addEventListener('modal-open', (event) => {
-            this.handlemodal(event.detail); // Access additional data if passed
+            this.handlemodal(event.detail.open); // Access additional data if passed
           });
         this.render();
     }
     handlemodal(value) {
         this.IsModalOpen = value
-        console.log("callback called")
         this.render()
     }
 
@@ -75,14 +74,13 @@ class MultipleData extends HTMLElement {
                           @modal-open="${this.handlemodal}"
                       ></card-component>
                   `).join('')}
-              </div>
+              </div>    
               ${this.IsModalOpen ? `
               <div class="modal">
-              <modal-component  @modal-open="${this.handlemodal}" datanumber="${1}"></modal-component>
+              <modal-component  @modal-open="${this.handlemodal}" datanumber="${2}"></modal-component>
               </div>
           ` : ``}
-          </div>
-          
+          </div>  
       `;
     }
 }
