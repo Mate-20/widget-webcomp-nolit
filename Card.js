@@ -42,10 +42,13 @@ class Cards extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
       .card{
+        width:330px;
         background-color: rgb(233, 233, 233);
-        width:350px;
         border-radius: 15px;
         cursor: pointer;
+    }
+    .img img{
+      width:330px;
     }
     .card:hover{
         transition-duration: .2s;
@@ -106,7 +109,7 @@ class Cards extends HTMLElement {
       </style>
       <div class="card">
         <div class="img">
-          <img src="${this.image}" alt="author" width=350 style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+          <img src="${this.image}" alt="author" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
         </div>
         <div class="content">
           <div class="tag">Events</div>

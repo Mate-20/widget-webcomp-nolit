@@ -22,9 +22,23 @@ class MultipleData extends HTMLElement {
         // for passing the call back function
         this.shadowRoot.addEventListener('modal-open', (event) => {
             this.handlemodal(event.detail.open); // Access additional data if passed
+
+            // Doing this again, because after clicking the card it was setting the template columns to 1
+            this.updateLayout();
+            window.addEventListener('resize', this.updateLayout.bind(this));
           });
-        this.render();
+          this.updateLayout();
+          window.addEventListener('resize', this.updateLayout.bind(this));
     }
+    updateLayout() {
+        const cardContainer = this.shadowRoot.querySelector('.cardContainer');
+        const containerWidth = cardContainer.offsetWidth;
+        console.log("container width:",containerWidth)
+        let columns = Math.floor(containerWidth / 330); // Assuming each card has a fixed width of 330px
+        columns = Math.max(columns, 1); // Ensure there is at least one column
+        cardContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    }
+
     handlemodal(value) {
         this.IsModalOpen = value
         this.render()
@@ -34,6 +48,7 @@ class MultipleData extends HTMLElement {
         this.shadowRoot.innerHTML = `
           <style>
               .container {
+                position:relative;
                   padding: 50px;
                   background: linear-gradient(118deg, rgba(36,36,36,1) 0%, rgba(0,0,0,1) 100%);
               }
@@ -48,17 +63,16 @@ class MultipleData extends HTMLElement {
                   font-weight: 900;
               }
               .cardContainer {
-                  margin-top: 30px;
-                  display: grid;
-                  grid-template-columns: repeat(4, 1fr); /* Three columns in each row */
-                  justify-items: center;
-                  row-gap: 30px;
+                display: grid;  
+                row-gap:30px;
+                margin-top: 30px;
+                justify-items:center;
               }
               .modal {
                   position: absolute;
                   left: 50%;
-                  top: 50%;
-                  transform: translate(-50%, -50%);
+                  top: 100px;
+                  transform: translate(-50%, 0%);
               }
             
               @media screen and (max-width: 1560px) {
@@ -71,10 +85,9 @@ class MultipleData extends HTMLElement {
                 .cardContainer {
                     grid-template-columns: repeat(2, 1fr); /* Two columns in each row when screen width is at most 1200px */
                 }
-            }
-            
-            
+            }        
           </style>
+
           <div class="container">
               <div class="heading">Your Events</div>
               <div class="cardContainer">
