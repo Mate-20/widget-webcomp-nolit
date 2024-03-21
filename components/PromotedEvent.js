@@ -1,26 +1,13 @@
-class SingleData extends HTMLElement {
+class PromotedEvent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.getData = [];
-        this.cardData = [
-            { image: "https://media.licdn.com/dms/image/C4D12AQGFCeWmvrviVA/article-cover_image-shrink_600_2000/0/1635965553910?e=2147483647&v=beta&t=WP5YW7PcD57xmcjDQ4Fse6NR3xaO8XZxWwuyDdyDvmU", eventName: "Marathon", date: "February 3 - 7, 2024", location: "Berlin, Germany" },
-        ];
-        this.isModalOpen = false;
-        this.render();
     }
-
     connectedCallback() {
-        // this.render();
+        this.data = JSON.parse(this.getAttribute('data'));
+        const layoutBgColor = this.data.layoutBgColor;
+        this.render()
     }
-    updateLayout() {
-        const cardContainer = this.shadowRoot.querySelector('.cardContainer');
-        const containerWidth = cardContainer.offsetWidth;
-        let columns = Math.floor(containerWidth / 330); // Assuming each card has a fixed width of 330px
-        columns = Math.max(columns, 1); // Ensure there is at least one column
-        cardContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-    }
-
     render() {
         this.shadowRoot.innerHTML = `
           <style>
@@ -29,7 +16,6 @@ class SingleData extends HTMLElement {
                 flex-direction:column;
                 align-items:center;
                   padding: 50px;
-                  background: linear-gradient(118deg, rgba(236,235,255,1) 0%, rgba(68,99,190,1) 100%);
               }
               .eventContainer {
                   display: flex;
@@ -57,7 +43,12 @@ class SingleData extends HTMLElement {
               .location {
                   font-size: 20px;
                   margin-top: 60px;
+                  margin-bottom: 10px;
                   display: flex;
+                  color:white;
+              }
+              .desc{
+                color:white;
               }
               .heading {
                   font-size: 35px;
@@ -92,31 +83,24 @@ class SingleData extends HTMLElement {
             }
           </style>
           <div class="body">
-              <div class="container">
-                  ${this.cardData.map(item => `
+          <div class="container" style="background-color: ${this.data.layoutBgColor};">
                       <div class="eventContainer">
                           <div class="eventDetails">
-                              <div class="date">${item.date}</div>
-                              <div class="name">${item.eventName}</div>
+                              <div class="date">${this.data.promotedData[0].startDate}</div>
+                              <div class="name">${this.data.promotedData[0].name}</div>
                               <div class="location">
                                   <div style="margin-top: 2px;"><io-location-outline></io-location-outline></div>
-                                  <div>${item.location}</div>
+                                  <div>${this.data.promotedData[0].location}</div>
                               </div>
-                              <div class="desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam assumenda rem tempore pariatur enim molestias! Nisi doloribus sint laborum fugiat quia fugit mollitia, odit nemo optio voluptas sit ea explicabo!</div>
+                              <div class="desc">${this.data.promotedData[0].description}</div>
                           </div>
                           <div class="eventImg">
-                              <img src="${item.image}" width="350" height="300" alt="Pictureauthor" style="border-radius: 10px;">
+                              <img src="${this.data.promotedData[0].imageUrl}" width="350" height="300" alt="Pictureauthor" style="border-radius: 10px;">
                           </div>
                       </div>
-                  `).join('')}
-            <div class="modal">
-                <div class="schedule">Schedule</div>
-                <modal-component handlemodal="${this.handlemodal}" datanumber="${1}"></modal-component>
-            </div>
               </div>
           </div>
       `;
     }
 }
-
-customElements.define('single-data', SingleData);
+customElements.define('promoted-event', PromotedEvent);

@@ -8,6 +8,7 @@ class Cards extends HTMLElement {
     this.eventname = 'Theatre';
     this.date = '12-1-24';
     this.location = 'Berlin, Germany';
+    this.cardcolor = "white"
     this.render();
   }
 
@@ -30,7 +31,7 @@ class Cards extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['image', 'eventname', 'date', 'location'];
+    return ['image', 'eventname', 'date', 'location', 'cardcolor'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -43,12 +44,12 @@ class Cards extends HTMLElement {
       <style>
       .card{
         width:330px;
-        background-color: rgb(233, 233, 233);
         border-radius: 15px;
         cursor: pointer;
     }
     .img img{
       width:330px;
+      height:200px;
     }
     .card:hover{
         transition-duration: .2s;
@@ -107,7 +108,7 @@ class Cards extends HTMLElement {
     }
     
       </style>
-      <div class="card">
+      <div class="card" style="background-color: ${this.cardcolor};">
         <div class="img">
           <img src="${this.image}" alt="author" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
         </div>
