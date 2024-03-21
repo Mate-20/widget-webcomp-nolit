@@ -1,7 +1,9 @@
-import { resolve } from 'path';
+const path = require('path');
 
-export const entry = './index.js';
-export const output = {
-  path: resolve(__dirname, 'dist'), // Output directory
-  filename: 'eventgeni.js', // Output filename
+module.exports = {
+  entry: './index.js', // Entry point of your application
+  output: {
+    path: path.resolve(__dirname, 'dist'), // Output directory
+    filename: 'eventgeni.js', // Output filename
+  },
 };

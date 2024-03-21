@@ -39,7 +39,6 @@ class MultipleData extends HTMLElement {
           <style>
               .container {
                 height:100%;
-                overflow:scroll;
                 position:relative;
                   padding: 50px;
               }
@@ -93,6 +92,7 @@ class MultipleData extends HTMLElement {
                           location="${item.location}"
                           key="${key}"
                           cardcolor = "${this.data.cardBgColor}"
+                          cardradius = "${this.data.cardRadius}"
                           @modal-open="${this.handlemodal}"
                       ></card-component>
                   `).join('')}
