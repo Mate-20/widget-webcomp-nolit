@@ -9,9 +9,9 @@ class EventGeni extends HTMLElement {
     async fetchData() {
         try {
             // const response = await fetch("http://127.0.0.1:8080/configurationsPage.json");
-            const response = await fetch("http://127.0.0.1:8080/configurationsSticky.json");
+            // const response = await fetch("http://127.0.0.1:8080/configurationsSticky.json");
+            const response = await fetch("http://127.0.0.1:8080/configurationsSection.json");
             this.data = await response.json();
-            console.log(response)
             this.render();
         } catch (error) {
             console.error('Error fetching data:', error);

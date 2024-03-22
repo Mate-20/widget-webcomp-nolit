@@ -71,11 +71,15 @@ class Cards extends HTMLElement {
         margin-top: 20px;
         color: rgb(39, 39, 39);
         font-size: 20px;
+        
     }
     .eventName{
         font-size: 25px;
         font-weight: bold;
         color: rgb(96, 63, 240);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .location{
         font-size: 20px;
