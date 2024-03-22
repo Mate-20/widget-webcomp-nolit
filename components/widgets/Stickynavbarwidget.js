@@ -2,7 +2,18 @@ class Stickynavbarwidget extends HTMLElement{
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        console.log("sticky widget")
+        this.data = null;
+        this.fetchData();
+    }
+
+    async fetchData() {
+        try {
+            const response = await fetch("http://127.0.0.1:8080/configurationsSticky.json");
+            this.data = await response.json();
+            this.render();
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
     connectedCallback() {
         this.data = JSON.parse(this.getAttribute('data'));

@@ -28,10 +28,8 @@ class MultipleSectionData extends HTMLElement{
         this.shadowRoot.innerHTML = `
           <style>
               .container {
-                width: 100%; 
-                height:100%;
                 position:relative;
-                  padding: 50px;
+                padding: 50px;
               }
               .blur {
                   height: 100vh;
@@ -49,6 +47,7 @@ class MultipleSectionData extends HTMLElement{
                 row-gap:30px;
                 margin-top: 30px;
                 justify-items: center;
+
               }
               .modal {
                   width : 90%;  

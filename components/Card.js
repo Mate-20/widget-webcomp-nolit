@@ -44,11 +44,11 @@ class Cards extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
       .card{
-        width:330px;
+        max-width:330px;
         cursor: pointer;
     }
     .img img{
-      width:330px;
+      max-width:330px;
       height:200px;
     }
     .card:hover{
