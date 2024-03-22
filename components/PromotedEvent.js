@@ -5,7 +5,6 @@ class PromotedEvent extends HTMLElement {
     }
     connectedCallback() {
         this.data = JSON.parse(this.getAttribute('data'));
-        const layoutBgColor = this.data.layoutBgColor;
         this.render()
     }
     render() {
