@@ -8,5 +8,5 @@ import './components/EventGeni.js';
 import './components/widgets/Pagewidget.js'
 import './components/widgets/Sectionwidget.js'
 import './components/widgets/Stickynavbarwidget.js'
-import './configurationsPage.json';
-import './configurationsSticky.json';
+import './components/MultipleSectionData.js'
+
