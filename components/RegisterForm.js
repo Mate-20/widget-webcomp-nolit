@@ -4,22 +4,14 @@ class RegisterForm extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.render();
     }
-
     connectedCallback() {
+        this.eventname = this.getAttribute('eventname');
+        this.eventlocation = this.getAttribute('eventlocation');
+        this.eventimage = this.getAttribute('eventimage');
+        this.eventdate = this.getAttribute('eventdate');
+        this.eventdescription = this.getAttribute('eventdescription');
         this.render();
     }
-    // To accept the incoming props
-    get datanumber() {
-        return this.getAttribute('datanumber');
-    }
-    set datanumber(value) {
-        this.setAttribute('datanumber', value);
-    }
-
-    handleFormModal() {
-        this.dispatchEvent(new CustomEvent('close-modal', { bubbles: true, composed: true }));
-    }
-
     render() {
         this.shadowRoot.innerHTML = `
           <style>
@@ -40,8 +32,8 @@ class RegisterForm extends HTMLElement {
                   width: 100%;
               }
               .img img{
-                width: 100%;
-                height: 40%;
+                width : 300px;
+                height: 250px;
               }
               .date {
                   font-size: 20px;
@@ -101,18 +93,16 @@ class RegisterForm extends HTMLElement {
               }
           </style>
           <div>
-              <div class="backBtn" @click=${this.handleFormModal}>
+              <div class="backBtn">
                   <fa-arrow-left-long></fa-arrow-left-long>
               </div>
               <div class="container">
                   <div class="details">
                       <div class="content">
                           <div class="date">February 7, 2024</div>
-                          ${this.datanumber >= "2" ? `
-                              <div class="eventName">Marathon</div>
-                              <div class="location">Berlin, Germany</div>
-                          ` : ''}
-                          <div class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat delectus optio sequi perspiciatis, animi nulla architecto ipsam nisi deserunt, deleniti enim dolorum quam numquam in quasi blanditiis ipsum voluptas veniam?</div>
+                              <div class="eventName">${this.eventname}</div>
+                              <div class="location">${this.eventlocation}</div>
+                          <div class="desc">${this.eventdescription}</div>
                       </div>
                       <h1 class="formHeading">Register Yourself</h1>
                       <form class="form">
@@ -125,15 +115,13 @@ class RegisterForm extends HTMLElement {
                           </div>
                       </form>
                   </div>
-                  ${this.datanumber >= "2" ? `
                       <div class="img">
                           <img
-                              src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg"
+                              src=${this.eventimage}
                               alt="Author"
                               style="border-radius: 20px;"
                           />
                       </div>
-                  ` : ''}
               </div>
           </div>
       `;

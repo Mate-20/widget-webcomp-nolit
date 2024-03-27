@@ -4,35 +4,34 @@ class Cards extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     // Initialize properties if needed
-    this.image = 'https://media.licdn.com/dms/image/C4D12AQGFCeWmvrviVA/article-cover_image-shrink_600_2000/0/1635965553910?e=2147483647&v=beta&t=WP5YW7PcD57xmcjDQ4Fse6NR3xaO8XZxWwuyDdyDvmU';
-    this.eventname = 'Theatre';
-    this.date = '12-1-24';
-    this.location = 'Berlin, Germany';
-    this.cardcolor = "white"
-    this.cardradius = "0px"
     this.render();
   }
 
   connectedCallback() {
     // For getting the passed call back function
+    const eventdata = {
+      eventname: this.eventname,
+      eventlocation: this.location,
+      eventimage: this.image,
+      eventdate: this.date,
+      eventdescription: this.description,
+  };
     const openModalEvent = new CustomEvent('modal-open', {
-      detail: {
-        // Optionally pass relevant data to parent component
-        open: true, // Assuming you have `cardData` defined
-      },
+      detail:eventdata ,
       bubbles: true, // Allow event to bubble up
       composed: true, // Allow event to cross shadow DOM boundaries
     });
-    let cards = this.shadowRoot.querySelectorAll('.card');
+    const cards = this.shadowRoot.querySelectorAll('.card');
     cards.forEach(card => {
       card.addEventListener('click', () => {
         this.dispatchEvent(openModalEvent);
       });
     });
+
   }
 
   static get observedAttributes() {
-    return ['image', 'eventname', 'date', 'location', 'cardcolor', 'cardradius'];
+    return ['image', 'eventname', 'date', 'location', 'cardcolor', 'cardradius','description'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -44,11 +43,11 @@ class Cards extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
       .card{
-        max-width:330px;
+        width:330px;
         cursor: pointer;
     }
     .img img{
-      max-width:330px;
+      width:330px;
       height:200px;
     }
     .card:hover{
