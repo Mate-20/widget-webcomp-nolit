@@ -33,12 +33,14 @@ class Stickynavbarwidget extends HTMLElement{
                 background-color: ${this.data.layoutBgColor};
                 color:${this.data.fontColor};
                 height:${this.data.height}; 
+              
+            }
+            .eventname{
                 font-size:${this.data.fontSize};
-                
             }
         </style>
             <div class="navbar">
-                <div>${this.data.eventData[0].name}</div>
+                <div class="eventname">${this.data.eventData[0].name}</div>
             </div>
         `
     }

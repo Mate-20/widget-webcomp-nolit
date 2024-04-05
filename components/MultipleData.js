@@ -39,7 +39,12 @@ class MultipleData extends HTMLElement {
                 .cardContainer {
                     grid-template-columns: repeat(2, 1fr); /* Two columns in each row when screen width is at most 1200px */
                 }
-            }        
+            }       
+            @media screen and (max-width: 800px) {
+                .cardContainer {
+                    grid-template-columns: repeat(1, 1fr); /* Two columns in each row when screen width is at most 1200px */
+                }
+            }   
           </style>
 
           <div class="container" style="background-color: ${this.data.layoutBgColor};">
@@ -55,6 +60,9 @@ class MultipleData extends HTMLElement {
                           key="${key}"
                           cardcolor = "${this.data.cardBgColor}"
                           cardradius = "${this.data.cardRadius}"
+                          cardwidth ="${this.data.cardWidth}"
+                          imageheight ="${this.data.imageHeight}"
+                          cardheight = "${this.data.cardHeight}"
                       ></card-component>
                   `).join('')}
               </div>    

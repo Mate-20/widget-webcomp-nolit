@@ -10,13 +10,22 @@ class RegisterForm extends HTMLElement {
         this.eventimage = this.getAttribute('eventimage');
         this.eventdate = this.getAttribute('eventdate');
         this.eventdescription = this.getAttribute('eventdescription');
+        
+        const backButton = this.shadowRoot.querySelector('.backbtn');
+        backButton.addEventListener('click',()=>{
+            console.log("clicked")
+        })
         this.render();
     }
+    handleClose(){
+        console.log("cliked")
+    }
+
     render() {
         this.shadowRoot.innerHTML = `
           <style>
               /* Add your CSS styles here */
-              .backBtn {
+              .backbtn {
                   background-color: rgb(216, 216, 216);
                   width: fit-content;
                   padding: 10px;
@@ -93,13 +102,13 @@ class RegisterForm extends HTMLElement {
               }
           </style>
           <div>
-              <div class="backBtn">
-                  <fa-arrow-left-long></fa-arrow-left-long>
+              <div class="backbtn" @click=${this.handleClose}>
+                  <
               </div>
               <div class="container">
                   <div class="details">
                       <div class="content">
-                          <div class="date">February 7, 2024</div>
+                          <div class="date">${this.eventdate}</div>
                               <div class="eventName">${this.eventname}</div>
                               <div class="location">${this.eventlocation}</div>
                           <div class="desc">${this.eventdescription}</div>

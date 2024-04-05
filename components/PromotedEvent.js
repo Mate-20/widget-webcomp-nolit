@@ -10,19 +10,31 @@ class PromotedEvent extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
           <style>
+            .body{
+            padding: 50px;
+              }
+              .heading{
+                font-size: 35px;
+                color: white;
+                font-weight: 900;
+              }
               .container {
                 display:flex;
                 flex-direction:column;
                 align-items:center;
-                  padding: 50px;
               }
               .eventContainer {
+                width : 50%;
+                padding : 20px;
+                border-radius : 10px;
+                background-color: #9c9c9c;
                   display: flex;
                   align-items:center;
-                  justify-content: center;
+                  justify-content: space-between;
+                  margin-bottom : 30px
               }
               .eventDetails {
-                  width: 30%;
+                  width: 50%;
               }
               .name {
                   font-size: 50px;
@@ -35,7 +47,6 @@ class PromotedEvent extends HTMLElement {
                   width: fit-content;
                   padding: 5px 10px;
                   border-radius: 20px;
-                  margin-top: 20px;
                   color: rgb(39, 39, 39);
                   font-size: 20px;
               }
@@ -48,11 +59,6 @@ class PromotedEvent extends HTMLElement {
               }
               .desc{
                 color:white;
-              }
-              .heading {
-                  font-size: 35px;
-                  color: white;
-                  font-weight: 900; 
               }
               .eventImg {
                 margin-top:10px;
@@ -81,23 +87,23 @@ class PromotedEvent extends HTMLElement {
                 }
             }
           </style>
-          <div class="body">
-          <div class="container" style="background-color: ${this.data.layoutBgColor};">
-                      <div class="eventContainer">
-                          <div class="eventDetails">
-                              <div class="date">${this.data.promotedData[0].startDate}</div>
-                              <div class="name">${this.data.promotedData[0].name}</div>
-                              <div class="location">
-                                  <div style="margin-top: 2px;"><io-location-outline></io-location-outline></div>
-                                  <div>${this.data.promotedData[0].location}</div>
-                              </div>
-                              <div class="desc">${this.data.promotedData[0].description}</div>
-                          </div>
-                          <div class="eventImg">
-                              <img src="${this.data.promotedData[0].imageUrl}" width="350" height="300" alt="Pictureauthor" style="border-radius: 10px;">
-                          </div>
-                      </div>
-              </div>
+          <div class="body" style="background-color: ${this.data.layoutBgColor}">
+                <div class="heading">Highlighted Events</div>  
+                <div class="container">
+                    ${this.data.promotedData.map(event => `
+                        <div class="eventContainer">
+                            <div class="eventDetails">
+                                <div class="date">${event.startDate}</div>
+                                <div class="name">${event.name}</div>
+                                <div class="location">${event.location}</div>
+                                <div class="desc">${event.description}</div>
+                            </div>
+                            <div class="eventImg">
+                                <img src="${event.imageUrl}" width="350" height="300" alt="Pictureauthor" style="border-radius: 10px;">
+                            </div>
+                        </div>
+              `).join('')}
+                </div>
           </div>
       `;
     }

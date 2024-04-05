@@ -27,11 +27,10 @@ class Cards extends HTMLElement {
         this.dispatchEvent(openModalEvent);
       });
     });
-
   }
 
   static get observedAttributes() {
-    return ['image', 'eventname', 'date', 'location', 'cardcolor', 'cardradius','description'];
+    return ['image', 'eventname', 'date', 'location', 'cardcolor', 'cardradius','description','cardwidth','imageheight','cardheight'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -43,18 +42,28 @@ class Cards extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
       .card{
-        width:330px;
+        display: flex;
+        flex-direction : column;
+        width:${this.cardwidth};
+        height : ${this.cardheight};
         cursor: pointer;
     }
+    .img {
+      height:40%;
+    }
     .img img{
-      width:330px;
-      height:200px;
+      height:100%;
+      width:${this.cardwidth};
     }
     .card:hover{
         transition-duration: .2s;
         filter: drop-shadow(1px 1px 5px rgb(245, 245, 245));
     }
     .content{
+      height:50%;
+      display: flex;
+      flex-direction : column;
+      justify-content:space-evenly;
         padding: 20px;
     }
     .tag{
@@ -82,7 +91,6 @@ class Cards extends HTMLElement {
     }
     .location{
         font-size: 20px;
-        margin-top: 60px;
         display: flex;
     }
     .location div{

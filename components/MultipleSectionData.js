@@ -47,7 +47,6 @@ class MultipleSectionData extends HTMLElement{
                 row-gap:30px;
                 margin-top: 30px;
                 justify-items: center;
-
               }
               .modal {
                   width : 90%;  
@@ -74,16 +73,19 @@ class MultipleSectionData extends HTMLElement{
               <div class="heading">Your Events</div>
               <div class="cardContainer">
                   ${this.data.eventData.map((item, key) => `
-                      <card-component
-                          image="${item.imageUrl}"
-                          date="${item.startDate}"
-                          eventName="${item.name}"
-                          location="${item.location}"
-                          key="${key}"
-                          cardcolor = "${this.data.cardBgColor}"
-                          cardradius = "${this.data.cardRadius}"
-                          @modal-open="${this.handlemodal}"
-                      ></card-component>
+                  <card-component
+                  image="${item.imageUrl}"
+                  date="${item.startDate}"
+                  eventname="${item.name}"
+                  location="${item.location}"
+                  description="${item.description}"
+                  key="${key}"
+                  cardcolor = "${this.data.cardBgColor}"
+                  cardradius = "${this.data.cardRadius}"
+                  cardwidth ="${this.data.cardWidth}"
+                  imageheight ="${this.data.imageHeight}"
+                  cardheight = "${this.data.cardHeight}"
+              ></card-component>
                   `).join('')}
               </div>    
           </div>  
