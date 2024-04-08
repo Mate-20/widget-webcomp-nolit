@@ -128,7 +128,6 @@ class Cards extends HTMLElement {
           <div class="date">${this.date}</div>
           <div class="eventName">${this.eventname}</div>
           <div class="location">
-            <div>Location Icon</div>
             <div>${this.location}</div>
           </div>
           <div class="btn" @click="${this.handlemodal}">

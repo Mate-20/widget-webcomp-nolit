@@ -6,6 +6,20 @@ class MultipleData extends HTMLElement {
     connectedCallback() {
         this.data = JSON.parse(this.getAttribute('data'));
         this.render();
+        this.updateLayout(); // Initial layout update
+        this.observer = new ResizeObserver(() => {
+            this.updateLayout();
+        }); // Create a ResizeObserver
+        this.observer.observe(this.shadowRoot.querySelector('.container')); // Observe changes to the container's size
+
+    }
+    updateLayout() {
+        const container = this.shadowRoot.querySelector('.cardContainer');
+        const containerWidth = container.offsetWidth;
+        console.log(containerWidth)
+        if(containerWidth<=900){
+            container.style.gridTemplateColumns = `repeat(2,1fr)`
+        }
     }
     render() {
         this.shadowRoot.innerHTML = `

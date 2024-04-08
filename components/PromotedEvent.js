@@ -1,14 +1,31 @@
 class PromotedEvent extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
-    connectedCallback() {
-        this.data = JSON.parse(this.getAttribute('data'));
-        this.render()
-    }
-    render() {
-        this.shadowRoot.innerHTML = `
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.data = JSON.parse(this.getAttribute('data'));
+    this.render()
+    this.observer = new ResizeObserver(() => {
+      this.updateLayout();
+    });
+    this.observer.observe(this.shadowRoot.querySelector('.body')); // Observe changes to the container's size
+  }
+  updateLayout() {
+    const eventContainers = this.shadowRoot.querySelectorAll('.eventContainer');
+    eventContainers.forEach(eventContainer => {
+        const containerWidth = eventContainer.offsetWidth;
+        // Update flex direction based on container width
+        if (containerWidth <= 600) {
+            eventContainer.style.flexDirection = 'column';
+        } else {
+            eventContainer.style.flexDirection = 'row';
+        }
+    });
+}
+
+  render() {
+    this.shadowRoot.innerHTML = `
           <style>
             .body{
             padding: 50px;
@@ -74,7 +91,7 @@ class PromotedEvent extends HTMLElement {
                   width: 50vw;
                   margin-top: 100px;
               }
-              @media screen and (max-width: 960px) {
+              @media screen and (max-width: 1241px) {
                 .eventDetails {
                     width: 100%; /* Adjust the width of event details for smaller screens */
                   }
@@ -106,6 +123,6 @@ class PromotedEvent extends HTMLElement {
                 </div>
           </div>
       `;
-    }
+  }
 }
 customElements.define('promoted-event', PromotedEvent);
