@@ -15,8 +15,9 @@ class MultipleData extends HTMLElement {
 
     updateLayout() {
         const container = this.shadowRoot.querySelector('.cardContainer');
+
         const containerWidth = container.offsetWidth;
-        console.log(containerWidth)
+
         if( containerWidth > 640 && containerWidth <=940){
             container.style.gridTemplateColumns = `repeat(2,1fr)`
         }

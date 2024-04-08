@@ -14,15 +14,26 @@ class PromotedEvent extends HTMLElement {
   updateLayout() {
     const eventContainers = this.shadowRoot.querySelectorAll('.eventContainer');
     eventContainers.forEach(eventContainer => {
-        const containerWidth = eventContainer.offsetWidth;
-        // Update flex direction based on container width
-        if (containerWidth <= 600) {
-            eventContainer.style.flexDirection = 'column';
-        } else {
-            eventContainer.style.flexDirection = 'row';
+      const containerWidth = eventContainer.offsetWidth;
+      console.log(containerWidth);
+
+      if (containerWidth <= 600) {
+        eventContainer.style.flexDirection = 'column';
+        eventContainer.style.alignItems = 'start';
+        const image = eventContainer.querySelector('.eventImg');
+        if (image) {
+          image.style.width = '100%';
         }
+      } else {
+        eventContainer.style.flexDirection = 'row';
+        const image = eventContainer.querySelector('.eventImg');
+        if (image) {
+          image.style.width = '350px';
+        }
+      }
     });
-}
+  }
+
 
   render() {
     this.shadowRoot.innerHTML = `
@@ -36,6 +47,7 @@ class PromotedEvent extends HTMLElement {
                 font-weight: 900;
               }
               .container {
+                margin-top:30px;
                 display:flex;
                 flex-direction:column;
                 align-items:center;
@@ -79,7 +91,9 @@ class PromotedEvent extends HTMLElement {
               }
               .eventImg {
                 margin-top:10px;
-                  filter: drop-shadow(1px 1px 6px rgb(65, 65, 65));
+                filter: drop-shadow(1px 1px 6px rgb(65, 65, 65));
+ 
+                height : 300px;
               }
               .schedule {
                   color: rgb(96, 63, 240);
@@ -115,9 +129,7 @@ class PromotedEvent extends HTMLElement {
                                 <div class="location">${event.location}</div>
                                 <div class="desc">${event.description}</div>
                             </div>
-                            <div class="eventImg">
-                                <img src="${event.imageUrl}" width="350" height="300" alt="Pictureauthor" style="border-radius: 10px;">
-                            </div>
+                            <img class="eventImg" src="${event.imageUrl}" alt="Pictureauthor" style="border-radius: 10px;">
                         </div>
               `).join('')}
                 </div>

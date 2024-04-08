@@ -92,6 +92,7 @@ class Cards extends HTMLElement {
     .location{
         font-size: 20px;
         display: flex;
+        color:black;
     }
     .location div{
         margin-right: 10px;
@@ -127,9 +128,7 @@ class Cards extends HTMLElement {
           <div class="tag">Events</div>
           <div class="date">${this.date}</div>
           <div class="eventName">${this.eventname}</div>
-          <div class="location">
-            <div>${this.location}</div>
-          </div>
+          <div class="location">${this.location}</div>
           <div class="btn" @click="${this.handlemodal}">
             <div>Register</div>
           </div>
