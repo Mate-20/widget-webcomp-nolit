@@ -53,6 +53,7 @@ class PromotedEvent extends HTMLElement {
                 align-items:center;
               }
               .eventContainer {
+                min-width : 300px;
                 width : 50%;
                 padding : 20px;
                 border-radius : 10px;
