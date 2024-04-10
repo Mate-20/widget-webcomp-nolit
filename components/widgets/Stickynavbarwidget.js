@@ -18,6 +18,7 @@ class Stickynavbarwidget extends HTMLElement{
     }
     connectedCallback() {
         this.stickyid = this.getAttribute('sticky-id'); // Set initial stickyid
+        this.fetchData();
         this.observeAttributes(); // Start observing attribute changes
         this.render(); // Initial render
     }
