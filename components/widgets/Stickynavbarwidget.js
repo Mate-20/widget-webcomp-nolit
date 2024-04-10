@@ -53,8 +53,8 @@ class Stickynavbarwidget extends HTMLElement{
                 display:flex;
                 align-items:center;
                 justify-content:center;
-                background-color: ${this.data.layoutBgColor};
-                color:${this.data.fontColor};
+                background-color: ${this.data.bgColor};
+                color:${this.data.fgColor};
                 height:${this.data.height}; 
               
             }
@@ -63,7 +63,7 @@ class Stickynavbarwidget extends HTMLElement{
             }
         </style>
             <div class="navbar">
-                <div class="eventname">${this.data.eventData[0].name}</div>
+                <div class="eventname">${this.data.event}</div>
             </div>
         `
     }
