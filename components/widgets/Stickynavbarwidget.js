@@ -4,35 +4,31 @@ class Stickynavbarwidget extends HTMLElement{
         this.attachShadow({ mode: 'open' });
         this.data = null;
         this.fetchData();
+        this.stickyid = "";
     }
-
     async fetchData() {
         try {
-            const response = await fetch("http://127.0.0.1:8080/configurationsSticky.json");
+            const response = await fetch(`https://api.eventgeni.com/stickey/${this.stickyid}`);
             this.data = await response.json();
+            console.log(this.data)
             this.render();
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
     connectedCallback() {
-        this.uniqueId = this.getAttribute('sticky-id');
-        this.observeAttributes();
-
-        this.data = JSON.parse(this.getAttribute('data'));
-        this.render()
+        this.stickyid = this.getAttribute('sticky-id'); // Set initial stickyid
+        this.observeAttributes(); // Start observing attribute changes
+        this.render(); // Initial render
     }
-
-
     observeAttributes() {
         // Create a new MutationObserver instance
         this.observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'sticky-id') {
-                    // When 'sticky-id' attribute changes, update the uniqueId and re-render
-                    this.uniqueId = mutation.target.getAttribute('sticky-id');
-                    console.log('New uniqueId:', this.uniqueId);
-                    this.render();
+                    // When 'sticky-id' attribute changes, update the stickyid and fetch new data
+                    this.stickyid = mutation.target.getAttribute('sticky-id');
+                    this.fetchData();
                 }
             });
         });
