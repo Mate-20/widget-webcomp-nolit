@@ -17,11 +17,36 @@ class Stickynavbarwidget extends HTMLElement{
     }
     connectedCallback() {
         this.uniqueId = this.getAttribute('sticky-id');
-        console.log(this.uniqueId);
+        this.observeAttributes();
+
         this.data = JSON.parse(this.getAttribute('data'));
-        console.log(this.data)
         this.render()
     }
+
+
+    observeAttributes() {
+        // Create a new MutationObserver instance
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'sticky-id') {
+                    // When 'sticky-id' attribute changes, update the uniqueId and re-render
+                    this.uniqueId = mutation.target.getAttribute('sticky-id');
+                    console.log('New uniqueId:', this.uniqueId);
+                    this.render();
+                }
+            });
+        });
+        // Observe changes to attributes
+        this.observer.observe(this, { attributes: true });
+    }
+
+    disconnectedCallback() {
+        // Disconnect the observer when the element is removed from the DOM
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+    }
+
     render() {
         this.shadowRoot.innerHTML = `
         <style>
