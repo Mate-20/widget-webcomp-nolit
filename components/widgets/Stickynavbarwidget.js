@@ -55,11 +55,11 @@ class Stickynavbarwidget extends HTMLElement{
                 justify-content:center;
                 background-color: ${this.data.bgColor};
                 color:${this.data.fgColor};
-                height:${this.data.height}; 
+                height:${`${this.data.height}px`}; 
               
             }
             .eventname{
-                font-size:${this.data.fontSize};
+                font-size:${`${this.data.fontSize}px`};
             }
         </style>
             <div class="navbar">
