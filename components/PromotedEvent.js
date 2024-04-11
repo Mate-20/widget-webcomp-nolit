@@ -1,6 +1,7 @@
 class PromotedEvent extends HTMLElement {
   constructor() {
     super();
+    this.imageurl = "https://designshack.net/wp-content/uploads/placeholder-image.png"
     this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
@@ -122,15 +123,15 @@ class PromotedEvent extends HTMLElement {
           <div class="body" style="background-color: ${this.data.layoutBgColor}">
                 <div class="heading">Highlighted Events</div>  
                 <div class="container">
-                    ${this.data.promotedData.map(event => `
+                    ${this.data.top_3.map(event => `
                         <div class="eventContainer">
                             <div class="eventDetails">
-                                <div class="date">${event.startDate}</div>
-                                <div class="name">${event.name}</div>
-                                <div class="location">${event.location}</div>
-                                <div class="desc">${event.description}</div>
+                                <div class="date">${event._source.start_date}</div>
+                                <div class="name">${event._source.name}</div>
+                                <div class="location">${event._source.country_name}</div>
+                                <div class="desc">${event._source.description}</div>
                             </div>
-                            <img class="eventImg" src="${event.imageUrl}" alt="Pictureauthor" style="border-radius: 10px;">
+                            <img class="eventImg" src="${this.imageurl}" alt="Pictureauthor" style="border-radius: 10px;">
                         </div>
               `).join('')}
                 </div>
