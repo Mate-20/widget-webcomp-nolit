@@ -30,7 +30,7 @@ class Cards extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['image', 'eventname', 'date', 'location', 'cardcolor', 'cardradius','description','cardwidth','imageheight','cardheight'];
+    return ['image', 'eventname', 'date', 'location', 'cardcolor', 'cardradius','description','cardwidth','imageheight','cardheight','type'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -125,7 +125,7 @@ class Cards extends HTMLElement {
           <img src="${this.image}" alt="author" style="border-top-left-radius:10px; border-top-right-radius:10px;">
         </div>
         <div class="content">
-          <div class="tag">Events</div>
+          <div class="tag">${this.type}</div>
           <div class="date">${this.date}</div>
           <div class="eventName">${this.eventname}</div>
           <div class="location">${this.location}</div>

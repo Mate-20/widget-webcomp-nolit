@@ -80,6 +80,7 @@ class MultipleData extends HTMLElement {
                           location="${item._source.country_name}"
                           description="${item._source.description}"
                           key="${key}"
+                          type="${item._source.event_type}"
                       ></card-component>
                   `).join('')}
               </div>    

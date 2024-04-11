@@ -35,7 +35,6 @@ class PromotedEvent extends HTMLElement {
     });
   }
 
-
   render() {
     this.shadowRoot.innerHTML = `
           <style>
@@ -94,7 +93,6 @@ class PromotedEvent extends HTMLElement {
               .eventImg {
                 margin-top:10px;
                 filter: drop-shadow(1px 1px 6px rgb(65, 65, 65));
- 
                 height : 300px;
               }
               .schedule {
