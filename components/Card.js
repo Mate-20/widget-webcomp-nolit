@@ -44,8 +44,8 @@ class Cards extends HTMLElement {
       .card{
         display: flex;
         flex-direction : column;
-        width:${this.cardwidth};
-        height : ${this.cardheight};
+        width:300px;
+        height : 450px;
         cursor: pointer;
     }
     .img {
@@ -53,7 +53,7 @@ class Cards extends HTMLElement {
     }
     .img img{
       height:100%;
-      width:${this.cardwidth};
+      width:300px;
     }
     .card:hover{
         transition-duration: .2s;
@@ -120,9 +120,9 @@ class Cards extends HTMLElement {
     }
     
       </style>
-      <div class="card" style="background-color: ${this.cardcolor}; border-radius:${this.cardradius}">
+      <div class="card" style="background-color:#e6e6e6; border-radius:10px">
         <div class="img">
-          <img src="${this.image}" alt="author" style="border-top-left-radius:${this.cardradius}; border-top-right-radius: ${this.cardradius};">
+          <img src="${this.image}" alt="author" style="border-top-left-radius:10px; border-top-right-radius:10px;">
         </div>
         <div class="content">
           <div class="tag">Events</div>

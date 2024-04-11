@@ -3,6 +3,7 @@ class Pagewidget extends HTMLElement{
         super();
         this.attachShadow({ mode: 'open' });
         this.fetchData()
+        this.data = null;
         this.toggleState = false; // this state is for opening the modal
         this.formData = {
             eventname: "demoevent",
@@ -38,7 +39,6 @@ class Pagewidget extends HTMLElement{
                 if (mutation.type === 'attributes' && mutation.attributeName === 'page-query') {
                     // When 'sticky-id' attribute changes, update the stickyid and fetch new data
                     this.pagequery = mutation.target.getAttribute('page-query');
-                    console.log('New page query:', this.pagequery)
                     this.fetchData();
                 }
             });
