@@ -53,9 +53,9 @@ class Pagewidget extends HTMLElement{
     }
     render() {
         let isPromotedEvent = false
-        if(this.data.promotedData.length > 0){
-            isPromotedEvent = true;
-        }
+        // if(this.data.promotedData.length > 0){
+        //     isPromotedEvent = true;
+        // }
         this.shadowRoot.innerHTML = `
         <style>
             .container{
