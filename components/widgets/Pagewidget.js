@@ -14,13 +14,15 @@ class Pagewidget extends HTMLElement{
     }
     async fetchData() {
         try {
-            const response = await fetch("http://127.0.0.1:8080/configurationsPage.json");
+            const response = await fetch(`https://api.eventgeni.com/es/find?company=104`);
             this.data = await response.json();
+            console.log(this.data)
             this.render();
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
+
     connectedCallback() {
         this.addEventListener('modal-open', this.handleModalOpen.bind(this))
         this.render();
