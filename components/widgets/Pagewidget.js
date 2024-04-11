@@ -30,6 +30,20 @@ class Pagewidget extends HTMLElement{
         this.addEventListener('modal-open', this.handleModalOpen.bind(this))
         this.render();
     }
+    observeAttributes() {
+        // Create a new MutationObserver instance
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'page-query') {
+                    // When 'sticky-id' attribute changes, update the stickyid and fetch new data
+                    this.pagequery = mutation.target.getAttribute('page-query');
+                    this.fetchData();
+                }
+            });
+        });
+        // Observe changes to attributes
+        this.observer.observe(this, { attributes: true });
+    }
     handleModalOpen(event) {
         this.toggleState = true
         this.formData = event.detail;
