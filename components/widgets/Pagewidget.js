@@ -11,10 +11,11 @@ class Pagewidget extends HTMLElement{
             eventdate: "1/1/1",
             eventdescription: "demo description",
         };
+        this.pagequery = ""
     }
     async fetchData() {
         try {
-            const response = await fetch(`https://api.eventgeni.com/es/find?company=104`);
+            const response = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.pagequery}`);
             this.data = await response.json();
             console.log("Data is this",this.data)
             this.render();
@@ -24,6 +25,8 @@ class Pagewidget extends HTMLElement{
     }
 
     connectedCallback() {
+        this.pagequery = this.getAttribute('page-query'); 
+        this.fetchData();
         this.addEventListener('modal-open', this.handleModalOpen.bind(this))
         this.render();
     }
