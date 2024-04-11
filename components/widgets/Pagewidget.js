@@ -16,7 +16,7 @@ class Pagewidget extends HTMLElement{
         try {
             const response = await fetch(`https://api.eventgeni.com/es/find?company=104`);
             this.data = await response.json();
-            console.log(this.data)
+            console.log("Data is this",this.data)
             this.render();
         } catch (error) {
             console.error('Error fetching data:', error);
