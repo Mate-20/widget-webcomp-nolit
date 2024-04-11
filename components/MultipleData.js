@@ -6,6 +6,7 @@ class MultipleData extends HTMLElement {
     }
     connectedCallback() {
         this.data = JSON.parse(this.getAttribute('data'));
+        console.log("page data in multiple data ",this.data)
         this.render();
         this.updateLayout(); 
         this.observer = new ResizeObserver(() => {
