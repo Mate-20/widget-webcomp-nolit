@@ -27,6 +27,7 @@ class Pagewidget extends HTMLElement{
     connectedCallback() {
         this.pagequery = this.getAttribute('page-query'); 
         this.fetchData();
+        this.observeAttributes(); 
         this.addEventListener('modal-open', this.handleModalOpen.bind(this))
         this.render();
     }
@@ -37,6 +38,7 @@ class Pagewidget extends HTMLElement{
                 if (mutation.type === 'attributes' && mutation.attributeName === 'page-query') {
                     // When 'sticky-id' attribute changes, update the stickyid and fetch new data
                     this.pagequery = mutation.target.getAttribute('page-query');
+                    console.log('New page query:', this.pagequery)
                     this.fetchData();
                 }
             });
