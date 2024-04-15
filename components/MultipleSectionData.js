@@ -2,6 +2,7 @@ class MultipleSectionData extends HTMLElement{
     constructor(){
         super()
         this.attachShadow({ mode: 'open' });
+        this.imageurl = "https://designshack.net/wp-content/uploads/placeholder-image.png"
     }
     connectedCallback() {
         this.data = JSON.parse(this.getAttribute('data'));
@@ -74,18 +75,14 @@ class MultipleSectionData extends HTMLElement{
               <div class="cardContainer">
                   ${this.data.eventData.map((item, key) => `
                   <card-component
-                  image="${item.imageUrl}"
-                  date="${item.startDate}"
-                  eventname="${item.name}"
-                  location="${item.location}"
-                  description="${item.description}"
-                  key="${key}"
-                  cardcolor = "${this.data.cardBgColor}"
-                  cardradius = "${this.data.cardRadius}"
-                  cardwidth ="${this.data.cardWidth}"
-                  imageheight ="${this.data.imageHeight}"
-                  cardheight = "${this.data.cardHeight}"
-              ></card-component>
+                    image="${this.imageurl}"
+                    date="${item._source.start_date}"
+                    eventname="${item._source.name}"
+                    location="${item._source.country_name}"
+                    description="${item._source.description}"
+                    key="${key}"
+                    type="${item._source.event_type}"
+                 ></card-component>
                   `).join('')}
               </div>    
           </div>  
