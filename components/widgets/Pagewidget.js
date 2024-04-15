@@ -13,20 +13,25 @@ class Pagewidget extends HTMLElement{
             eventdescription: "demo description",
         };
         this.pagequery = ""
+        this.pageid = ""
     }
     async fetchData() {
         try {
-            const response = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.pagequery}`);
-            this.data = await response.json();
-            console.log("Data is this",this.data)
+            const pageIdResponse = await fetch(`https://api.eventgeni.com/widgets/${this.pageid}?type=page`);
+            const pageIdData = await pageIdResponse.json();
+            this.pagequery = pageIdData.query;
+            const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.pagequery}`);
+            this.data = await mainDataResponse.json();
+            console.log("Data is this", this.data);
             this.render();
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
+    
 
     connectedCallback() {
-        this.pagequery = this.getAttribute('page-query'); 
+        this.pagequery = this.getAttribute('page-id'); 
         this.fetchData();
         this.observeAttributes(); 
         this.addEventListener('modal-open', this.handleModalOpen.bind(this))
@@ -36,9 +41,10 @@ class Pagewidget extends HTMLElement{
         // Create a new MutationObserver instance
         this.observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'page-query') {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'page-id') {
                     // When 'sticky-id' attribute changes, update the stickyid and fetch new data
-                    this.pagequery = mutation.target.getAttribute('page-query');
+                    this.pageid = mutation.target.getAttribute('page-id');
+                    console.log("widget app , page id is ", this.pageid)
                     this.fetchData();
                 }
             });
