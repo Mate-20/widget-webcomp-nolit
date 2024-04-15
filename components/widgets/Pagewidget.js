@@ -29,9 +29,8 @@ class Pagewidget extends HTMLElement{
         }
     }
     
-
     connectedCallback() {
-        this.pagequery = this.getAttribute('page-id'); 
+        this.pageid = this.getAttribute('page-id'); 
         this.fetchData();
         this.observeAttributes(); 
         this.addEventListener('modal-open', this.handleModalOpen.bind(this))
