@@ -24,6 +24,8 @@ class PromotedEvent extends HTMLElement {
         const image = eventContainer.querySelector('.eventImg');
         const desc = eventContainer.querySelector('.desc');
         desc.style.width = '100%';
+        desc.style.border = '2px solid red'; // Adding a red border for visibility
+
         if (image) {
           image.style.width = '100%';
         }
