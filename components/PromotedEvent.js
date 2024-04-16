@@ -22,6 +22,8 @@ class PromotedEvent extends HTMLElement {
         eventContainer.style.flexDirection = 'column';
         eventContainer.style.alignItems = 'start';
         const image = eventContainer.querySelector('.eventImg');
+        const desc = eventContainer.querySelector('.desc');
+        desc.style.width = '100%';
         if (image) {
           image.style.width = '100%';
         }
