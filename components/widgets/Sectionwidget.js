@@ -20,10 +20,18 @@ class Sectionwidget extends HTMLElement{
         try {
             const pageIdResponse = await fetch(`https://api.eventgeni.com/widgets/${this.sectionid}?type=page`);
             const pageIdData = await pageIdResponse.json();
-            this.sectionquery = pageIdData.query;
-            const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.sectionquery}`);
-            this.data = await mainDataResponse.json();
-            console.log("Data is this", this.data);
+            // To get the active state of widget. If active is false, we will not fetch the data.
+            const formData = JSON.parse(pageIdData.body)
+            const activeState = formData.active;
+            this.pagequery = pageIdData.query;
+            if (activeState) {
+                const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.sectionquery}`);
+                this.data = await mainDataResponse.json();
+                console.log("Data is this", this.data);
+            } else {
+                console.log("Widget is inactive. Skipping data fetch.");
+                this.data = null; // Set data to null or an empty object/array as needed
+            }
             this.render();
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -62,6 +70,10 @@ class Sectionwidget extends HTMLElement{
         this.render();
     }
     render(){
+        let isPromotedEvent = false
+        if(this.data?.top_3?.length > 0){
+            isPromotedEvent = true;
+        }
         this.shadowRoot.innerHTML = `
         <style>
         .modal{
@@ -78,6 +90,7 @@ class Sectionwidget extends HTMLElement{
           }
         </style>
         <div class="body">
+             ${isPromotedEvent ? `<promoted-event data='${JSON.stringify(this.data)}'></promoted-event>` : ''}
             <section-data data='${JSON.stringify(this.data)}'></section-data>
             ${this.toggleState ? `<div class="modal">
             <register-form 
