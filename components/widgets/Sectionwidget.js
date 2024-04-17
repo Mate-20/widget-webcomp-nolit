@@ -23,7 +23,7 @@ class Sectionwidget extends HTMLElement{
             // To get the active state of widget. If active is false, we will not fetch the data.
             const formData = JSON.parse(pageIdData.body)
             const activeState = formData.active;
-            this.pagequery = pageIdData.query;
+            this.sectionquery = pageIdData.query;
             if (activeState) {
                 const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.sectionquery}`);
                 this.data = await mainDataResponse.json();
