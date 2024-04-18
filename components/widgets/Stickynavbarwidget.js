@@ -10,7 +10,7 @@ class Stickynavbarwidget extends HTMLElement{
         try {
             const response = await fetch(`https://api.eventgeni.com/widgets/${this.stickyid}?type=sticky`);
             const currData = await response.json();
-            this.activeState = currData.active
+            const activeState = currData.active
             if(activeState === "false"){
                 this.data = null;
             }else{
