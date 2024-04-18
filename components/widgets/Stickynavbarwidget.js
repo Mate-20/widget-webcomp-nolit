@@ -14,9 +14,9 @@ class Stickynavbarwidget extends HTMLElement{
             if(activeState === "false"){
                 this.data = null;
             }else{
-                this.data = this.currData;
+                this.data = currData;
+                this.render();
             }
-            this.render();
         } catch (error) {
             console.error('Error fetching data:', error);
         }
