@@ -21,13 +21,12 @@ class Pagewidget extends HTMLElement{
             const pageIdData = await pageIdResponse.json();
             // To get the active state of widget. If active is false, we will not fetch the data.
             const formData = JSON.parse(pageIdData.data.body)
-            console.log("page final data", pageIdData.data)
+            console.log("Page Data posted", pageIdData.data)
             const activeState = formData.active;
             this.pagequery = pageIdData.data.query;
             if (activeState) {
                 const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.pagequery}`);
                 this.data = await mainDataResponse.json();
-                console.log("Data is this", this.data);
             } else {
                 console.log("Widget is inactive. Skipping data fetch.");
                 this.data = null; // Set data to null or an empty object/array as needed
@@ -52,7 +51,6 @@ class Pagewidget extends HTMLElement{
                 if (mutation.type === 'attributes' && mutation.attributeName === 'page-id') {
                     // When 'sticky-id' attribute changes, update the stickyid and fetch new data
                     this.pageid = mutation.target.getAttribute('page-id');
-                    console.log("widget app , page id is ", this.pageid)
                     this.fetchData();
                 }
             });

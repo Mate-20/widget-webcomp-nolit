@@ -10,14 +10,13 @@ class Stickynavbarwidget extends HTMLElement{
         try {
             const response = await fetch(`https://api.eventgeni.com/widgets/${this.stickyid}?type=sticky`);
             const currData = await response.json();
-            console.log("curr sticky data", currData)
             const finalData = currData.data
-            console.log("Sticky data is", finalData)
+            console.log("Sticky Data posted", finalData)
             const activeState = finalData.active
             if(activeState === "false"){
                 this.data = null;
             }else{
-                this.data = currData;
+                this.data = finalData;
                 this.render();
             }
         } catch (error) {
@@ -37,7 +36,6 @@ class Stickynavbarwidget extends HTMLElement{
                 if (mutation.type === 'attributes' && mutation.attributeName === 'sticky-id') {
                     // When 'sticky-id' attribute changes, update the stickyid and fetch new data
                     this.stickyid = mutation.target.getAttribute('sticky-id');
-                    console.log("sticky id is", this.stickyid)
                     this.fetchData();
                 }
             });

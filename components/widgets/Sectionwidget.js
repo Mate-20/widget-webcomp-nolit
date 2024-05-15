@@ -22,7 +22,7 @@ class Sectionwidget extends HTMLElement{
             const pageIdData = await pageIdResponse.json();
             // To get the active state of widget. If active is false, we will not fetch the data.
             const formData = JSON.parse(pageIdData.data.body)
-            console.log("section final data", pageIdData.data)
+            console.log("Section Data posted", pageIdData.data)
             const activeState = formData.active;
             this.sectionquery = pageIdData.data.query;
             if (activeState) {
@@ -52,7 +52,6 @@ class Sectionwidget extends HTMLElement{
                 if (mutation.type === 'attributes' && mutation.attributeName === 'section-id') {
                     // When 'sticky-id' attribute changes, update the stickyid and fetch new data
                     this.sectionid = mutation.target.getAttribute('section-id');
-                    console.log("widget app , section id is ", this.sectionid)
                     this.fetchData();
                 }
             });
