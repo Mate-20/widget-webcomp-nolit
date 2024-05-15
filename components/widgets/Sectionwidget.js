@@ -21,13 +21,13 @@ class Sectionwidget extends HTMLElement{
             const pageIdResponse = await fetch(`https://api.eventgeni.com/widgets/${this.sectionid}?type=page`);
             const pageIdData = await pageIdResponse.json();
             // To get the active state of widget. If active is false, we will not fetch the data.
-            const formData = JSON.parse(pageIdData.body)
+            const formData = JSON.parse(pageIdData.data.body)
+            console.log("section final data", pageIdData.data)
             const activeState = formData.active;
-            this.sectionquery = pageIdData.query;
+            this.sectionquery = pageIdData.data.query;
             if (activeState) {
                 const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.sectionquery}`);
                 this.data = await mainDataResponse.json();
-                console.log("Data is this", this.data);
             } else {
                 console.log("Widget is inactive. Skipping data fetch.");
                 this.data = null; // Set data to null or an empty object/array as needed

@@ -20,9 +20,10 @@ class Pagewidget extends HTMLElement{
             const pageIdResponse = await fetch(`https://api.eventgeni.com/widgets/${this.pageid}?type=page`);
             const pageIdData = await pageIdResponse.json();
             // To get the active state of widget. If active is false, we will not fetch the data.
-            const formData = JSON.parse(pageIdData.body)
+            const formData = JSON.parse(pageIdData.data.body)
+            console.log("page final data", pageIdData.data)
             const activeState = formData.active;
-            this.pagequery = pageIdData.query;
+            this.pagequery = pageIdData.data.query;
             if (activeState) {
                 const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.pagequery}`);
                 this.data = await mainDataResponse.json();
