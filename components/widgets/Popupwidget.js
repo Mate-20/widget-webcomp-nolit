@@ -5,6 +5,7 @@ class Popupwidget extends HTMLElement{
     }
     connectedCallback() {
         this.render(); // Initial render
+        this.addEventListeners(); // Add event listeners after rendering
     }
     addEventListeners() {
         this.shadowRoot.querySelector('.closebtn').addEventListener('click', () => this.closePopup());
@@ -23,7 +24,7 @@ class Popupwidget extends HTMLElement{
             transform: translate(-50%, -50%);
             height: 500px;
             width: 400px;
-            border-radius: 10px;
+            border-radius: 0px;
             background-color: #1a1a1a;
             display: flex;
             flex-direction: column;
