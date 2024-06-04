@@ -24,7 +24,7 @@ class Popupwidget extends HTMLElement{
             transform: translate(-50%, -50%);
             height: 500px;
             width: 400px;
-            border-radius: 0px;
+            border-radius: 10px;
             background-color: #1a1a1a;
             display: flex;
             flex-direction: column;
