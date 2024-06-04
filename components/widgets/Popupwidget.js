@@ -6,10 +6,21 @@ class Popupwidget extends HTMLElement{
     connectedCallback() {
         this.render(); // Initial render
     }
+    addEventListeners() {
+        this.shadowRoot.querySelector('.closebtn').addEventListener('click', () => this.closePopup());
+    }
+    closePopup() {
+        this.remove(); // Remove the popup from the DOM
+    }
+
     render() {
         this.shadowRoot.innerHTML = `
         <style>
         .popup{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             height: 500px;
             width: 400px;
             border-radius: 10px;
