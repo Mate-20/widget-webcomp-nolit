@@ -17,11 +17,20 @@ class Popupwidget extends HTMLElement{
     render() {
         this.shadowRoot.innerHTML = `
         <style>
-        .popup{
+        .body{
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .popup{
+            position: relative;
             height: 500px;
             width: 400px;
             border-radius: 10px;
@@ -30,6 +39,7 @@ class Popupwidget extends HTMLElement{
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            z-index: 1000;
         }
         .poster{
             width: 100%;
@@ -63,12 +73,14 @@ class Popupwidget extends HTMLElement{
             cursor: pointer;
         }
         </style>
+        <div class="body">
         <div class="popup">
             <img class="poster" src="https://imgstaticcontent.lbb.in/lbbnew/wp-content/uploads/2018/03/16130738/pic41-1024x681.jpg" alt="">
             <div class="eventname">Theatre Festival</div>
             <div class="description">The Delhi Theatre scene is waiting in the wings for a renaissance, and we have taken the onus to make it happen.</div>
             <button class="registerbtn" type="button">Register</button>
             <button class="closebtn">Close</button>
+        </div>
         </div>
         `
     }
