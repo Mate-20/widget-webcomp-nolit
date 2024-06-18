@@ -92,7 +92,7 @@ class Pagewidget extends HTMLElement{
         </style>
         <div class="body">
             <div class="container ${this.toggleState ? 'blur' : ''}">
-                ${isPromotedEvent ? `<promoted-event data='${JSON.stringify(this.data)}'></promoted-event>` : ''}
+                ${isPromotedEvent ? `<hero-banner data='${JSON.stringify(this.data)}'></hero-banner>` : ''}
                 <grid-view data='${JSON.stringify(this.data)}'></grid-view>
             </div>
             ${this.toggleState ? `<div class="modal">

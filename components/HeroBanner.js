@@ -1,4 +1,4 @@
-class PromotedEvent extends HTMLElement {
+class HeroBanner extends HTMLElement {
   constructor() {
     super();
     this.imageurl = "https://designshack.net/wp-content/uploads/placeholder-image.png"
@@ -139,4 +139,4 @@ class PromotedEvent extends HTMLElement {
       `;
   }
 }
-customElements.define('promoted-event', PromotedEvent);
+customElements.define('hero-banner', HeroBanner);
