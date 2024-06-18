@@ -21,13 +21,15 @@ class ListView extends HTMLElement {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 20px;
+                gap:20px;
                 width: 100%;
                 height: 100%;
             }
           </style>
-
           <div class="container">   
+            <listview-card></listview-card>
+            <listview-card></listview-card>
+            <listview-card></listview-card>
             <listview-card></listview-card>
           </div>  
         
