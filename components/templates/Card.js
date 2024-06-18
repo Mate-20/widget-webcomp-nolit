@@ -9,24 +9,24 @@ class Cards extends HTMLElement {
 
   connectedCallback() {
     // For getting the passed call back function
-    const eventdata = {
-      eventname: this.eventname,
-      eventlocation: this.location,
-      eventimage: this.image,
-      eventdate: this.date,
-      eventdescription: this.description,
-  };
-    const openModalEvent = new CustomEvent('modal-open', {
-      detail:eventdata ,
-      bubbles: true, // Allow event to bubble up
-      composed: true, // Allow event to cross shadow DOM boundaries
-    });
-    const cards = this.shadowRoot.querySelectorAll('.card');
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        this.dispatchEvent(openModalEvent);
-      });
-    });
+  //   const eventdata = {
+  //     eventname: this.eventname,
+  //     eventlocation: this.location,
+  //     eventimage: this.image,
+  //     eventdate: this.date,
+  //     eventdescription: this.description,
+  // };
+  //   const openModalEvent = new CustomEvent('modal-open', {
+  //     detail:eventdata ,
+  //     bubbles: true, // Allow event to bubble up
+  //     composed: true, // Allow event to cross shadow DOM boundaries
+  //   });
+  //   const cards = this.shadowRoot.querySelectorAll('.card');
+  //   cards.forEach(card => {
+  //     card.addEventListener('click', () => {
+  //       this.dispatchEvent(openModalEvent);
+  //     });
+  //   });
   }
 
   static get observedAttributes() {
@@ -138,4 +138,4 @@ class Cards extends HTMLElement {
   }
 }
 
-customElements.define('card-component', Cards);
+customElements.define('card-view', Cards);

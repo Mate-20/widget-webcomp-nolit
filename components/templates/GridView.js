@@ -6,13 +6,13 @@ class GridView extends HTMLElement {
     }
     connectedCallback() {
         this.data = JSON.parse(this.getAttribute('data'));
-        console.log("page data in multiple data ",this.data)
+        // console.log("page data in multiple data ",this.data)
         this.render();
-        this.updateLayout(); 
-        this.observer = new ResizeObserver(() => {
-            this.updateLayout();
-        });
-        this.observer.observe(this.shadowRoot.querySelector('.container')); // Observe changes to the container's size
+        // this.updateLayout(); 
+        // this.observer = new ResizeObserver(() => {
+        //     this.updateLayout();
+        // });
+        // this.observer.observe(this.shadowRoot.querySelector('.container')); // Observe changes to the container's size
     }
 
     updateLayout() {
@@ -35,11 +35,6 @@ class GridView extends HTMLElement {
               .container {
                 height:100%;
                 padding: 50px;
-              }
-              .heading {
-                  font-size: 35px;
-                  color: white;
-                  font-weight: 900;
               }
               .cardContainer {
                 height:100%;
@@ -69,20 +64,40 @@ class GridView extends HTMLElement {
             }   
           </style>
 
-          <div class="container" style="background-color: ${this.data.layoutBgColor};">
-              <div class="heading">Your Events</div>
+          <div class="container" style="background-color: ${"black"};">
               <div class="cardContainer">
-                  ${this.data.eventData.map((item, key) => `
-                      <card-component
+                      <card-view
                           image="${this.imageurl}"
-                          date="${item._source.start_date}"
-                          eventname="${item._source.name}"
-                          location="${item._source.country_name}"
-                          description="${item._source.description}"
-                          key="${key}"
-                          type="${item._source.event_type}"
-                      ></card-component>
-                  `).join('')}
+                          date="1/1/1"
+                          eventname="Cinema"
+                          location="Mandi House"
+                          description="Acting and Learning"
+                          type="Workshop"
+                      ></card-view>
+                          <card-view
+                          image="${this.imageurl}"
+                          date="1/1/1"
+                          eventname="Cinema"
+                          location="Mandi House"
+                          description="Acting and Learning"
+                          type="Workshop"
+                      ></card-view>
+                          <card-view
+                          image="${this.imageurl}"
+                          date="1/1/1"
+                          eventname="Cinema"
+                          location="Mandi House"
+                          description="Acting and Learning"
+                          type="Workshop"
+                      ></card-view>
+                        <card-view
+                          image="${this.imageurl}"
+                          date="1/1/1"
+                          eventname="Cinema"
+                          location="Mandi House"
+                          description="Acting and Learning"
+                          type="Workshop"
+                      ></card-view>
               </div>    
           </div>  
         
@@ -91,3 +106,13 @@ class GridView extends HTMLElement {
 }
 
 customElements.define('grid-view', GridView);
+
+{/* <card-view
+image="${this.imageurl}"
+date="${item._source.start_date}"
+eventname="${item._source.name}"
+location="${item._source.country_name}"
+description="${item._source.description}"
+key="${key}"
+type="${item._source.event_type}"
+></card-view> */}

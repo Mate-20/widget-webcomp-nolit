@@ -1,8 +1,6 @@
 // Import all your JavaScript files here
-import './components/Card.js';
 import './components/RegisterForm.js';
 import './components/Modal.js';
-import './components/templates/HeroBanner.js'
 import './components/EventGeni.js';
 import './components/widgets/Pagewidget.js'
 import './components/widgets/Sectionwidget.js'
@@ -14,3 +12,5 @@ import './components/templates/ListView.js'
 import './components/templates/ListViewCard.js'  
 import './components/templates/CaraouselView.js'  
 import './components/templates/Popup.js'  
+import './components/templates/HeroBanner.js'
+import './components/templates/Card.js';
