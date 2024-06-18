@@ -1,4 +1,4 @@
-class MultipleData extends HTMLElement {
+class GridView extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -90,4 +90,4 @@ class MultipleData extends HTMLElement {
     }
 }
 
-customElements.define('multiple-data', MultipleData);
+customElements.define('grid-view', GridView);
