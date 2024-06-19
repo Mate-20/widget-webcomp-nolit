@@ -1,4 +1,4 @@
-class HeroBannerAndListView extends HTMLElement {
+class HeroBannerAndGridView extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -10,8 +10,8 @@ class HeroBannerAndListView extends HTMLElement {
     render(){
         this.shadowRoot.innerHTML = `
             <hero-banner></hero-banner>
-            <list-view></list-view>
+            <grid-view></grid-view>
         `;
     }
 }
-customElements.define('herobannerlist-view', HeroBannerAndListView);
+customElements.define('herobannergrid-view', HeroBannerAndGridView);

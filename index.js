@@ -15,3 +15,4 @@ import './components/templates/Popup.js'
 import './components/templates/HeroBanner.js'
 import './components/templates/Card.js';
 import './components/templates/HeroBannerAndListView.js'
+import './components/templates/HeroBannerAndGridView.js'
