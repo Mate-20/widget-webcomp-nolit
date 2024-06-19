@@ -16,3 +16,5 @@ import './components/templates/HeroBanner.js'
 import './components/templates/Card.js';
 import './components/templates/HeroBannerAndListView.js'
 import './components/templates/HeroBannerAndGridView.js'
+import './components/templates/CaraouselAndGridView.js'
+import './components/templates/CaraouselAndListView.js'
