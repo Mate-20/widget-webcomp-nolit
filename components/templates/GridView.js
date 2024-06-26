@@ -32,10 +32,6 @@ class GridView extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
           <style>
-              .container {
-                height:100%;
-                padding: 50px;
-              }
               .cardContainer {
                 height:100%;
                 display: grid;  
@@ -64,7 +60,6 @@ class GridView extends HTMLElement {
             }   
           </style>
 
-          <div class="container">
               <div class="cardContainer">
                       <card-view
                           image="${this.imageurl}"
@@ -97,8 +92,7 @@ class GridView extends HTMLElement {
                           location="Mandi House"
                           description="Acting and Learning"
                           type="Workshop"
-                      ></card-view>
-              </div>    
+                      ></card-view>   
           </div>  
         
       `;

@@ -15,9 +15,9 @@ class Map extends HTMLElement{
             mapboxgl.accessToken = 'pk.eyJ1IjoiYWJoaWUiLCJhIjoiY2x0ODgycjA0MDV6czJrdDQzaWwwYmh6eCJ9.px6YQmrBFfxRPyhB1FqCkg';
             const map = new mapboxgl.Map({
                 container: this.shadowRoot.getElementById('map'),
-                style: 'mapbox://styles/mapbox/streets-v11',
+                style: 'mapbox://styles/mapbox/streets-v12',
                 center: [0, 0], // Starting position [lng, lat]
-                zoom: 2 // Starting zoom level
+                zoom: 5 // Starting zoom level
             });
 
             // Add navigation control (the +/- zoom buttons)
@@ -35,8 +35,17 @@ class Map extends HTMLElement{
         this.shadowRoot.innerHTML = `
             <style>
                 @import url('https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css');
+                .mapContainer{
+                    width : 100%;
+                    display : flex;
+                    justify-content : center;
+                }
+
+
             </style>
-            <div id="map" style='width: 400px; height: 300px;'></div>
+            <div class="mapContainer">
+            <div id="map" style='width: 1000px; height: 300px;'></div>
+            </div>
         `;
     }
 
