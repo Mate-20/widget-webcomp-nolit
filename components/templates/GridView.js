@@ -64,7 +64,7 @@ class GridView extends HTMLElement {
             }   
           </style>
 
-          <div class="container" style="background-color: ${"black"};">
+          <div class="container">
               <div class="cardContainer">
                       <card-view
                           image="${this.imageurl}"

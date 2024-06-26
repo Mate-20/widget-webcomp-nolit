@@ -1,5 +1,6 @@
 // Import all your JavaScript files here
 import './components/RegisterForm.js';
+import './components/Map.js';
 import './components/Modal.js';
 import './components/EventGeni.js';
 import './components/widgets/Pagewidget.js'
