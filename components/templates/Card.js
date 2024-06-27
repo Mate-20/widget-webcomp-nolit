@@ -46,6 +46,7 @@ class Cards extends HTMLElement {
         flex-direction : column;
         width:300px;
         height : 450px;
+        text-decoration: none;
         cursor: pointer;
     }
     .img {
@@ -120,7 +121,7 @@ class Cards extends HTMLElement {
     }
     
       </style>
-      <div class="card" style="background-color:#e6e6e6; border-radius:10px">
+      <a href="https://console.eventgeni.com/detailpage" target="_blank" class="card" style="background-color:#e6e6e6; border-radius:10px">
         <div class="img">
           <img src="${this.image}" alt="author" style="border-top-left-radius:10px; border-top-right-radius:10px;">
         </div>
@@ -133,7 +134,7 @@ class Cards extends HTMLElement {
             <div>Register</div>
           </div>
         </div>
-      </div>
+      </a>
     `;
   }
 }

@@ -206,7 +206,7 @@ class Pagewidget extends HTMLElement {
         <div class="body">
             <div class="ownerEditBtn">
                 <div>This pannel is only visible to the owner</div>
-                <a class="editBtn" href="https://console.eventgeni.com/templates/edit/3763g?preview=sehb">Edit</a>
+                <a class="editBtn" href="https://console.eventgeni.com/templates/edit/3763g?preview=sehb" target="_blank">Edit</a>
             </div>
             <div class="navbarBtns">
                 <div class="dropdown">
