@@ -14,7 +14,9 @@ import './components/templates/ListViewCard.js'
 import './components/templates/CaraouselView.js'  
 import './components/templates/Popup.js'  
 import './components/templates/HeroBanner.js'
-import './components/templates/Card.js';
+import './components/templates/cardstyles/Card1.js';
+import './components/templates/cardstyles/Card2.js';
+import './components/templates/cardstyles/Card3.js';
 import './components/templates/HeroBannerAndListView.js'
 import './components/templates/HeroBannerAndGridView.js'
 import './components/templates/CaraouselAndGridView.js'
