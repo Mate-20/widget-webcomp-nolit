@@ -49,6 +49,7 @@ class Card2 extends HTMLElement {
                 display: flex;
                 flex-direction: column;
                 gap: 16px;
+                text-decoration : none;
             }
             .eventName {
                 font-size: 18px;
@@ -177,7 +178,7 @@ class Card2 extends HTMLElement {
             }
         </style>
 
-        <div class="card">
+      <a href="https://console.eventgeni.com/detailpage" target="_blank" class="card">
             <div class="eventName">Hampton Jazz Festival 2024</div>
             <div class="location_dateContainer">
                 <div class="locationContainer">
@@ -211,7 +212,7 @@ class Card2 extends HTMLElement {
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     `;
 }
 }

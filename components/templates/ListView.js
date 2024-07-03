@@ -24,13 +24,14 @@ class ListView extends HTMLElement {
                 gap:20px;
                 width: 100%;
                 height: 100%;
+                background-color : #1a1a1a;
             }
           </style>
           <div class="container">   
-            <listview-card></listview-card>
-            <listview-card></listview-card>
-            <listview-card></listview-card>
-            <listview-card></listview-card>
+            <listview-card3></listview-card3>
+            <listview-card2></listview-card2>
+            <listview-card2></listview-card2>
+            <listview-card2></listview-card2>
           </div>  
         
       `;
