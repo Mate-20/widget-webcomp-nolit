@@ -2,7 +2,7 @@ class ScrollView extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.type = this.getAttribute('type') || 'top';
+        this.type = this.getAttribute('type') || 'right';
         this.selectedCard = this.getAttribute('selectedCard') || 'card2';
         this.image = this.getAttribute('image') || 'https://designshack.net/wp-content/uploads/placeholder-image.png';
         this.date = this.getAttribute('date') || '';
