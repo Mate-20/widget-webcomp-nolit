@@ -61,14 +61,14 @@ class GridView extends HTMLElement {
           </style>
 
               <div class="cardContainer">
-                      <card-view3
+                      <card-view1
                           image="${this.imageurl}"
                           date="1/1/1"
                           eventname="Cinema"
                           location="Mandi House"
                           description="Acting and Learning"
                           type="Workshop"
-                      ></card-view3>
+                      ></card-view1>
                         <card-view3
                           image="${this.imageurl}"
                           date="1/1/1"
