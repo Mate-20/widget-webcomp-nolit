@@ -253,4 +253,4 @@ class Popup2 extends HTMLElement{
     
 }
 
-customElements.define('popup-view2', Popup2);
+customElements.define('popupportrait-view2', Popup2);

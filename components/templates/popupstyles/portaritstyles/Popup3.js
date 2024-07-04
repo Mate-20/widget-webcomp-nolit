@@ -34,14 +34,14 @@ class Popup3 extends HTMLElement{
             justify-content: center;
             z-index: 999;
         }
-          .card {
+.card {
     width: 450px;
-    height: 500px;
+    height: 530px;
     border-radius: 8px;
     background-color: white;
     padding: 12px 14px 24px 12px;
 }
-       .banner{
+.banner{
     height: 240px;
     width: 100%;
     border-radius: 8px;
@@ -132,4 +132,4 @@ class Popup3 extends HTMLElement{
     }
 }
 
-customElements.define('popup-view3', Popup3);
+customElements.define('popupportrait-view3', Popup3);

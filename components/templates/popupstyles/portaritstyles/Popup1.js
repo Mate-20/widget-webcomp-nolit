@@ -163,7 +163,7 @@ class Popup1 extends HTMLElement{
     color: black;
     border: none;
     cursor: pointer;
-        }
+}
         </style>
         <div class="body">
         <div class="card">
@@ -199,4 +199,4 @@ class Popup1 extends HTMLElement{
     }
 }
 
-customElements.define('popup-view1', Popup1);
+customElements.define('popupportrait-view1', Popup1);
