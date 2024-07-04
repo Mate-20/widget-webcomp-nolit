@@ -67,11 +67,12 @@ class Sectionwidget extends HTMLElement{
         this.shadowRoot.innerHTML = `
         <style>
             .body{
+                width : 100%;
                 background-color : #1a1a1a;
             }
         </style>
         <div class="body">
-            <scroll-view><scroll-view/>
+            <carousel-view><carousel-view/>
         </div>
         `;
     }

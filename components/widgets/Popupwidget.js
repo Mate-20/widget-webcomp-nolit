@@ -9,7 +9,7 @@ class Popupwidget extends HTMLElement {
 
     render() {
         this.shadowRoot.innerHTML = `
-        <popup-view></popup-view>
+        <popup-view2></popup-view2>
         `
     }
 }

@@ -4,12 +4,11 @@ class CarouselView extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.currentIndex = 0;
         this.bannersPerPage = 1;
-        this.carouselRef = document.createElement('div');
-        this.carouselRef.className = 'carousel';
+        this.carouselRef = null;  // Will be assigned after rendering
         this.handleResize = this.handleResize.bind(this);
         this.handleNext = this.handleNext.bind(this);
         this.handlePrev = this.handlePrev.bind(this);
-        this.selectedCard = this.getAttribute('selectedCard') || 'card1';
+        this.selectedCard = this.getAttribute('selectedCard') || 'card2';
     }
 
     static get observedAttributes() {
@@ -24,26 +23,33 @@ class CarouselView extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        this.handleResize();
-        window.addEventListener('resize', this.handleResize);
+        setTimeout(() => {
+            this.handleResize();
+            window.addEventListener('resize', this.handleResize);
+        }, 0);
     }
 
     disconnectedCallback() {
         window.removeEventListener('resize', this.handleResize);
+        this.shadowRoot.querySelector('.prevButton').removeEventListener('click', this.handlePrev);
+        this.shadowRoot.querySelector('.nextButton').removeEventListener('click', this.handleNext);
     }
 
     handleResize() {
         const containerWidth = this.carouselRef.offsetWidth;
+        console.log(containerWidth)
         const cardWidth = 300; // Adjust based on your card's width
         const newBannersPerPage = Math.floor(containerWidth / cardWidth);
         this.bannersPerPage = newBannersPerPage > 0 ? newBannersPerPage : 1;
-        this.render();
+        this.updateSlider();
+        this.updateButtons();
     }
 
     handleNext() {
         if (this.currentIndex < this.maxIndex()) {
             this.currentIndex += 1;
             this.updateSlider();
+            this.updateButtons();
         }
     }
 
@@ -51,11 +57,14 @@ class CarouselView extends HTMLElement {
         if (this.currentIndex > 0) {
             this.currentIndex -= 1;
             this.updateSlider();
+            this.updateButtons();
         }
     }
 
     maxIndex() {
-        return Math.max(0, this.banners.length - this.bannersPerPage);
+        const maxIndex = Math.max(0, Math.ceil(this.banners.length / this.bannersPerPage) - 1);
+        console.log(`Max Index: ${maxIndex}, Banners Length: ${this.banners.length}, Banners Per Page: ${this.bannersPerPage}`);
+        return maxIndex;
     }
 
     createBanner(key) {
@@ -87,6 +96,14 @@ class CarouselView extends HTMLElement {
         innerSlider.style.transform = `translateX(-${this.currentIndex * (100 / this.bannersPerPage)}%)`;
     }
 
+    updateButtons() {
+        const prevButton = this.shadowRoot.querySelector('.prevButton');
+        const nextButton = this.shadowRoot.querySelector('.nextButton');
+        
+        prevButton.disabled = this.currentIndex === 0;
+        nextButton.disabled = this.currentIndex >= this.maxIndex();
+    }
+
     render() {
         this.banners = [
             this.createBanner('1'),
@@ -110,7 +127,7 @@ class CarouselView extends HTMLElement {
                     transition: transform 0.5s ease-in-out;
                 }
                 .banner {
-                    flex: 0 0 200px; /* Adjust based on your card's width */
+                    flex: 0 0 300px; /* Adjust based on your card's width */
                     box-sizing: border-box;
                     padding: 12px;
                 }
@@ -141,23 +158,20 @@ class CarouselView extends HTMLElement {
                 }
             </style>
 
-            <div class="carousel" ref="carouselRef">
-                <button class="navButton prevButton" ${this.currentIndex === 0 ? 'disabled' : ''}>&lt;</button>
+            <div class="carousel">
+                <button class="navButton prevButton">&lt;</button>
                 <div class="innerSlider">
                     ${this.banners.map(banner => `<div class="banner">${banner.outerHTML}</div>`).join('')}
                 </div>
-                <button
-                    class="navButton nextButton"
-                    ${this.currentIndex === this.maxIndex() ? 'disabled' : ''}
-                >
-                    &gt;
-                </button>
+                <button class="navButton nextButton">&gt;</button>
             </div>
         `;
 
+        this.carouselRef = this.shadowRoot.querySelector('.carousel');
         this.shadowRoot.querySelector('.prevButton').addEventListener('click', this.handlePrev);
         this.shadowRoot.querySelector('.nextButton').addEventListener('click', this.handleNext);
 
+        this.updateButtons();
         this.updateSlider();
     }
 }
