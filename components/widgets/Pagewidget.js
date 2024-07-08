@@ -96,9 +96,9 @@ class Pagewidget extends HTMLElement {
             case 'Map':
                 activeContent = `<map-view></map-view>`;
                 break;
-            // case 'Calendar':
-            //     activeContent = `<herobannerlist-view></herobannerlist-view>`;
-            //     break;
+            case 'Calendar':
+                activeContent = `<calendar-container></calendar-container>`;
+                break;
             default:
                 activeContent = `<grid-view data='${JSON.stringify(this.data)}'></grid-view>`;
         }
@@ -183,6 +183,7 @@ class Pagewidget extends HTMLElement {
                 background-color : #6750a4;
             }
             .view{
+                margin-top : 20px;
                 width : 100%;
                 height : fit-content;
             }

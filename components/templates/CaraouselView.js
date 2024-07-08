@@ -8,7 +8,7 @@ class CarouselView extends HTMLElement {
         this.handleResize = this.handleResize.bind(this);
         this.handleNext = this.handleNext.bind(this);
         this.handlePrev = this.handlePrev.bind(this);
-        this.selectedCard = this.getAttribute('selectedCard') || 'card2';
+        this.selectedCard = this.getAttribute('selectedCard') || 'card1';
     }
 
     static get observedAttributes() {

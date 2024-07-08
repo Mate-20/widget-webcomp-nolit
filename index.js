@@ -1,8 +1,8 @@
 // Import all your JavaScript files here
-import './components/RegisterForm.js';
 import './components/Map.js';
 import './components/Modal.js';
 import './components/EventGeni.js';
+import './components/Calendar.js';
 import './components/widgets/Pagewidget.js'
 import './components/widgets/Sectionwidget.js'
 import './components/widgets/Stickynavbarwidget.js'
@@ -31,4 +31,7 @@ import './components/templates/HeroBannerAndListView.js'
 import './components/templates/HeroBannerAndGridView.js'
 import './components/templates/CaraouselAndGridView.js'
 import './components/templates/CaraouselAndListView.js'
+import './components/templates/calendar/MonthCalendar.js'
+import './components/templates/calendar/YearCalendar.js'
+import './components/templates/calendar/WeekCalendar.js'
 import './components/templates/ScrollView.js'
