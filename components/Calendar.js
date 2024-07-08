@@ -2,7 +2,7 @@ class Calendar extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.selectedCalendar = 'month'; // default view
+        this.selectedCalendar = 'year'; // default view
         this.queryString = this.getAttribute('queryString') || '';
     }
 
