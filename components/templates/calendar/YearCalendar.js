@@ -2,7 +2,7 @@ class YearCalendar extends HTMLElement {
     constructor() {
       super();
       this.attachShadow({ mode: 'open' });
-      this.year = 0;
+      this.year = 2024; 
       this.eventListDate = '';
       this.eventCountArr = {};
       this.monthEventCount = new Array(12).fill(0);
@@ -19,10 +19,7 @@ class YearCalendar extends HTMLElement {
     }
   
     connectedCallback() {
-      this.year = 2024; // Default starting year
-    //   this.fetchEventsData();
       this.render();
-      this.addEventListeners();
     }
   
     addEventListeners() {
@@ -255,6 +252,7 @@ class YearCalendar extends HTMLElement {
     align-items: center;
     justify-content: center;
     gap: 20px;
+
   }
   
   .control_buttons_container button {
@@ -262,12 +260,13 @@ class YearCalendar extends HTMLElement {
     outline: none;
     border: none;
     cursor: pointer;
+    color : white;
   }
   
   .control_buttons_container div {
     font-size: 24px;
     font-weight: 500;
-    /* color: #222; */
+    color : white;
     width: 25%;
     text-align: center;
   }

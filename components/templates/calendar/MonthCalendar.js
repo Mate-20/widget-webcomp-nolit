@@ -248,6 +248,7 @@ class MonthCalendar extends HTMLElement {
             outline: none;
             border: none;
             cursor: pointer;
+            color : white;
           }
 
           .control_buttons_container div {
@@ -255,6 +256,7 @@ class MonthCalendar extends HTMLElement {
             font-weight: 500;
             width: 25%;
             text-align: center;
+            color : white;
           }
         </style>
         <div class="control_buttons_container">
