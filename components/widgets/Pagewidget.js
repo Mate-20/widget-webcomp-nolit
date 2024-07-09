@@ -110,6 +110,7 @@ class Pagewidget extends HTMLElement {
                 align-items: center;
                 background-color : #1a1a1a;
                 padding : 10px;
+                min-height : 100vh; 
             }
             .ownerEditBtn{
                 position : absolute;

@@ -1,10 +1,11 @@
-class Popup1 extends HTMLElement{
+class Porpopup1 extends HTMLElement{
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
     }
     connectedCallback() {
         if (!localStorage.getItem('popupShown')) {
+            console.log("calling")
             this.render();
             this.addEventListeners(); // Add event listeners after rendering
         }
@@ -199,4 +200,4 @@ class Popup1 extends HTMLElement{
     }
 }
 
-customElements.define('popupportrait-view1', Popup1);
+customElements.define('popupportrait-view1', Porpopup1);

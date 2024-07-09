@@ -1,4 +1,4 @@
-class Popup1 extends HTMLElement{
+class Landpopup1 extends HTMLElement{
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -185,4 +185,4 @@ class Popup1 extends HTMLElement{
     }
 }
 
-customElements.define('popuplandscape-view1', Popup1);
+customElements.define('popuplandscape-view1', Landpopup1);
