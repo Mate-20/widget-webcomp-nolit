@@ -188,22 +188,12 @@ class Pagewidget extends HTMLElement {
                 width : 100%;
                 height : fit-content;
             }
-            .blur {
-                height: 100vh;
-                overflow: hidden;
-                filter: blur(2px);
+            .heading{
+                font-size : 25px;
+                margin-top : 25px;
+                margin-bottom : 20px;
+                color : white;
             }
-            .modal{
-                padding : 20px;
-                border-radius:10px;
-                position : absolute;
-                background : white;
-                height: fit-content;
-                width: fit-content;
-                top : 50%;
-                left : 50%;
-                transform: translate(-50%, -50%);
-              }
         </style>
         <div class="body">
             <div class="ownerEditBtn">
@@ -230,18 +220,12 @@ class Pagewidget extends HTMLElement {
                     <input type="date"/>
                 </div>
             </div>
+
+            <div class="heading">Meet us here</div>
+
             <div class="view">
                 ${activeContent}
             </div>
-            ${this.toggleState ? `<div class="modal">
-             <register-form 
-             eventname="${this.formData.eventname}"
-             eventlocation="${this.formData.eventlocation}"
-             eventimage="${this.formData.eventimage}"
-             eventdate="${this.formData.eventdate}"
-             eventdescription="${this.formData.eventdescription}"
-             ></register-form>
-            </div>` : ''}
         </div>
 
 `

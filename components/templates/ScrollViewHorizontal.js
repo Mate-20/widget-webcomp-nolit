@@ -1,8 +1,8 @@
-class ScrollView extends HTMLElement {
+class ScrollViewHorizontal extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.type = this.getAttribute('type') || 'right';
+        this.type = this.getAttribute('type') || 'top';
         this.selectedCard = this.getAttribute('selectedCard') || 'card2';
         this.image = this.getAttribute('image') || 'https://designshack.net/wp-content/uploads/placeholder-image.png';
         this.date = this.getAttribute('date') || '';
@@ -58,37 +58,16 @@ class ScrollView extends HTMLElement {
                 .topBody{
                     width: 100%;
                 }
-                .leftBody{
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: flex-start;
-                }
-                .rightBody{
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: flex-end;
-                }
                 .horizontalScroll{
                     padding: 10px;
                     display: flex;
                     overflow-x: auto;
                     gap: 20px;
                 }
-                .verticalScroll{
-                    padding: 10px;
-                    display: flex;
-                    flex-direction: column;
-                    height: 100%;
-                    gap: 20px;
-                    overflow-y: auto;
-                    overflow-x: hidden;
-                }
             </style>
 
-            <div class="${this.type === "top" ? 'topBody' : this.type === "left" ? 'leftBody' : 'rightBody'}">
-                <div class="${this.type === "top" ? 'horizontalScroll' : 'verticalScroll'}">
+            <div class='topBody'">
+                <div class='horizontalScroll'>
                     ${cards.map(card => `<div>${card.outerHTML}</div>`).join('')}
                 </div>
             </div>
@@ -96,4 +75,4 @@ class ScrollView extends HTMLElement {
     }
 }
 
-customElements.define('scroll-view', ScrollView);
+customElements.define('horizontalscroll-view', ScrollViewHorizontal);

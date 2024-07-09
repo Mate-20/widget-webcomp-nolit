@@ -11,12 +11,7 @@ class HeroBanner extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-        <style>
-            .body{
-                background-color : #1a1a1a;
-            }
-        </style>
-        <div class="body"><hero-banner3></hero-banner3></div>
+        <div class="body"><hero-banner1></hero-banner3></div>
         
     `;  
   }

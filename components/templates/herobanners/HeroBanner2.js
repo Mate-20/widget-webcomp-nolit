@@ -17,7 +17,7 @@ class HeroBanner2 extends HTMLElement {
     }
 
     render() {
-        const image = this.getAttribute('image') || 'https://14068d66ba387efac9ce5e4b1741bcf2.r2.cloudflarestorage.com/sls/07-24/sync-295dafef-c41a-4f5f-85a4-fcefbf02da97-e1/3f9ed4d8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0f059df39ab45a0cdab74b629b7951a5%2F20240703%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240703T104236Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f933cca453a5ba84757c2d5af98bd5b3ac2c74ba52cde8db8319c47f321401c8';
+        const image = this.getAttribute('image') || 'https://designshack.net/wp-content/uploads/placeholder-image.png';
         const location = this.getAttribute('location') || 'Corpus Christi, USA';
         const eventName = this.getAttribute('eventname') || 'Hampton Jazz Festival 2024';
         const startDate = this.getAttribute('startdate') || '1st Apr 2024';

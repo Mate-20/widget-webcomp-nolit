@@ -5,11 +5,13 @@ class Popupwidget extends HTMLElement {
     }
     connectedCallback() {
         this.render();
+        this.style.display = 'none'; // Start hidden
     }
 
     render() {
+        const view = this.getAttribute('view') || 'popuplandscape-view1';
         this.shadowRoot.innerHTML = `
-            <popuplandscape-view2>
+            <${view}></${view}>
         `
     }
 }
