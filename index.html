@@ -43,12 +43,21 @@
   <script type="module" src="/components/templates/ScrollViewHorizontal.js"></script>
   <script type="module" src="/components/templates/ScrollViewVertical.js"></script>
   <script type="module" src="/components/templates/popupstyles/PopupController.js"></script>
+  <!-- <script type="module" src="/components/templates/popupstyles/PopupController.js" showAfterScroll="1000"></script> -->
+  <!-- <script type="module" src="/components/templates/popupstyles/PopupController.js" showAfterCta=".show_btn"></script> -->
+  <!-- <script type="module" src="/components/templates/popupstyles/PopupController.js" showAfterSection="#special-section"></script> -->
+
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="dist/eventgeni.js"></script>  
 </head>
 
 <body>
   <div class="container">
+    <button class="show_btn">Show Event</button>
+    <div style="height: 100vh;"></div>
+    <section id="special-section" style="color: blue;">
+      <h2>Special Section</h2>
+  </section>
     <popup-widget>
   </div>
 </body>
