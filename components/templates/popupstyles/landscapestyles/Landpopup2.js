@@ -89,7 +89,7 @@ class Landpopup2 extends HTMLElement{
     color: #6E6F89;
     font-weight: 400;
 }
-.description{
+.desc{
     /* font-size: 10px; */
     color: #6E6F89;
     font-weight: 500;
