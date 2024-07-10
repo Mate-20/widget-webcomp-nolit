@@ -91,10 +91,15 @@
 // });
 
 export function getScriptAttributes() {
-    const script = document.currentScript;
-    return {
-      showAfterScroll: script.getAttribute('showAfterScroll') || 'default',
-      // Add more attributes as needed
-    };
+  const scripts = document.getElementsByTagName('script');
+  for (let script of scripts) {
+      if (script.src.includes('eventgeni.js')) {
+          return {
+              showAfterScroll: script.getAttribute('showAfterScroll') || 'default',
+          };
+      }
   }
-  
+  return {
+      showAfterScroll: 'default',
+  };
+}
