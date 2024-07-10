@@ -1,17 +1,27 @@
 const path = require('path');
 
 module.exports = {
-  entry: './index.js', // Entry point of your application
+  entry: './index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'), // Output directory
-    filename: 'eventgeni.js', // Output filename
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'eventgeni.js',
   },
   module: {
     rules: [
       {
-        test: /\.json$/, // Match JSON files
-        loader: 'json-loader', // Use json-loader to handle JSON files
-        type: 'javascript/auto', // Specify the type as 'javascript/auto' to avoid webpack 5 deprecation warnings
+        test: /\.json$/,
+        loader: 'json-loader',
+        type: 'javascript/auto',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
     ],
   },
