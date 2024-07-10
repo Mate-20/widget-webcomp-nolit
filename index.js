@@ -37,6 +37,7 @@ import './components/templates/calendar/YearCalendar.js'
 import './components/templates/calendar/WeekCalendar.js'
 import './components/templates/ScrollViewHorizontal.js'
 import './components/templates/ScrollViewVertical.js'
+import { getScriptAttributes } from './components/templates/popupstyles/PopupController.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const config = getScriptAttributes();
