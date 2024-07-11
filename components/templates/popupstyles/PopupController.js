@@ -103,3 +103,22 @@ export function getScriptAttributes() {
       showAfterScroll: 'default',
   };
 }
+
+export function showPopupAfterScroll(){
+    document.addEventListener('DOMContentLoaded', () => {
+        const config = getScriptAttributes();
+        const popupWidget = document.querySelector('popup-widget');
+        if (popupWidget) {
+            popupWidget.style.display = 'none'; // Start hidden
+        }
+
+        if (config.showAfterScroll && popupWidget) {
+            const showAfterScrollValue = parseInt(config.showAfterScroll, 10);
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > showAfterScrollValue) {
+                    popupWidget.style.display = 'block';
+                }
+            });
+        }
+    });
+}

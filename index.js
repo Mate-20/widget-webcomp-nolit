@@ -37,17 +37,6 @@ import './components/templates/calendar/YearCalendar.js'
 import './components/templates/calendar/WeekCalendar.js'
 import './components/templates/ScrollViewHorizontal.js'
 import './components/templates/ScrollViewVertical.js'
-import { getScriptAttributes } from './components/templates/popupstyles/PopupController.js';
+import { showPopupAfterScroll } from './components/templates/popupstyles/PopupController.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const config = getScriptAttributes();  
-    if (config.showAfterScroll) {
-      const showAfterScrollValue = parseInt(config.showAfterScroll, 10);
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > showAfterScrollValue) {
-          console.log(`Scrolled more than ${showAfterScrollValue}px`);
-        }
-      });
-    }
-  
-  });
+showPopupAfterScroll()

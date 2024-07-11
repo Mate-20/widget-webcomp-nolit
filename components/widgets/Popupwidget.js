@@ -5,7 +5,7 @@ class Popupwidget extends HTMLElement {
     }
     connectedCallback() {
         this.render();
-        this.style.display = 'none'; // Start hidden
+        // this.style.display = 'none';
     }
 
     render() {
