@@ -64,16 +64,19 @@ export function handlePopupDisplay() {
 
         if (config.showAfterScroll && popupWidget) {
             const showAfterScrollValue = parseInt(config.showAfterScroll, 10);
+            console.log("Show after scroll function called with value ,", showAfterScrollValue);
             handleShowAfterScroll(showAfterScrollValue, popupWidget);
         }
 
         if (config.showAfterSection && popupWidget) {
             const showAfterSectionId = config.showAfterSection;
+            console.log("Show after section function called with value ,", showAfterSectionId);
             handleShowAfterSection(showAfterSectionId, popupWidget);
         }
 
         if (config.showAfterCta && popupWidget) {
             const showAfterSelector = config.showAfterCta;
+            console.log("Show after selector function called with value ,", showAfterSelector);
             handleShowAfterCta(showAfterSelector, popupWidget);
         }
     });
