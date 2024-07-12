@@ -4,7 +4,7 @@ class Sectionwidget extends HTMLElement{
         this.attachShadow({ mode: 'open' });
         this.data = null;
         this.toggleState = false; // this state is for opening the modal
-        this.selectedView = this.getAttribute('selectedCard') || 'hero';
+        this.selectedView = this.getAttribute('selectedCard') || 'verscroll';
         this.formData = {
             eventname: "demoevent",
             eventlocation: "demolocation",

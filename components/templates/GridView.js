@@ -59,16 +59,15 @@ class GridView extends HTMLElement {
                 }
             }   
           </style>
-
               <div class="cardContainer">
-                      <card-view1
+                      <card-view3
                           image="${this.imageurl}"
                           date="1/1/1"
                           eventname="Cinema"
                           location="Mandi House"
                           description="Acting and Learning"
                           type="Workshop"
-                      ></card-view1>
+                      ></card-view3>
                         <card-view3
                           image="${this.imageurl}"
                           date="1/1/1"
@@ -100,13 +99,3 @@ class GridView extends HTMLElement {
 }
 
 customElements.define('grid-view', GridView);
-
-{/* <card-view
-image="${this.imageurl}"
-date="${item._source.start_date}"
-eventname="${item._source.name}"
-location="${item._source.country_name}"
-description="${item._source.description}"
-key="${key}"
-type="${item._source.event_type}"
-></card-view> */}

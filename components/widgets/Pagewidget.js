@@ -84,10 +84,6 @@ class Pagewidget extends HTMLElement {
     }
 
     render() {
-        let isPromotedEvent = false
-        if (this.data?.top_3?.length > 0) {
-            isPromotedEvent = true;
-        }
         let activeContent;
         switch (this.activeView) {
             case 'Your View':

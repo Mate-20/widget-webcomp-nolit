@@ -3,13 +3,15 @@ class ScrollViewHorizontal extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.type = this.getAttribute('type') || 'top';
-        this.selectedCard = this.getAttribute('selectedCard') || 'card2';
+        this.selectedCard = this.getAttribute('selectedCard') || 'card1';
         this.image = this.getAttribute('image') || 'https://designshack.net/wp-content/uploads/placeholder-image.png';
         this.date = this.getAttribute('date') || '';
         this.eventname = this.getAttribute('eventname') || '';
         this.location = this.getAttribute('location') || '';
         this.description = this.getAttribute('description') || '';
-        this.typeEvent = this.getAttribute('type') || '';
+        this.typeEvent = this.getAttribute('typeEvent') || '';
+        this.cardCount = 5; // Initial number of cards
+        this.totalCards = 20; // Total number of cards available, you can change this as needed
     }
 
     static get observedAttributes() {
@@ -25,40 +27,114 @@ class ScrollViewHorizontal extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        this.observeLastCard();
+    }
+
+    fetchMoreCards() {
+        // Simulate fetching more data
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                const newCards = Array.from({ length: 5 }).map(() => {
+                    return {
+                        image: this.image,
+                        date: this.date,
+                        eventname: this.eventname,
+                        location: this.location,
+                        description: this.description,
+                        typeEvent: this.typeEvent
+                    };
+                });
+                resolve(newCards);
+            }, 1000);
+        });
+    }
+
+    async loadMoreCards() {
+        if (this.cardCount >= this.totalCards) return; // Stop loading if all cards are loaded
+
+        const newCardsData = await this.fetchMoreCards();
+        this.cardCount += newCardsData.length;
+        this.appendCards(newCardsData);
+        this.observeLastCard(); // Reattach observer to the new last card
+    }
+
+    appendCards(cardsData) {
+        const scrollContainer = this.shadowRoot.querySelector('.horizontalScroll');
+        const EventCard = this.getCardViewType();
+
+        cardsData.forEach(data => {
+            const card = document.createElement(EventCard);
+            card.setAttribute('image', data.image);
+            card.setAttribute('date', data.date);
+            card.setAttribute('eventname', data.eventname);
+            card.setAttribute('location', data.location);
+            card.setAttribute('description', data.description);
+            card.setAttribute('type', data.typeEvent);
+            const cardContainer = document.createElement('div');
+            cardContainer.appendChild(card);
+            scrollContainer.appendChild(cardContainer);
+        });
+    }
+
+    getCardViewType() {
+        switch (this.selectedCard) {
+            case 'card1':
+                return 'card-view1';
+            case 'card2':
+                return 'card-view2';
+            default:
+                return 'card-view3';
+        }
+    }
+
+    observeLastCard() {
+        const scrollContainer = this.shadowRoot.querySelector('.horizontalScroll');
+        const lastCard = scrollContainer.lastElementChild;
+        if (!lastCard) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadMoreCards();
+                    observer.unobserve(lastCard); // Stop observing the current last card
+                }
+            });
+        });
+        observer.observe(lastCard);
     }
 
     render() {
-        let EventCard;
-
-        switch (this.selectedCard) {
-            case 'card1':
-                EventCard = 'card-view1';
-                break;
-            case 'card2':
-                EventCard = 'card-view2';
-                break;
-            default:
-                EventCard = 'card-view3';
-        }
-
-        // Create card elements
-        const cards = Array.from({ length: 5 }).map(() => {
-            const card = document.createElement(EventCard);
-            card.setAttribute('image', this.image);
-            card.setAttribute('date', this.date);
-            card.setAttribute('eventname', this.eventname);
-            card.setAttribute('location', this.location);
-            card.setAttribute('description', this.description);
-            card.setAttribute('type', this.typeEvent);
-            return card;
+        const initialCards = Array.from({ length: this.cardCount }).map(() => {
+            return {
+                image: this.image,
+                date: this.date,
+                eventname: this.eventname,
+                location: this.location,
+                description: this.description,
+                typeEvent: this.typeEvent
+            };
         });
+
+        const EventCard = this.getCardViewType();
+        const cardHTML = initialCards.map(data => {
+            const card = document.createElement(EventCard);
+            card.setAttribute('image', data.image);
+            card.setAttribute('date', data.date);
+            card.setAttribute('eventname', data.eventname);
+            card.setAttribute('location', data.location);
+            card.setAttribute('description', data.description);
+            card.setAttribute('type', data.typeEvent);
+            const cardContainer = document.createElement('div');
+            cardContainer.appendChild(card);
+            return cardContainer.outerHTML;
+        }).join('');
 
         this.shadowRoot.innerHTML = `
             <style>
-                .topBody{
+                .topBody {
                     width: 100%;
                 }
-                .horizontalScroll{
+                .horizontalScroll {
                     padding: 10px;
                     display: flex;
                     overflow-x: auto;
@@ -66,9 +142,9 @@ class ScrollViewHorizontal extends HTMLElement {
                 }
             </style>
 
-            <div class='topBody'">
+            <div class='topBody'>
                 <div class='horizontalScroll'>
-                    ${cards.map(card => `<div>${card.outerHTML}</div>`).join('')}
+                    ${cardHTML}
                 </div>
             </div>
         `;
