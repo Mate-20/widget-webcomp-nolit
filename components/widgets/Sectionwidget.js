@@ -4,7 +4,7 @@ class Sectionwidget extends HTMLElement{
         this.attachShadow({ mode: 'open' });
         this.data = null;
         this.toggleState = false; // this state is for opening the modal
-        this.selectedView = this.getAttribute('selectedCard') || 'verscroll';
+        this.selectedView = this.getAttribute('selectedCard') || 'horscroll';
         this.formData = {
             eventname: "demoevent",
             eventlocation: "demolocation",
@@ -35,10 +35,6 @@ class Sectionwidget extends HTMLElement{
                 break;
             default:
                 view = 'carousel-view';
-        }
-        let isPromotedEvent = false
-        if(this.data?.top_3?.length > 0){
-            isPromotedEvent = true;
         }
         this.shadowRoot.innerHTML = `
         <style>

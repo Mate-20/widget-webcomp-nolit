@@ -3,7 +3,7 @@ class CarouselView extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.currentIndex = 0;
-        this.bannersPerPage = 1;
+        this.bannersPerPage = 20;
         this.carouselRef = null;  // Will be assigned after rendering
         this.handleResize = this.handleResize.bind(this);
         this.handleNext = this.handleNext.bind(this);
@@ -113,12 +113,17 @@ class CarouselView extends HTMLElement {
             this.createBanner('5'),
             this.createBanner('6'),
             this.createBanner('7'),
+            this.createBanner('8'),
+            this.createBanner('9'),
         ];
 
         this.shadowRoot.innerHTML = `
             <style>
-                .carousel {
+                .body{
                     position: relative;
+                    padding : 10px;
+                }
+                .carousel {
                     width: 100%;
                     overflow: hidden;
                 }
@@ -133,11 +138,11 @@ class CarouselView extends HTMLElement {
                 }
                 .navButton {
                     position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
+                    top: 55%;
+                    transform: translateY(-100%);
                     z-index: 1;
-                    height: 55px;
-                    width: 55px;
+                    height: 50px;
+                    width: 50px;
                     background-color: white;
                     border-radius: 50px;
                     filter: drop-shadow(1px 1px 3px rgb(83, 83, 83));
@@ -147,23 +152,23 @@ class CarouselView extends HTMLElement {
                     border: none;
                 }
                 .navButton:disabled {
-                    background-color: #ccc;
-                    cursor: not-allowed;
+                    display : none;
                 }
                 .navButton.prevButton {
-                    left: 0;
+                    left: -15px;
                 }
                 .navButton.nextButton {
-                    right: 0;
+                    right:-15px;
                 }
             </style>
-
+            <div class="body">
             <div class="carousel">
                 <button class="navButton prevButton">&lt;</button>
                 <div class="innerSlider">
                     ${this.banners.map(banner => `<div class="banner">${banner.outerHTML}</div>`).join('')}
                 </div>
                 <button class="navButton nextButton">&gt;</button>
+            </div>
             </div>
         `;
 

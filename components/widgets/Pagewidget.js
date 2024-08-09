@@ -28,7 +28,7 @@ class Pagewidget extends HTMLElement {
     //         this.pagequery = pageIdData.data.query;
     //         if (activeState) {
     //             const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.pagequery}`);
-    //             this.data = await mainDataResponse.json();
+    //             this.data = await mainDataResponse.json();    
     //         } else {
     //             console.log("Widget is inactive. Skipping data fetch.");
     //             this.data = null; // Set data to null or an empty object/array as needed

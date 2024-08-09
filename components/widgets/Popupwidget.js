@@ -4,8 +4,18 @@ class Popupwidget extends HTMLElement {
         this.attachShadow({ mode: 'open' });
     }
     connectedCallback() {
+        this.fetchData();
         this.render();
         // this.style.display = 'none';
+    }
+
+     async fetchData() {
+        try {
+            const pageIdResponse = await fetch(`https://api.eventgeni.com/widget`);
+            const pageIdData = await pageIdResponse.json();
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
 
     render() {
