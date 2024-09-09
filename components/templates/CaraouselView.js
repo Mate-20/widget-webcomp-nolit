@@ -44,7 +44,6 @@ class CarouselView extends HTMLElement {
 
         element.setAttribute('event',  JSON.stringify(event).replace(/'/g, "&apos;") || "");
         element.setAttribute('customizedData',  JSON.stringify(this.customizeData).replace(/'/g, "&apos;") || "");
-
         return element;
     }
 

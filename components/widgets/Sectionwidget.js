@@ -12,7 +12,9 @@ class Sectionwidget extends HTMLElement {
     }
     connectedCallback() {
         this.sectionid = this.getAttribute('section-id');
+        this.fetchData()
         console.log("section widget")
+        console.log(this.sectionid)
         this.observeAttributes();
     }
     observeAttributes() {
@@ -42,8 +44,7 @@ class Sectionwidget extends HTMLElement {
 
     async fetchData() {
         try {
-            const id = this.sectionid
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${id}`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.sectionid}`);
             const responseData = await response.json();
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
             const eventData = responseData.data.eventData;
