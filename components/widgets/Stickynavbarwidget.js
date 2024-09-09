@@ -8,7 +8,7 @@ class Stickynavbarwidget extends HTMLElement{
     }
     async fetchData() {
         try {
-            const response = await fetch(`https://api.eventgeni.com/widgets/${this.stickyid}?type=sticky`);
+            const response = await fetch(`https://api.eventgeni.com/widget/cm01z061a0009rr9ojn8w582a`);
             const currData = await response.json();
             const finalData = currData.data
             console.log("Sticky Data posted", finalData)
@@ -23,9 +23,43 @@ class Stickynavbarwidget extends HTMLElement{
             console.error('Error fetching data:', error);
         }
     }
+    getUserLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log('User position:', position);
+                    console.log('Latitude:', position.coords.latitude);
+                    console.log('Longitude:', position.coords.longitude);
+                },
+                (error) => {
+                    console.warn('Geolocation failed or was denied:', error);
+                    this.getLocationByIP(); // Fallback to IP-based location
+                }
+            );
+        } else {
+            console.warn('Geolocation is not supported by this browser.');
+            this.getLocationByIP(); // Fallback to IP-based location
+        }
+    }
+
+    async getLocationByIP() {
+        try {
+            // Replace with a real IP geolocation API URL
+            const response = await fetch('https://ipinfo.io/json?token=74ad0ca9b6d5ad');
+            const data = await response.json();
+            console.log('User IP location:', data);
+            console.log('City:', data.city);
+            console.log('Region:', data.region);
+            console.log('Country:', data.country);
+            console.log('Latitude and Longitude:', data.loc); 
+        } catch (error) {
+            console.error('Error fetching location by IP:', error);
+        }
+    }
     connectedCallback() {
         this.stickyid = this.getAttribute('sticky-id'); // Set initial stickyid
         this.fetchData();
+        this.getUserLocation();
         this.observeAttributes(); // Start observing attribute changes
         this.render(); // Initial render
     }

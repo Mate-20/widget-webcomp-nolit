@@ -1,31 +1,87 @@
-class Sectionwidget extends HTMLElement{
+class Sectionwidget extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.data = null;
+        this.customizationData = null;
         this.toggleState = false; // this state is for opening the modal
         this.selectedView = this.getAttribute('selectedCard') || 'horscroll';
-        this.formData = {
-            eventname: "demoevent",
-            eventlocation: "demolocation",
-            eventimage: "https://designshack.net/wp-content/uploads/placeholder-image.png",
-            eventdate: "1/1/1",
-            eventdescription: "demo description",
-        };
+        // this.formData = {
+        //     eventname: "demoevent",
+        //     eventlocation: "demolocation",
+        //     eventimage: "https://designshack.net/wp-content/uploads/placeholder-image.png",
+        //     eventdate: "1/1/1",
+        //     eventdescription: "demo description",
+        // };
+        this.selectedCardStyle = "style1";
         this.sectionquery = ""
         this.sectionid = ""
+
     }
     connectedCallback() {
-        this.sectionid = this.getAttribute('section-id'); 
-        this.render()
+        this.sectionid = this.getAttribute('section-id');
+        this.observeAttributes();
     }
+    observeAttributes() {
+        // Create a new MutationObserver instance
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'section-id') {
+                    // When 'sticky-id' attribute changes, update the stickyid and fetch new data
+                    this.sectionid = mutation.target.getAttribute('section-id');
+                    this.fetchData();
+                }
+            });
+        });
+        // Observe changes to attributes
+        this.observer.observe(this, { attributes: true });
+    }
+    asciiToString(ascii) {
+        let convertedValue = ascii.toString();
+        let str = '';
+        for (let i = 0; i < convertedValue.length; i += 2) {
+            const code = convertedValue.substring(i, i + 2);
+            str += String.fromCharCode(parseInt(code, 10));
+        }
+        return str;
+    };
 
-    render(){
+
+    async fetchData() {
+        try {
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.sectionid}`);
+            const responseData = await response.json();
+            const otherDataEvents = responseData.data.widgetData.otherdata.event;
+            const eventData = responseData.data.eventData;
+            this.customizationData = responseData.data.widgetData.customizationData
+            // Combine otherDataEvents and eventData based on matching IDs
+            this.data = eventData.map(event => {
+                // Find the matching event in otherDataEvents based on id
+                const matchingOtherDataEvent = otherDataEvents.find(otherEvent => otherEvent.id === event.id);
+                // Return the combined object (event + matchingOtherDataEvent)
+                return {
+                    ...event, // eventData properties
+                    ...matchingOtherDataEvent // otherData properties (this will override any matching properties)
+                };
+            });
+            console.log("Combined Data:", this.data);
+            const widgetStatus = responseData.data.widgetData.status
+            this.selectedView = this.asciiToString(responseData.data.widgetData.templatePublicId)
+            this.selectedCardStyle = responseData.data.widgetData.customizationData.selectedCard
+            if (widgetStatus !== "active") {
+                return;
+            } else {
+                this.render();
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    render() {
         let view;
-
         switch (this.selectedView) {
-            case 'horscroll':
-                view = 'horizontalscroll-view';
+            case 'CV':
+                view = `<carousel-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' ></carousel-view>`;
                 break;
             case 'verscroll':
                 view = 'verticalscroll-view';
@@ -34,42 +90,19 @@ class Sectionwidget extends HTMLElement{
                 view = 'hero-banner';
                 break;
             default:
-                view = 'carousel-view';
+                view = `<carousel-view selectedCard="${this.selectedCardStyle}"/>`;
         }
         this.shadowRoot.innerHTML = `
         <style>
-            .verscrollbody{
-                background-color : black;
-                padding : 20px;
-                width : fit-content;
-            }
-            .horscrollbody{
-                background-color : black;
-                padding : 20px;
-            }
-            .carouselbody{
-                background-color : black;
-                padding : 20px;
-            }
-            .herobannerbody{
-                background-color : black;
-                padding : 20px;
-            }
-            .heading{
-                font-size : 25px;
-                color : white;
-                margin-bottom : 20px;
+            .body{
+                width : 100%;
+                height : 100%;
             }
         </style>
-        <div class="${this.selectedView === "verscroll" ? "verscrollbody" : this.selectedView === "horscroll" ? "horscrollbody" : this.selectedView === "carousel" ? "carouselbody": this.selectedView === "hero" ? "herobannerbody" : ""}">
-            <div class="heading">Meet us here</div>
-            <div class="view-container"></div>
+        <div class="body">
+            ${view}
         </div>
         `;
-
-        const viewContainer = this.shadowRoot.querySelector('.view-container');
-        const viewElement = document.createElement(view);
-        viewContainer.appendChild(viewElement);
     }
 }
 customElements.define('section-widget', Sectionwidget);

@@ -3,181 +3,169 @@ class CarouselView extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.currentIndex = 0;
-        this.bannersPerPage = 20;
-        this.carouselRef = null;  // Will be assigned after rendering
-        this.handleResize = this.handleResize.bind(this);
-        this.handleNext = this.handleNext.bind(this);
-        this.handlePrev = this.handlePrev.bind(this);
-        this.selectedCard = this.getAttribute('selectedCard') || 'card2';
+        this.selectedCard = "";
+        this.data = JSON.parse(this.getAttribute('data'));
+        this.customizeData = JSON.parse(this.getAttribute('customizeData'));
+        console.log("carousel data", this.data)
+        console.log("customize data", this.customizeData)
+        this.banners = [];
     }
-
-    static get observedAttributes() {
-        return ['selectedCard', 'image', 'date', 'eventname', 'location', 'description', 'type'];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (oldValue !== newValue) {
-            this.render();
-        }
-    }
-
+    // static get observedAttributes() {
+    //     return ['selectedCard', 'image', 'date', 'eventname', 'location', 'description', 'type'];
+    // }
+    // attributeChangedCallback(name, oldValue, newValue) {
+    //     if (oldValue !== newValue) {
+    //         this.render();
+    //     }
+    // }
     connectedCallback() {
+        console.log("crousel view")
+        this.selectedCard = this.customizeData.selectedCard
         this.render();
-        setTimeout(() => {
-            this.handleResize();
-            window.addEventListener('resize', this.handleResize);
-        }, 0);
     }
 
     disconnectedCallback() {
-        window.removeEventListener('resize', this.handleResize);
         this.shadowRoot.querySelector('.prevButton').removeEventListener('click', this.handlePrev);
         this.shadowRoot.querySelector('.nextButton').removeEventListener('click', this.handleNext);
     }
 
-    handleResize() {
-        const containerWidth = this.carouselRef.offsetWidth;
-        console.log(containerWidth)
-        const cardWidth = 300; // Adjust based on your card's width
-        const newBannersPerPage = Math.floor(containerWidth / cardWidth);
-        this.bannersPerPage = newBannersPerPage > 0 ? newBannersPerPage : 1;
-        this.updateSlider();
-        this.updateButtons();
-    }
-
-    handleNext() {
-        if (this.currentIndex < this.maxIndex()) {
-            this.currentIndex += 1;
-            this.updateSlider();
-            this.updateButtons();
-        }
-    }
-
-    handlePrev() {
-        if (this.currentIndex > 0) {
-            this.currentIndex -= 1;
-            this.updateSlider();
-            this.updateButtons();
-        }
-    }
-
-    maxIndex() {
-        const maxIndex = Math.max(0, Math.ceil(this.banners.length / this.bannersPerPage) - 1);
-        console.log(`Max Index: ${maxIndex}, Banners Length: ${this.banners.length}, Banners Per Page: ${this.bannersPerPage}`);
-        return maxIndex;
-    }
-
-    createBanner(key) {
+    createBanner(event) {
         let element;
         switch (this.selectedCard) {
-            case 'card1':
+            case 'style1':
                 element = document.createElement('card-view1');
                 break;
-            case 'card2':
+            case 'style2':
                 element = document.createElement('card-view2');
                 break;
             default:
                 element = document.createElement('card-view3');
         }
 
-        // Set attributes for the card
-        element.setAttribute('image', this.getAttribute('image') || 'https://designshack.net/wp-content/uploads/placeholder-image.png');
-        element.setAttribute('date', this.getAttribute('date') || '');
-        element.setAttribute('eventname', this.getAttribute('eventname') || '');
-        element.setAttribute('location', this.getAttribute('location') || '');
-        element.setAttribute('description', this.getAttribute('description') || '');
-        element.setAttribute('type', this.getAttribute('type') || '');
+        element.setAttribute('event',  JSON.stringify(event).replace(/'/g, "&apos;") || "");
+        element.setAttribute('customizedData',  JSON.stringify(this.customizeData).replace(/'/g, "&apos;") || "");
 
         return element;
     }
 
-    updateSlider() {
-        const innerSlider = this.shadowRoot.querySelector('.innerSlider');
-        innerSlider.style.transform = `translateX(-${this.currentIndex * (100 / this.bannersPerPage)}%)`;
-    }
+    handleNext = () => {
+        if (this.currentIndex < this.banners.length - 1) {
+            this.currentIndex += 1;
+        }
+        console.log("current index : ", this.currentIndex)
+        this.updateView();
+    };
 
-    updateButtons() {
+    handlePrev = () => {
+        if (this.currentIndex > 0) {
+            this.currentIndex -= 1;
+        }
+        console.log("current index : ", this.currentIndex)
+        this.updateView();
+    };
+
+
+    updateView() {
+        const banners = this.shadowRoot.querySelectorAll('.card');
+        banners.forEach((banner, index) => {
+            banner.classList.remove('active', 'left', 'right');
+
+            if (index === this.currentIndex) {
+                banner.classList.add('active');
+            } else if (this.currentIndex != 0 && index === this.currentIndex - 1) {
+                banner.classList.add('left');
+            } else if (this.currentIndex < banners.length && index === this.currentIndex + 1) {
+                banner.classList.add('right');
+            }
+        });
+        // Disable buttons based on index
         const prevButton = this.shadowRoot.querySelector('.prevButton');
         const nextButton = this.shadowRoot.querySelector('.nextButton');
-        
+
         prevButton.disabled = this.currentIndex === 0;
-        nextButton.disabled = this.currentIndex >= this.maxIndex();
+        nextButton.disabled = this.currentIndex === this.banners.length - 1;
     }
 
     render() {
-        this.banners = [
-            this.createBanner('1'),
-            this.createBanner('2'),
-            this.createBanner('3'),
-            this.createBanner('4'),
-            this.createBanner('5'),
-            this.createBanner('6'),
-            this.createBanner('7'),
-            this.createBanner('8'),
-            this.createBanner('9'),
-        ];
+        this.banners = this.data.map(event => this.createBanner(event));
 
         this.shadowRoot.innerHTML = `
             <style>
-                .body{
-                    position: relative;
-                    padding : 10px;
-                }
-                .carousel {
-                    width: 100%;
-                    overflow: hidden;
-                }
-                .innerSlider {
+                .sliderContainer {
                     display: flex;
-                    transition: transform 0.5s ease-in-out;
+                    gap: 10px;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    width: 95%;
+                    height: 100%;
+                    z-index: 1;
                 }
-                .banner {
-                    flex: 0 0 300px; /* Adjust based on your card's width */
-                    box-sizing: border-box;
-                    padding: 12px;
+                .cards {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    width: 100%;
+                    position: relative;
+                    height: 100%;
+                }
+                .card {
+                    transition: transform 0.5s ease, opacity 0.2s ease;
+                    position: absolute;
+                    opacity: 0;
+                }
+                .card.active {
+                    filter: drop-shadow(1px 1px 2px rgb(67, 67, 67));
+                    z-index: 2;
+                    opacity: 1;
+                }
+                .card.left {
+                    transform: translateX(-70%) scale(0.8);
+                    z-index: 1;
+                    opacity: 0.5;
+                }
+                .card.right {
+                    transform: translateX(70%) scale(0.8);
+                    z-index: 1;
+                    opacity: 0.5;
                 }
                 .navButton {
+                    cursor: pointer;
                     position: absolute;
-                    top: 55%;
-                    transform: translateY(-100%);
-                    z-index: 1;
+                    top: 54%;
+                    transform: translateY(-50%);
+                    border: none;
+                    z-index: 999;
                     height: 50px;
                     width: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     background-color: white;
                     border-radius: 50px;
-                    filter: drop-shadow(1px 1px 3px rgb(83, 83, 83));
-                    font-size: 20px;
-                    color: black;
-                    cursor: pointer;
-                    border: none;
+                    filter: drop-shadow(1px 1px 2px rgb(23, 23, 23));
                 }
-                .navButton:disabled {
-                    display : none;
+                .navButton:first-of-type {
+                    left: 1px;
                 }
-                .navButton.prevButton {
-                    left: -15px;
-                }
-                .navButton.nextButton {
-                    right:-15px;
+                .navButton:last-of-type {
+                    right: 1px;
                 }
             </style>
-            <div class="body">
-            <div class="carousel">
+            <div class="sliderContainer">
                 <button class="navButton prevButton">&lt;</button>
-                <div class="innerSlider">
-                    ${this.banners.map(banner => `<div class="banner">${banner.outerHTML}</div>`).join('')}
+                <div class="cards">
+                    ${this.banners.map((banner, index) => `<div class="card">${banner.outerHTML}</div>`).join('')}
                 </div>
-                <button class="navButton nextButton">&gt;</button>
-            </div>
+                <button class="navButton nextButton"}>&gt;</button>
             </div>
         `;
-
-        this.carouselRef = this.shadowRoot.querySelector('.carousel');
         this.shadowRoot.querySelector('.prevButton').addEventListener('click', this.handlePrev);
         this.shadowRoot.querySelector('.nextButton').addEventListener('click', this.handleNext);
 
-        this.updateButtons();
-        this.updateSlider();
+        this.updateView();
     }
 }
 

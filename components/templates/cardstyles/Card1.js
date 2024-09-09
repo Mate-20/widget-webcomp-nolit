@@ -1,51 +1,42 @@
 class Card1 extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        // Initialize properties if needed
+        this.event = JSON.parse(this.getAttribute('event'))
+        this.customizedData = JSON.parse(this.getAttribute('customizedData'))
+        console.log("card data : ", this.event)
+        console.log("customized data : ", this.customizedData)
+        this.day_month = this.formatStartDate(this.event.start_date);
+        this.render();
+    }
 
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    // Initialize properties if needed
-    this.render();  
-  }
-
-  connectedCallback() {
-    // For getting the passed call back function
-  //   const eventdata = {
-  //     eventname: this.eventname,
-  //     eventlocation: this.location,
-  //     eventimage: this.image,
-  //     eventdate: this.date,
-  //     eventdescription: this.description,
-  // };
-  //   const openModalEvent = new CustomEvent('modal-open', {
-  //     detail:eventdata ,
-  //     bubbles: true, // Allow event to bubble up
-  //     composed: true, // Allow event to cross shadow DOM boundaries
-  //   });
-  //   const cards = this.shadowRoot.querySelectorAll('.card');
-  //   cards.forEach(card => {
-  //     card.addEventListener('click', () => {
-  //       this.dispatchEvent(openModalEvent);
-  //     });
-  //   });
-  }
-
-  static get observedAttributes() {
-    return ['image', 'eventname', 'date', 'location', 'cardcolor', 'cardradius','description','cardwidth','imageheight','cardheight','type'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    this[name] = newValue;
-    this.render();
-  }
-
-  render() {
-    this.shadowRoot.innerHTML = `
+    connectedCallback() {
+        console.log("Card1")
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        this[name] = newValue;
+        this.render();
+    }
+    formatStartDate(dateString) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = months[date.getMonth()];
+        return { day, month };
+    };
+    formatDate(date){
+        const options = { day: '2-digit', month: 'short' };
+        return new Date(date).toLocaleDateString('en-US', options);
+    };
+    render() {
+        this.shadowRoot.innerHTML = `
     <style>
                 .card {
-                    min-width: 305px;
+                    max-width: 305px;
                     min-height: 337px;
-                    border-radius: 25px;
-                    background-color: white;
+                    border-radius: ${this.customizedData.cardBorderRadius}px;
+                    background-color: ${this.customizedData.cardBgColor};
                     display: flex;
                     flex-direction: column;
                     align-items: center;
@@ -61,7 +52,7 @@ class Card1 extends HTMLElement {
                 }
                 .date_location_nameContainer {
                     padding: 20px 14px 0px 14px;
-                    width: 100%;
+                    width: 90%;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -78,12 +69,12 @@ class Card1 extends HTMLElement {
                 }
                 .date {
                     color: black;
-                    font-size: 15px;
+                    font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                     font-weight: 600;
                 }
                 .month {
                     color: black;
-                    font-size: 10px;
+                    font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                     font-weight: 400;
                 }
                 .line {
@@ -102,14 +93,14 @@ class Card1 extends HTMLElement {
                     gap: 8px;
                 }
                 .location {
-                    font-size: 12px;
-                    color: #6E6F89;
+                    font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
+                    color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                     font-weight: 500;
                 }
                 .eventName {
                     font-weight: 700;
-                    font-size: 17px;
-                    color: black;
+                    color: ${this.customizedData.fontSettings?.heading?.fontColor};
+                    font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 }
                 .dividerLine {
                     margin-top: 12px;
@@ -119,14 +110,14 @@ class Card1 extends HTMLElement {
                 .dateRange_typeContainer {
                     display: flex;
                     align-items: center;
-                    width: 100%;
+                    width: 90%;
                     justify-content: space-between;
                     padding : 10px;
                 }
                 .pill {
                     border-radius: 6px;
                     padding: 4px 8px;
-                    font-size: 12px;
+                    font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;;
                     font-weight: 500;
                 }
                 .dateRange {
@@ -144,35 +135,35 @@ class Card1 extends HTMLElement {
             </style>
 
       <a href="https://console.eventgeni.com/detailpage" target="_blank" class="card">
-        <img src=${this.image} alt="placeholder" class="banner"/>
+        <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
                 <div class="date_location_nameContainer">
                     <div class="dateContainer">
-                        <span class="date">29</span>
-                        <span class="month">Jan</span>
+                        <span class="date">${this.day_month.day}</span>
+                        <span class="month">${this.day_month.month}</span>
                     </div>
                     <div class="line"></div>
                     <div class="name_locationContainer">
                         <div class="locationContainer">
                             ${this.locationIcon()}
-                            <div class="location">Corpus Christi, USA</div>
+                            <div class="location">${this.event.location_city}</div>
                         </div>
-                        <div class="eventName">Join Gifts World Expo 2024</div>
+                        <div class="eventName">${this.event.name.substring(0,15)}</div>
                     </div>
                 </div>
                 <div class="dividerLine"></div>
                 <div class="dateRange_typeContainer">
-                    <div class="pill dateRange">29 Jan - 5 Feb</div>
+                    <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     <div class="pill type1">Tradeshow</div>
                     <div class="pill type2">Attending</div>
                 </div>
       </a>
     `;
-  }
-  locationIcon(){
-    return `
+    }
+    locationIcon() {
+        return `
     <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 -960 960 960" width="15px" fill="black"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
     `
-}
+    }
 }
 
 customElements.define('card-view1', Card1);
