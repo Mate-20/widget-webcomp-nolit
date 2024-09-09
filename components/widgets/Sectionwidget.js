@@ -6,20 +6,14 @@ class Sectionwidget extends HTMLElement {
         this.customizationData = null;
         this.toggleState = false; // this state is for opening the modal
         this.selectedView = this.getAttribute('selectedCard') || 'horscroll';
-        // this.formData = {
-        //     eventname: "demoevent",
-        //     eventlocation: "demolocation",
-        //     eventimage: "https://designshack.net/wp-content/uploads/placeholder-image.png",
-        //     eventdate: "1/1/1",
-        //     eventdescription: "demo description",
-        // };
-        this.selectedCardStyle = "style1";
         this.sectionquery = ""
         this.sectionid = ""
 
     }
     connectedCallback() {
         this.sectionid = this.getAttribute('section-id');
+        console.log("section widget")
+        console.log("id is : ",this.sectionid)
         this.observeAttributes();
     }
     observeAttributes() {
@@ -67,7 +61,6 @@ class Sectionwidget extends HTMLElement {
             console.log("Combined Data:", this.data);
             const widgetStatus = responseData.data.widgetData.status
             this.selectedView = this.asciiToString(responseData.data.widgetData.templatePublicId)
-            this.selectedCardStyle = responseData.data.widgetData.customizationData.selectedCard
             if (widgetStatus !== "active") {
                 return;
             } else {
@@ -90,7 +83,7 @@ class Sectionwidget extends HTMLElement {
                 view = 'hero-banner';
                 break;
             default:
-                view = `<carousel-view selectedCard="${this.selectedCardStyle}"/>`;
+                view = `<carousel-view/>`;
         }
         this.shadowRoot.innerHTML = `
         <style>
