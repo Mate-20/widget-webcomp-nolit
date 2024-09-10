@@ -6,7 +6,7 @@ class Sectionwidget extends HTMLElement {
         this.customizationData = null;
         this.toggleState = false; // this state is for opening the modal
         this.selectedView = this.getAttribute('selectedCard') || 'horscroll';
-        this.sectionid = ""
+        this.sectionid = "asdqweewdew"
     }
     connectedCallback() {
         this.sectionid = this.getAttribute('section-id');
@@ -42,11 +42,15 @@ class Sectionwidget extends HTMLElement {
 
     async fetchData() {
         try {
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.sectionid}`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/cm0upk6mm0005uan2f8rdxyq0`);
             const responseData = await response.json();
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
             const eventData = responseData.data.eventData;
             this.customizationData = responseData.data.widgetData.customizationData
+
+            const widgetId = responseData.data.widgetData.id; // assuming the widgetId is available here
+            this.customizationData.widgetId = widgetId;
+
             // Combine otherDataEvents and eventData based on matching IDs
             this.data = eventData.map(event => {
                 // Find the matching event in otherDataEvents based on id
@@ -58,6 +62,7 @@ class Sectionwidget extends HTMLElement {
                 };
             });
             console.log("Combined Data:", this.data);
+            console.log("customize Data:", this.customizationData);
             const widgetStatus = responseData.data.widgetData.status
             this.selectedView = this.asciiToString(responseData.data.widgetData.templatePublicId)
             if (widgetStatus !== "active") {
@@ -73,7 +78,7 @@ class Sectionwidget extends HTMLElement {
         let view;
         switch (this.selectedView) {
             case 'CV':
-                view = `<carousel-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' widgetid=${this.sectionid}></carousel-view>`;
+                view = `<carousel-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></carousel-view>`;
                 break;
             case 'verscroll':
                 view = 'verticalscroll-view';

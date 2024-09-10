@@ -46,6 +46,9 @@ class Pagewidget extends HTMLElement {
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
             const eventData = responseData.data.eventData;
             this.customizationData = responseData.data.widgetData.customizationData
+
+            const widgetId = responseData.data.widgetData.id; // assuming the widgetId is available here
+            this.customizationData.widgetId = widgetId;
             // Combine otherDataEvents and eventData based on matching IDs
             this.data = eventData.map(event => {
                 // Find the matching event in otherDataEvents based on id
@@ -73,10 +76,10 @@ class Pagewidget extends HTMLElement {
         let activeContent;
         switch (this.selectedView) {
             case 'LS':
-                activeContent = `<list-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' widgetid=${this.pageid}></list-view>`;
+                activeContent = `<list-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></list-view>`;
                 break;
             case 'GS':
-                activeContent = `<grid-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' widgetid=${this.pageid}></grid-view>`;
+                activeContent = `<grid-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></grid-view>`;
                 break;
             case 'Map':
                 activeContent = `<map-view></map-view>`;

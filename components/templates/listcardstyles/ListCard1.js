@@ -142,7 +142,7 @@ class ListCard1 extends HTMLElement {
             }
         </style>
 
-        <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.widgetid}&eventId=${this.event.id}`} target="_blank" class="card">
+        <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
             <div class="bannerContainer">
                 <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
             </div>
