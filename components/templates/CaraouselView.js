@@ -10,14 +10,6 @@ class CarouselView extends HTMLElement {
         console.log("customize data", this.customizeData)
         this.banners = [];
     }
-    // static get observedAttributes() {
-    //     return ['selectedCard', 'image', 'date', 'eventname', 'location', 'description', 'type'];
-    // }
-    // attributeChangedCallback(name, oldValue, newValue) {
-    //     if (oldValue !== newValue) {
-    //         this.render();
-    //     }
-    // }
     connectedCallback() {
         console.log("crousel view")
         this.selectedCard = this.customizeData.selectedCard

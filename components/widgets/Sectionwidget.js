@@ -6,9 +6,7 @@ class Sectionwidget extends HTMLElement {
         this.customizationData = null;
         this.toggleState = false; // this state is for opening the modal
         this.selectedView = this.getAttribute('selectedCard') || 'horscroll';
-        this.sectionquery = ""
         this.sectionid = ""
-
     }
     connectedCallback() {
         this.sectionid = this.getAttribute('section-id');

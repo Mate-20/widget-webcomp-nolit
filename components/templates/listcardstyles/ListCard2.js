@@ -1,14 +1,34 @@
 class ListCard2 extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-  connectedCallback() {
-    this.render();
-  }
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        // Initialize properties if needed
+        this.event = JSON.parse(this.getAttribute('event'))
+        this.customizedData = JSON.parse(this.getAttribute('customizedData'))
+        console.log("card data : ", this.event)
+        console.log("customized data : ", this.customizedData)
+        this.render();
+    }
+    connectedCallback() {
+        console.log("Card2")
+    }
+    formatDate(date) {
+        const dateObj = new Date(date);
+        const day = dateObj.getDate();
+        const month = dateObj.toLocaleString('en-US', { month: 'long' });
+        const year = dateObj.getFullYear();
 
-  render() {
-    this.shadowRoot.innerHTML = `
+        // Function to get the appropriate suffix for the day
+        const getDayWithSuffix = (day) => {
+            const suffixes = ['th', 'st', 'nd', 'rd'];
+            const value = day % 100;
+            return day + (suffixes[(value - 20) % 10] || suffixes[value] || suffixes[0]);
+        };
+
+        return `${getDayWithSuffix(day)} ${month} ${year}`;
+    };
+    render() {
+        this.shadowRoot.innerHTML = `
         <style>
             .card{
                 width: 620px;
@@ -17,25 +37,26 @@ class ListCard2 extends HTMLElement {
                 gap: 16px;
                 align-items: center;
                 padding: 12px;
-                background-color: white;
-                border-radius: 8px;
+                border-radius:  ${this.customizedData.cardBorderRadius}px;
+                background-color:${this.customizedData.cardBgColor};
                 text-decoration : none;
             }
             .details{
+                min-width : 55%;
                 display: flex;
                 flex-direction: column;
                 gap: 21px;
             }
             .banner{
-                width: 282px;
+                min-width: 40%;
                 height: 100%;
                 border-radius: 8px;
                 filter: drop-shadow(1px 1px 4px rgb(109, 109, 109));
             }
             .eventName {
-                font-size: 18px;
+                font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: 700;
-                color: black;
+                color:  ${this.customizedData.fontSettings?.heading?.fontColor};
             }
             .location_dateContainer {
                 margin-top: 8px;
@@ -48,8 +69,8 @@ class ListCard2 extends HTMLElement {
                 gap: 8px;
             }
             .location {
-                color: #6E6F89;
-                font-size: 12px;
+                color: ${this.customizedData.fontSettings?.subheading?.fontColor};
+                font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: 500;
             }
             .dateContainer {
@@ -59,13 +80,13 @@ class ListCard2 extends HTMLElement {
                 gap: 8px;
             }
             .date {
-                font-size: 10px;
-                color: #6E6F89;
+                font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
+                color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-weight: 400;
             }
             .description{
-                font-size: 10px;
-                color: #6E6F89;
+                color: ${this.customizedData.fontSettings?.body?.fontColor};
+                font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-weight: 500;
                 line-height: 14px;
             }
@@ -83,7 +104,7 @@ class ListCard2 extends HTMLElement {
             .pill {
                 border-radius: 6px;
                 padding: 4px 8px;
-                font-size: 12px;
+                font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-weight: 500;
             }
             .type1 {
@@ -141,20 +162,20 @@ class ListCard2 extends HTMLElement {
         </style>
 
         <a href="https://console.eventgeni.com/detailpage" target="_blank" class="card">
-            <img src="https://imgstaticcontent.lbb.in/lbbnew/wp-content/uploads/2018/03/16130738/pic41-1024x681.jpg" alt="banner" class="banner" />
+            <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
             <div class="details">
-                <div class="eventName">Hampton Jazz Festival 2024</div>
+                <div class="eventName">${this.event.name}</div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">
-                        <img src="path/to/locationIcon.png" alt="location" />
-                        <div class="location">Corpus Christi, USA</div>
+                        ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
+                    <div class="location">${this.event.location_city}</div>
                     </div>
                     <div class="dateContainer">
-                         ${this.dateIcon()}
-                        <div class="date">1st Apr 2024 - 20th Apr 2024</div>
+                        ${this.dateIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
+                        <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     </div>
                 </div>
-                <div class="description">Amidst this gathering, immerse yourself in an atmosphere of collaboration and creative energy, as manufacturers, retailers, and distributors unite.....</div>
+                <div class="description">${this.event.description.substring(0,100)}</div>
                 <div class="type_peopleContainer">
                     <div class="typeContainer">
                         <div class="pill type1">Tradeshow</div>
@@ -178,14 +199,17 @@ class ListCard2 extends HTMLElement {
             </div>
         </a>
     `;
-}
-dateIcon() {
-    return `
-        <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 -960 960 960" width="15">
-            <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z" fill="black" />
-        </svg>
-    `;
-}
+    }
+    locationIcon(color) {
+        return `
+<svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 -960 960 960" width="15px" fill=${color}><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
+`
+    }
+    dateIcon(color) {
+        return `
+      <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 -960 960 960" width="15"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z" fill=${color} /></svg>
+`
+    }
 }
 
 customElements.define('listview-card2', ListCard2);

@@ -1,21 +1,40 @@
 class ListView extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        this.imageurl = "https://designshack.net/wp-content/uploads/placeholder-image.png"
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.currentIndex = 0;
+    this.selectedCard = "";
+    this.data = JSON.parse(this.getAttribute('data'));
+    this.customizeData = JSON.parse(this.getAttribute('customizeData'));
+    console.log("carousel data", this.data)
+    console.log("customize data", this.customizeData)
+    this.banners = [];
+  }
+  connectedCallback() {
+    console.log("list view")
+    this.selectedCard = this.customizeData.selectedCard
+    this.render();
+  }
+  createBanner(event) {
+    let element;
+    switch (this.selectedCard) {
+      case 'style1':
+        element = document.createElement('listview-card1');
+        break;
+      case 'style2':
+        element = document.createElement('listview-card2');
+        break;
+      default:
+        element = document.createElement('listview-card3');
     }
-    connectedCallback() {
-        this.data = JSON.parse(this.getAttribute('data'));
-        console.log("page data in multiple data ",this.data)
-        this.render();
-        this.updateLayout(); 
-        this.observer = new ResizeObserver(() => {
-            this.updateLayout();
-        });
-        this.observer.observe(this.shadowRoot.querySelector('.container')); // Observe changes to the container's size
-    }
-    render() {
-        this.shadowRoot.innerHTML = `
+
+    element.setAttribute('event', JSON.stringify(event).replace(/'/g, "&apos;") || "");
+    element.setAttribute('customizedData', JSON.stringify(this.customizeData).replace(/'/g, "&apos;") || "");
+    return element;
+  }
+  render() {
+    this.banners = this.data.map(event => this.createBanner(event));
+    this.shadowRoot.innerHTML = `
           <style>
             .container{
                 display: flex;
@@ -28,14 +47,11 @@ class ListView extends HTMLElement {
             }
           </style>
           <div class="container">   
-            <listview-card3></listview-card3>
-            <listview-card2></listview-card2>
-            <listview-card2></listview-card2>
-            <listview-card2></listview-card2>
+          ${this.banners.map((banner, index) => `<div class="card">${banner.outerHTML}</div>`).join('')}
           </div>  
         
       `;
-    }
+  }
 
 
 }

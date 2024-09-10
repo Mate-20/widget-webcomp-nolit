@@ -2,92 +2,78 @@ class Pagewidget extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.fetchData()
         this.data = null;
-        this.toggleState = false;
-        this.formData = {
-            eventname: "demoevent",
-            eventlocation: "demolocation",
-            eventimage: "https://designshack.net/wp-content/uploads/placeholder-image.png",
-            eventdate: "1/1/1",
-            eventdescription: "demo description",
-        };
-        this.pagequery = ""
+        this.customizationData = null;
+        this.selectedView = ""
         this.pageid = ""
-        this.activeView = 'Your View'; // Default active view
-        this.participationFilter = "All"
     }
+    connectedCallback() {
+        this.pageid = this.getAttribute('page-id');
+        this.fetchData()
+        console.log("page widget")
+        console.log(this.pageid)
+        this.observeAttributes();
+    }
+    observeAttributes() {
+        // Create a new MutationObserver instance
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'page-id') {
+                    // When 'sticky-id' attribute changes, update the stickyid and fetch new data
+                    this.pageid = mutation.target.getAttribute('page-id');
+                    this.fetchData();
+                }
+            });
+        });
+        // Observe changes to attributes
+        this.observer.observe(this, { attributes: true });
+    }
+    asciiToString(ascii) {
+        let convertedValue = ascii.toString();
+        let str = '';
+        for (let i = 0; i < convertedValue.length; i += 2) {
+            const code = convertedValue.substring(i, i + 2);
+            str += String.fromCharCode(parseInt(code, 10));
+        }
+        return str;
+    };
+
     async fetchData() {
         try {
-            const pageIdResponse = await fetch(`https://api.dev.eventgeni.com/widget/cm0upk6mm0005uan2f8rdxyq0`);
-            const pageIdData = await pageIdResponse.json();
-            // To get the active state of widget. If active is false, we will not fetch the data.
-            const formData = JSON.parse(pageIdData.data.body)
-            console.log("Page Data posted", pageIdData.data)
-            const activeState = formData.active;
-            this.pagequery = pageIdData.data.query;
-            if (activeState) {
-                const mainDataResponse = await fetch(`https://api.eventgeni.com/es/find?company=104&${this.pagequery}`);
-                this.data = await mainDataResponse.json();    
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.pageid}`);
+            const responseData = await response.json();
+            console.log("data is : ", responseData)
+            const otherDataEvents = responseData.data.widgetData.otherdata.event;
+            const eventData = responseData.data.eventData;
+            this.customizationData = responseData.data.widgetData.customizationData
+            // Combine otherDataEvents and eventData based on matching IDs
+            this.data = eventData.map(event => {
+                // Find the matching event in otherDataEvents based on id
+                const matchingOtherDataEvent = otherDataEvents.find(otherEvent => otherEvent.id === event.id);
+                // Return the combined object (event + matchingOtherDataEvent)
+                return {
+                    ...event, // eventData properties
+                    ...matchingOtherDataEvent // otherData properties (this will override any matching properties)
+                };
+            });
+            console.log("Combined Data:", this.data);
+            const widgetStatus = responseData.data.widgetData.status
+            this.selectedView = this.asciiToString(responseData.data.widgetData.templatePublicId)
+            if (widgetStatus !== "active") {
+                return;
             } else {
-                console.log("Widget is inactive. Skipping data fetch.");
-                this.data = null; // Set data to null or an empty object/array as needed
+                this.render();
             }
-            this.render();
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
 
-    connectedCallback() {
-        // this.pageid = this.getAttribute('page-id'); 
-        // this.fetchData();
-        // this.observeAttributes(); 
-        // this.addEventListener('modal-open', this.handleModalOpen.bind(this))
-        this.render();
-        this.addEventListeners();
-    }
-    // observeAttributes() {
-    //     // Create a new MutationObserver instance
-    //     this.observer = new MutationObserver((mutations) => {
-    //         mutations.forEach((mutation) => {
-    //             if (mutation.type === 'attributes' && mutation.attributeName === 'page-id') {
-    //                 // When 'sticky-id' attribute changes, update the stickyid and fetch new data
-    //                 this.pageid = mutation.target.getAttribute('page-id');
-    //                 this.fetchData();
-    //             }
-    //         });
-    //     });
-    //     // Observe changes to attributes
-    //     this.observer.observe(this, { attributes: true });
-    // }
-    // handleModalOpen(event) {
-    //     this.toggleState = true
-    //     this.formData = event.detail;
-    //     this.render();
-    // }
-    addEventListeners() {
-        const buttons = this.shadowRoot.querySelectorAll('.viewBtn');
-        buttons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                this.activeView = event.target.textContent;
-                this.render();
-                this.addEventListeners(); // Re-attach event listeners after rendering
-            });
-        });
-        this.shadowRoot.querySelectorAll('.filterOption').forEach(option => {
-            option.addEventListener('click', this.handleFilterChange.bind(this));
-        });
-    }
-    handleFilterChange(event) {
-        this.participationFilter = event.target.getAttribute('data-filter');
-    }
-
     render() {
         let activeContent;
-        switch (this.activeView) {
-            case 'Your View':
-                activeContent = `<grid-view data='${JSON.stringify(this.data)}'></grid-view>`;
+        switch (this.selectedView) {
+            case 'LS':
+                activeContent = `<list-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></list-view>`;
                 break;
             case 'Map':
                 activeContent = `<map-view></map-view>`;
