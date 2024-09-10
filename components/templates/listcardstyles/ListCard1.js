@@ -163,7 +163,7 @@ class ListCard1 extends HTMLElement {
                 </div>
                 <div class="description">${this.event.description.substring(0,100)}</div>
                 <div class="dateRange_typeContainer">
-                    <div class="pill dateRange">29 Jan - 5 Feb</div>
+                    <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     <div class="pill type1">Tradeshow</div>
                     <div class="pill type2">Attending</div>
                 </div>

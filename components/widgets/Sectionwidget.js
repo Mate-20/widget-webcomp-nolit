@@ -6,7 +6,7 @@ class Sectionwidget extends HTMLElement {
         this.customizationData = null;
         this.toggleState = false; // this state is for opening the modal
         this.selectedView = this.getAttribute('selectedCard') || 'horscroll';
-        this.sectionid = "asdqweewdew"
+        this.sectionid = ""
     }
     connectedCallback() {
         this.sectionid = this.getAttribute('section-id');
@@ -50,7 +50,6 @@ class Sectionwidget extends HTMLElement {
 
             const widgetId = responseData.data.widgetData.id; // assuming the widgetId is available here
             this.customizationData.widgetId = widgetId;
-
             // Combine otherDataEvents and eventData based on matching IDs
             this.data = eventData.map(event => {
                 // Find the matching event in otherDataEvents based on id

@@ -169,7 +169,7 @@ class ListCard2 extends HTMLElement {
                 <div class="location_dateContainer">
                     <div class="locationContainer">
                         ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
-                    <div class="location">${this.event.location_city}</div>
+                        <div class="location">${this.event.location_city}</div>
                     </div>
                     <div class="dateContainer">
                         ${this.dateIcon(this.customizedData.fontSettings?.subheading?.fontColor)}

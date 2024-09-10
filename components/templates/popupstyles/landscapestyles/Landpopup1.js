@@ -1,8 +1,27 @@
-class Landpopup1 extends HTMLElement{
+class Landpopup1 extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        // Initialize properties if needed
+        this.event = JSON.parse(this.getAttribute('event'))
+        this.customizedData = JSON.parse(this.getAttribute('customizedData'))
+        this.widgetid = JSON.parse(this.getAttribute('widgetid'));
+        console.log("card data : ", this.event)
+        console.log("customized data : ", this.customizedData)
+        this.day_month = this.formatStartDate(this.event.start_date);
+        this.render();
     }
+    formatStartDate(dateString) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = months[date.getMonth()];
+        return { day, month };
+    };
+    formatDate(date) {
+        const options = { day: '2-digit', month: 'short' };
+        return new Date(date).toLocaleDateString('en-US', options);
+    };
     connectedCallback() {
         if (!localStorage.getItem('popupShown')) {
             this.render();
@@ -18,7 +37,7 @@ class Landpopup1 extends HTMLElement{
         this.remove(); // Remove the popup from the DOM
     }
 
-    
+
     render() {
         this.shadowRoot.innerHTML = `
         <style>
@@ -42,8 +61,8 @@ class Landpopup1 extends HTMLElement{
     align-items: flex-start;
     padding-left: 10px;
     /* padding: 0px 12px 12px 10px; */
-    background-color: white;
-    border-radius: 10px;
+    border-radius: ${this.customizedData.cardBorderRadius}px;
+    background-color: ${this.customizedData.cardBgColor};
 }
 .banner{
     width: 380px;
@@ -76,11 +95,12 @@ class Landpopup1 extends HTMLElement{
 }
 .date{
     color: black;
-    font-size: 20px;
+    font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: 600;
 }
 .month{
     color: black;
+    font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: 400;
 }
 .line{
@@ -99,17 +119,18 @@ class Landpopup1 extends HTMLElement{
     gap: 8px;
 }
 .location{
-    color: #6E6F89;
+    font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-weight: 500;
 }
 .eventName{
     font-weight: 700;
-    font-size: 25px;
-    color: black;
+    color: ${this.customizedData.fontSettings?.heading?.fontColor};
+    font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
 }
 .description{
-    /* font-size: 10px; */
-    color: #6E6F89;
+    font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
+    color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-weight: 500;
     line-height: 20px;
 }
@@ -123,6 +144,7 @@ class Landpopup1 extends HTMLElement{
 .pill{
     border-radius: 6px;
     padding: 4px 8px;
+    font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-weight: 500;
 }
 .dateRange{
@@ -144,6 +166,7 @@ class Landpopup1 extends HTMLElement{
     color: white;
     padding: 10px 20px;
     border : none;
+    text-decoration : none;
 }
     .closebtn{
     background:none;
@@ -154,34 +177,39 @@ class Landpopup1 extends HTMLElement{
         </style>
     <div class="body">
         <div class="card">
-            <img src="https://imgstaticcontent.lbb.in/lbbnew/wp-content/uploads/2018/03/16130738/pic41-1024x681.jpg" alt="banner" class="banner" />
+            <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
             <div class="detailsContainer">
-            <div class="date_location_nameContainer">
-                <div class="dateContainer">
-                    <span class="date">29</span>
-                    <span class="month">Jan</span>
-                </div>
+                <div class="date_location_nameContainer">
+                    <div class="dateContainer">
+                        <span class="date">${this.day_month.day}</span>
+                        <span class="month">${this.day_month.month}</span>
+                    </div>
                 <div class="line"></div>
-            <div class="name_locationContainer">
-            <div class="locationContainer">
-                <img src="https://via.placeholder.com/20" alt="location" />
-                <div class="location">Corpus Christi, USA</div>
+                <div class="name_locationContainer">
+                    <div class="locationContainer">
+                        ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
+                        <div class="location">${this.event.location_city}</div>
+                    </div>
+                    <div class="eventName">${this.event.name.substring(0,20)}</div>
+                </div>
             </div>
-            <div class="eventName">Join Gifts World Expo 2024</div>
+            <div class="description">${this.event.description.substring(0,100)}</div>
+            <div class="dateRange_typeContainer">
+                <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
+                <div class="pill type1">Tradeshow</div>
+                <div class="pill type2">Attending</div>
             </div>
-          </div>
-          <div class="desc">Amidst this gathering, immerse yourself in an atmosphere of collaboration and creative energy, as manufacturers, retailers, and distributors unite...</div>
-          <div class="dateRange_typeContainer">
-            <div class="pill dateRange">29 Jan - 5 Feb</div>
-            <div class="pill type1">Tradeshow</div>
-            <div class="pill type2">Attending</div>
-          </div>
-          <button class="btn">Register</button>
-          <button class="closebtn">Close</button>
-        </div>
+            <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">Register</a>
+            <button class="closebtn">Close</button>
+            </div>
         </div>
     </div>
         `;
+    }
+    locationIcon(color) {
+        return `
+    <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 -960 960 960" width="15px" fill=${color}><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
+    `
     }
 }
 

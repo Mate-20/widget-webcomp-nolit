@@ -2,23 +2,59 @@ class Popupwidget extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.events = [
-            { id: 1, name: 'gurugram event', latitude: 28.421851, longitude: 77.018721},
-            { id: 2, name: 'Manesar Event', latitude: 28.357119, longitude: 76.951876}, 
-            { id: 3, name: 'IGI Event', latitude: 28.573827, longitude: 77.122610 },  
-        ];
+        this.data = null;
+        this.nearestEvent = null
+        this.customizationData = null;
+        this.toggleState = false; // this state is for opening the modal
+        this.selectedView = this.getAttribute('selectedCard') || 'horscroll';
+        this.popupid = ""
     }
     connectedCallback() {
-        this.fetchData();
-        this.getUserLocation();
-        this.render();
+        this.popupid = this.getAttribute('popup-id');
+        this.fetchData()
+        console.log("popup widget")
+        console.log(this.popupid)
+        this.observeAttributes();
     }
-
-     async fetchData() {
+    asciiToString(ascii) {
+        let convertedValue = ascii.toString();
+        let str = '';
+        for (let i = 0; i < convertedValue.length; i += 2) {
+            const code = convertedValue.substring(i, i + 2);
+            str += String.fromCharCode(parseInt(code, 10));
+        }
+        return str;
+    };
+    async fetchData() {
         try {
-            const pageIdResponse = await fetch(`https://api.dev.eventgeni.com/public/widget/cm0payb1n0001u5kb6v45j7l4`);
-            const pageIdData = await pageIdResponse.json();
-            console.log(pageIdData)
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${popupid}`);
+            const responseData = await response.json();
+            const otherDataEvents = responseData.data.widgetData.otherdata.event;
+            const eventData = responseData.data.eventData;
+            this.customizationData = responseData.data.widgetData.customizationData
+
+            const widgetId = responseData.data.widgetData.id; // assuming the widgetId is available here
+            this.customizationData.widgetId = widgetId;
+            // Combine otherDataEvents and eventData based on matching IDs
+            this.data = eventData.map(event => {
+                // Find the matching event in otherDataEvents based on id
+                const matchingOtherDataEvent = otherDataEvents.find(otherEvent => otherEvent.id === event.id);
+                // Return the combined object (event + matchingOtherDataEvent)
+                return {
+                    ...event, // eventData properties
+                    ...matchingOtherDataEvent // otherData properties (this will override any matching properties)
+                };
+            });
+            console.log("Combined Data:", this.data);
+            console.log("customize Data:", this.customizationData);
+            const widgetStatus = responseData.data.widgetData.status
+            this.selectedView = this.asciiToString(responseData.data.widgetData.templatePublicId)
+            console.log("selected view  is :", this.selectedView)
+            if (widgetStatus !== "active") {
+                return;
+            } else {
+                this.getUserLocation()
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -32,7 +68,10 @@ class Popupwidget extends HTMLElement {
                     console.log('Longitude:', position.coords.longitude);
                     const userLat = position.coords.latitude;
                     const userLong = position.coords.longitude;
-                    this.findClosestEvent(userLat, userLong);
+                    this.nearestEvent = this.findClosestEvent(userLat, userLong);
+                    if (this.nearestEvent) {
+                        this.render();
+                    }
                 },
                 (error) => {
                     console.warn('Geolocation failed or was denied:', error);
@@ -60,18 +99,19 @@ class Popupwidget extends HTMLElement {
         let closestEvent = null;
         let shortestDistance = Infinity;
 
-        this.events.forEach(event => {
+        this.data.forEach(event => {
             const distance = this.haversineDistance(userLat, userLong, event.latitude, event.longitude);
             if (distance < shortestDistance) {
                 shortestDistance = distance;
                 closestEvent = event;
             }
         });
-
         if (closestEvent) {
             console.log('Closest event:', closestEvent.name, `at ${shortestDistance.toFixed(2)} km away`);
+            return closestEvent;
         } else {
             console.log('No events found');
+            return null
         }
     }
 
@@ -86,10 +126,33 @@ class Popupwidget extends HTMLElement {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
     }
+    observeAttributes() {
+        // Create a new MutationObserver instance
+        this.observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'popup-id') {
+                    this.popupid = mutation.target.getAttribute('popup-id');
+                    this.fetchData();
+                }
+            });
+        });
+        // Observe changes to attributes
+        this.observer.observe(this, { attributes: true });
+    }
     render() {
-        const view = this.getAttribute('view') || 'popuplandscape-view1';
+        let view;
+        switch (this.selectedView) {
+            case 'PUVP':
+                view = `<porpopup-view data='${JSON.stringify(this.nearestEvent).replace(/'/g, "&apos;")}' customizeData ='${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'/>`;
+                break;
+            case 'PUVL':
+                view = `<landpopup-view data='${JSON.stringify(this.nearestEvent).replace(/'/g, "&apos;")}' customizeData ='${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'/>`;
+                break;
+            default:
+                view = `<carousel-view/>`;
+        }
         this.shadowRoot.innerHTML = `
-            <${view}></${view}>
+            ${view}
         `
     }
 }
