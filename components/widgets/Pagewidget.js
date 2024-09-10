@@ -40,7 +40,7 @@ class Pagewidget extends HTMLElement {
 
     async fetchData() {
         try {
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.pageid}`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/cm0w4xucr000512c5yjss8kl4`);
             const responseData = await response.json();
             console.log("data is : ", responseData)
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
@@ -73,7 +73,10 @@ class Pagewidget extends HTMLElement {
         let activeContent;
         switch (this.selectedView) {
             case 'LS':
-                activeContent = `<list-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></list-view>`;
+                activeContent = `<list-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' widgetid=${this.pageid}></list-view>`;
+                break;
+            case 'GS':
+                activeContent = `<grid-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' widgetid=${this.pageid}></grid-view>`;
                 break;
             case 'Map':
                 activeContent = `<map-view></map-view>`;

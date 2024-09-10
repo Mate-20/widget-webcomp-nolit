@@ -6,7 +6,8 @@ class ListView extends HTMLElement {
     this.selectedCard = "";
     this.data = JSON.parse(this.getAttribute('data'));
     this.customizeData = JSON.parse(this.getAttribute('customizeData'));
-    console.log("carousel data", this.data)
+    this.widgetid = JSON.parse(this.getAttribute('widgetid'));
+    console.log("evvent data", this.data)
     console.log("customize data", this.customizeData)
     this.banners = [];
   }
@@ -30,6 +31,7 @@ class ListView extends HTMLElement {
 
     element.setAttribute('event', JSON.stringify(event).replace(/'/g, "&apos;") || "");
     element.setAttribute('customizedData', JSON.stringify(this.customizeData).replace(/'/g, "&apos;") || "");
+    element.setAttribute('widgetid', this.widgetid)
     return element;
   }
   render() {

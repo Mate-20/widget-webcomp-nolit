@@ -5,6 +5,7 @@ class Card1 extends HTMLElement {
         // Initialize properties if needed
         this.event = JSON.parse(this.getAttribute('event'))
         this.customizedData = JSON.parse(this.getAttribute('customizedData'))
+        this.widgetid = JSON.parse(this.getAttribute('widgetid'));
         console.log("card data : ", this.event)
         console.log("customized data : ", this.customizedData)
         this.day_month = this.formatStartDate(this.event.start_date);
@@ -134,7 +135,7 @@ class Card1 extends HTMLElement {
                 }
             </style>
 
-      <a href="https://console.eventgeni.com/detailpage" target="_blank" class="card">
+      <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.widgetid}&eventId=${this.event.id}`} target="_blank" class="card">
         <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
                 <div class="date_location_nameContainer">
                     <div class="dateContainer">

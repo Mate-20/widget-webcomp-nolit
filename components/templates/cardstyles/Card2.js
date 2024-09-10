@@ -6,6 +6,7 @@ class Card2 extends HTMLElement {
         // Initialize properties if needed
         this.event = JSON.parse(this.getAttribute('event'))
         this.customizedData = JSON.parse(this.getAttribute('customizedData'))
+        this.widgetid = JSON.parse(this.getAttribute('widgetid'));
         console.log("card data : ", this.event)
         console.log("customized data : ", this.customizedData)
         this.render();
@@ -176,8 +177,8 @@ class Card2 extends HTMLElement {
             }
         </style>
 
-      <a href="https://console.eventgeni.com/detailpage" target="_blank" class="card">
-            <div class="eventName">${this.event.name}</div>
+      <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.widgetid}&eventId=${this.event.id}`} target="_blank" class="card">
+            <div class="eventName">${this.event.name.substring(0,40)}</div>
             <div class="location_dateContainer">
                 <div class="locationContainer">
                     ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}

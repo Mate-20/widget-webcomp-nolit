@@ -2,34 +2,41 @@ class GridView extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.imageurl = "https://designshack.net/wp-content/uploads/placeholder-image.png"
+        this.currentIndex = 0;
+        this.selectedCard = "";
+        this.data = JSON.parse(this.getAttribute('data'));
+        this.customizeData = JSON.parse(this.getAttribute('customizeData'));
+        this.widgetid = JSON.parse(this.getAttribute('widgetid'));
+        console.log("event data", this.data)
+        console.log("customize data", this.customizeData)
+        this.banners = [];
     }
     connectedCallback() {
-        this.data = JSON.parse(this.getAttribute('data'));
-        // console.log("page data in multiple data ",this.data)
+        console.log("grid view")
+        this.selectedCard = this.customizeData.selectedCard
         this.render();
-        // this.updateLayout(); 
-        // this.observer = new ResizeObserver(() => {
-        //     this.updateLayout();
-        // });
-        // this.observer.observe(this.shadowRoot.querySelector('.container')); // Observe changes to the container's size
     }
 
-    updateLayout() {
-        const container = this.shadowRoot.querySelector('.cardContainer');
-
-        const containerWidth = container.offsetWidth;
-
-        if( containerWidth > 640 && containerWidth <=940){
-            container.style.gridTemplateColumns = `repeat(2,1fr)`
+    createBanner(event) {
+        let element;
+        switch (this.selectedCard) {
+            case 'style1':
+                element = document.createElement('card-view1');
+                break;
+            case 'style2':
+                element = document.createElement('card-view2');
+                break;
+            default:
+                element = document.createElement('card-view3');
         }
-        else if(containerWidth <= 640 ){
-            container.style.gridTemplateColumns = `repeat(1,1fr)`
-        }else{
-            container.style.gridTemplateColumns = `repeat(3,1fr)`
-        }
+
+        element.setAttribute('event', JSON.stringify(event).replace(/'/g, "&apos;") || "");
+        element.setAttribute('customizedData', JSON.stringify(this.customizeData).replace(/'/g, "&apos;") || "");
+        element.setAttribute('widgetid', this.widgetid)
+        return element;
     }
     render() {
+        this.banners = this.data.map(event => this.createBanner(event));
         this.shadowRoot.innerHTML = `
           <style>
               .cardContainer {
@@ -59,40 +66,9 @@ class GridView extends HTMLElement {
                 }
             }   
           </style>
-              <div class="cardContainer">
-                      <card-view3
-                          image="${this.imageurl}"
-                          date="1/1/1"
-                          eventname="Cinema"
-                          location="Mandi House"
-                          description="Acting and Learning"
-                          type="Workshop"
-                      ></card-view3>
-                        <card-view3
-                          image="${this.imageurl}"
-                          date="1/1/1"
-                          eventname="Cinema"
-                          location="Mandi House"
-                          description="Acting and Learning"
-                          type="Workshop"
-                      ></card-view3>
-                        <card-view3
-                          image="${this.imageurl}"
-                          date="1/1/1"
-                          eventname="Cinema"
-                          location="Mandi House"
-                          description="Acting and Learning"
-                          type="Workshop"
-                      ></card-view3>
-                        <card-view3
-                          image="${this.imageurl}"
-                          date="1/1/1"
-                          eventname="Cinema"
-                          location="Mandi House"
-                          description="Acting and Learning"
-                          type="Workshop"
-                      ></card-view3>
-          </div>  
+            <div class="cardContainer">
+                ${this.banners.map((banner, index) => `<div class="card">${banner.outerHTML}</div>`).join('')}
+            </div>  
         
       `;
     }
