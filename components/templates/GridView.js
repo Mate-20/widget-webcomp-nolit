@@ -9,6 +9,7 @@ class GridView extends HTMLElement {
         this.widgetid = JSON.parse(this.getAttribute('widgetid'));
         console.log("event data", this.data)
         console.log("customize data", this.customizeData)
+        console.log("widget id", this.widgetid)
         this.banners = [];
     }
     connectedCallback() {

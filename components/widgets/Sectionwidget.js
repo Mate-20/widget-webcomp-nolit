@@ -73,7 +73,7 @@ class Sectionwidget extends HTMLElement {
         let view;
         switch (this.selectedView) {
             case 'CV':
-                view = `<carousel-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' widgetid=${this.pageid}></carousel-view>`;
+                view = `<carousel-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}' widgetid=${this.sectionid}></carousel-view>`;
                 break;
             case 'verscroll':
                 view = 'verticalscroll-view';
