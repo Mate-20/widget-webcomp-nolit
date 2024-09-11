@@ -146,7 +146,7 @@ class Card1 extends HTMLElement {
                     <div class="name_locationContainer">
                         <div class="locationContainer">
                             ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
-                            <div class="location">${this.event.location_city}</div>
+                            <div class="location">${this.event.location_city.substring(0,20)}</div>
                         </div>
                         <div class="eventName">${this.event.name.substring(0,15)}</div>
                     </div>

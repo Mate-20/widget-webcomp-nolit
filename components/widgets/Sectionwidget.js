@@ -42,7 +42,7 @@ class Sectionwidget extends HTMLElement {
 
     async fetchData() {
         try {
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/cm0upk6mm0005uan2f8rdxyq0`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.sectionid}`);
             const responseData = await response.json();
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
             const eventData = responseData.data.eventData;
@@ -64,6 +64,7 @@ class Sectionwidget extends HTMLElement {
             console.log("customize Data:", this.customizationData);
             const widgetStatus = responseData.data.widgetData.status
             this.selectedView = this.asciiToString(responseData.data.widgetData.templatePublicId)
+            console.log("selected view : ", this.selectedView)
             if (widgetStatus !== "active") {
                 return;
             } else {
@@ -79,15 +80,15 @@ class Sectionwidget extends HTMLElement {
             case 'CV':
                 view = `<carousel-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></carousel-view>`;
                 break;
-            case 'verscroll':
-                view = 'verticalscroll-view';
+            case 'HS':
+                view =`<horizontalscroll-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></horizontalscroll-view>`;
                 break;
             case 'hero':
                 view = 'hero-banner';
                 break;
             default:
                 view = `<carousel-view/>`;
-        }
+        } 
         this.shadowRoot.innerHTML = `
         <style>
             .body{
