@@ -83,8 +83,8 @@ class Sectionwidget extends HTMLElement {
             case 'HS':
                 view =`<horizontalscroll-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></horizontalscroll-view>`;
                 break;
-            case 'hero':
-                view = 'hero-banner';
+            case 'LSR':
+                view = `<verticalscroll-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></verticalscroll-view>`;
                 break;
             default:
                 view = `<carousel-view/>`;
