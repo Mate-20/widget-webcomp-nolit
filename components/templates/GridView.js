@@ -40,7 +40,7 @@ class GridView extends HTMLElement {
         this.banners = this.data.map(event => this.createBanner(event));
         this.shadowRoot.innerHTML = `
           <style>
-              .cardContainer {
+            .cardContainer {
                 height:100%;
                 display: grid;  
                 row-gap:30px;
@@ -48,9 +48,8 @@ class GridView extends HTMLElement {
                 grid-template-columns: repeat(3, 1fr);
                 justify-items: center;
               }
-            }
             
-              @media screen and (max-width: 1560px) {
+            @media screen and (max-width: 1560px) {
                 .cardContainer {
                     grid-template-columns: repeat(3, 1fr); /* Two columns in each row when screen width is at most 1200px */
                 }

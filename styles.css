@@ -5,7 +5,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* .container{
+.container{
     background-color: #1a1a1a;
     height: 100vh;
-} */
+    /* width: 50vw; */
+}

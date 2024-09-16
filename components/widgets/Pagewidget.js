@@ -40,7 +40,7 @@ class Pagewidget extends HTMLElement {
 
     async fetchData() {
         try {
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/cm0w4xucr000512c5yjss8kl4`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.pageid}`);
             const responseData = await response.json();
             console.log("data is : ", responseData)
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
@@ -81,11 +81,11 @@ class Pagewidget extends HTMLElement {
             case 'GS':
                 activeContent = `<grid-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></grid-view>`;
                 break;
-            case 'Map':
-                activeContent = `<map-view></map-view>`;
+            case 'CVL':
+                activeContent = `<caraousellist-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></caraousellist-view>`;
                 break;
-            case 'Calendar':
-                activeContent = `<calendar-container></calendar-container>`;
+            case 'CVG':
+                activeContent = `<caraouselgrid-view data='${JSON.stringify(this.data).replace(/'/g, "&apos;")}' customizeData = '${JSON.stringify(this.customizationData).replace(/'/g, "&apos;")}'></caraouselgrid-view>`;
                 break;
             default:
                 activeContent = `<grid-view data='${JSON.stringify(this.data)}'></grid-view>`;

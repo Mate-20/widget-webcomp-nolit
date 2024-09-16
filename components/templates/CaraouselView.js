@@ -91,7 +91,7 @@ class CarouselView extends HTMLElement {
                     justify-content: center;
                     position: relative;
                     width: 95%;
-                    height: 100%;
+                    height : 500px;
                     z-index: 1;
                 }
                 .cards {
