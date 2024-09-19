@@ -96,11 +96,13 @@ class Porpopup1 extends HTMLElement {
             }
             .date {
                 color: black;
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .month {
                 color: black;
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
@@ -123,12 +125,14 @@ class Porpopup1 extends HTMLElement {
                 font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
             }
             .eventName {
                 word-wrap: break-word;
                 min-height: 60px;
                 max-height: 60px;
                 overflow: hidden;
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color: ${this.customizedData.fontSettings?.heading?.fontColor};
                 font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
@@ -150,6 +154,7 @@ class Porpopup1 extends HTMLElement {
             .pill {
                 border-radius: 6px;
                 padding: 4px 8px;
+                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
             }
@@ -166,7 +171,7 @@ class Porpopup1 extends HTMLElement {
                 color: #6750A4;
             }
             .desc {
-                line-height : 1px;
+                line-height : 10px;
                 min-height: 55px;
                 max-height: 55px;
                 width: 95%;
@@ -174,6 +179,7 @@ class Porpopup1 extends HTMLElement {
                 padding-right: 10px;
                 word-wrap: break-word;
                 overflow: hidden;
+                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
                 font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
                 font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};

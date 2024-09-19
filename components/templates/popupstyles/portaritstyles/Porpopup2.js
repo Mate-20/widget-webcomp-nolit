@@ -77,6 +77,7 @@ class Porpopup2 extends HTMLElement{
         font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
         font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
         color: ${this.customizedData.fontSettings?.heading?.fontColor};
+        font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
         min-height: 40px;
         max-height: 40px;
         overflow: hidden;
@@ -104,6 +105,7 @@ class Porpopup2 extends HTMLElement{
     .location {
         color: ${this.customizedData.fontSettings?.subheading?.fontColor};
         font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
+        font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
         font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
     }
     
@@ -117,6 +119,7 @@ class Porpopup2 extends HTMLElement{
     .date {
         font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
         color: ${this.customizedData.fontSettings?.subheading?.fontColor};
+        font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
         font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
     }
     
@@ -208,6 +211,7 @@ class Porpopup2 extends HTMLElement{
         color: ${this.customizedData.fontSettings?.body?.fontColor};
         font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
         font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+        font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
         line-height : 10px;
         min-height: 70px;
         max-height: 70px;
@@ -259,12 +263,7 @@ class Porpopup2 extends HTMLElement{
                 <div class="pill type1">Tradeshow</div>
                 <div class="pill type2">Attending</div>
             </div>
-            <div class="circles">
-                <div class="circle" data-name="John Doe">JD</div>
-                <div class="circle" data-name="Jane Smith" style="margin-left: -5px;">JD</div>
-                <div class="circle" data-name="John Doe" style="margin-left: -5px;">JD</div>
-                <div class="circle" data-name="Jane Smith" style="margin-left: -5px;">JD</div>
-            </div>
+
         </div>
          <div class="desc">${this.event.description.substring(0,250)}</div>
         <div class="btnContainer">
@@ -290,3 +289,10 @@ class Porpopup2 extends HTMLElement{
 }
 
 customElements.define('popupportrait-view2', Porpopup2);
+
+{/* <div class="circles">
+<div class="circle" data-name="John Doe">JD</div>
+<div class="circle" data-name="Jane Smith" style="margin-left: -5px;">JD</div>
+<div class="circle" data-name="John Doe" style="margin-left: -5px;">JD</div>
+<div class="circle" data-name="Jane Smith" style="margin-left: -5px;">JD</div>
+</div> */}

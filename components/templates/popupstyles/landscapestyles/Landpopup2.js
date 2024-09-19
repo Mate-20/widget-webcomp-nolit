@@ -86,6 +86,7 @@ class Landpopup2 extends HTMLElement{
     min-height: 70px;
     max-height: 70px;
     overflow: hidden;
+    font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color:  ${this.customizedData.fontSettings?.heading?.fontColor};
@@ -103,6 +104,7 @@ class Landpopup2 extends HTMLElement{
 }
 
 .location {
+font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -116,6 +118,7 @@ class Landpopup2 extends HTMLElement{
 }
 
 .date {
+font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -125,6 +128,7 @@ class Landpopup2 extends HTMLElement{
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+    font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
     line-height: 10px;
     width : 100%;
     overflow: hidden;
@@ -250,12 +254,7 @@ class Landpopup2 extends HTMLElement{
                     <div class="pill type1">Tradeshow</div>
                     <div class="pill type2">Attending</div>
                 </div>
-                <div class="circles">
-                    <div class="circle" data-name="John Doe">JD</div>
-                    <div class="circle" style="margin-left: -5px;" data-name="Jane Smith">JD</div>
-                    <div class="circle" data-name="John Doe" style="margin-left: -5px;">JD</div>
-                    <div class="circle" style="margin-left: -5px;" data-name="Jane Smith">JD</div>
-                </div>
+
             </div>
             <div class="description" innerHTML ={{ __html: ${this.event.description.substring(0,250)} }}></div>
             <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
@@ -279,3 +278,10 @@ class Landpopup2 extends HTMLElement{
 }
 
 customElements.define('popuplandscape-view2', Landpopup2);
+
+{/* <div class="circles">
+<div class="circle" data-name="John Doe">JD</div>
+<div class="circle" style="margin-left: -5px;" data-name="Jane Smith">JD</div>
+<div class="circle" data-name="John Doe" style="margin-left: -5px;">JD</div>
+<div class="circle" style="margin-left: -5px;" data-name="Jane Smith">JD</div>
+</div> */}

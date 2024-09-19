@@ -84,6 +84,7 @@ class ListCard3 extends HTMLElement {
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 height: 52px;
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
             }
             .location_dateContainer{
@@ -93,6 +94,7 @@ class ListCard3 extends HTMLElement {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -102,11 +104,13 @@ class ListCard3 extends HTMLElement {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .description {
+                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
                 height: 92px;

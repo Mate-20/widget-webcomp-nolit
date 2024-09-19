@@ -93,6 +93,7 @@ class Pagewidget extends HTMLElement {
         this.shadowRoot.innerHTML = `
         <style>
             .body{
+                
                 display : flex;
                 flex-direction : column;
                 align-items: center;

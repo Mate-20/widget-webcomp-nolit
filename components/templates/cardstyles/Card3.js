@@ -61,6 +61,7 @@ class Card3 extends HTMLElement {
                 border-radius: 8px;
             }
             .eventName {
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 min-height: 60px;
@@ -76,6 +77,7 @@ class Card3 extends HTMLElement {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -85,6 +87,7 @@ class Card3 extends HTMLElement {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};

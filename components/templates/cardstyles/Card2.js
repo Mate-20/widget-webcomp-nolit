@@ -54,6 +54,7 @@ class Card2 extends HTMLElement {
                 text-decoration : none;
             }
             .eventName {
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 height: 60px;
@@ -78,6 +79,7 @@ class Card2 extends HTMLElement {
             }
 
             .location {
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -91,6 +93,7 @@ class Card2 extends HTMLElement {
             }
 
             .date {
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};  
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};

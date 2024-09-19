@@ -125,17 +125,20 @@ class Landpopup1 extends HTMLElement {
 .location{
     font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
+    font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 .eventName{
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color: ${this.customizedData.fontSettings?.heading?.fontColor};
+    font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
     font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
 }
 .description{
     margin-top : 10px;
     font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
     color: ${this.customizedData.fontSettings?.body?.fontColor};
+    font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
     font-weight: 500;
     line-height: 20px;
     overflow: hidden;

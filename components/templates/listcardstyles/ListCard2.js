@@ -62,6 +62,7 @@ class ListCard2 extends HTMLElement {
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 height : 40px;
             }
             .location_dateContainer {
@@ -78,6 +79,7 @@ class ListCard2 extends HTMLElement {
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
             }
             .dateContainer {
                 margin-top: 8px;
@@ -89,11 +91,13 @@ class ListCard2 extends HTMLElement {
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
             }
             .description{
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
                 line-height: 14px;
                 height: 70px;
                 overflow: hidden;
@@ -189,20 +193,6 @@ class ListCard2 extends HTMLElement {
                         <div class="pill type1">Tradeshow</div>
                         <div class="pill type2">Attending</div>
                     </div>
-                    <div class="circles">
-                        <div class="circle" data-name="John Doe">
-                            JD
-                        </div>
-                        <div class="circle" style="margin-left: -5px" data-name="Jane Smith">
-                            JD
-                        </div>
-                        <div class="circle" style="margin-left: -5px" data-name="John Doe">
-                            JD
-                        </div>
-                        <div class="circle" style="margin-left: -5px" data-name="Jane Smith">
-                            JD
-                        </div>
-                    </div>
                 </div>
             </div>
         </a>
@@ -221,3 +211,18 @@ class ListCard2 extends HTMLElement {
 }
 
 customElements.define('listview-card2', ListCard2);
+
+{/* <div class="circles">
+<div class="circle" data-name="John Doe">
+    JD
+</div>
+<div class="circle" style="margin-left: -5px" data-name="Jane Smith">
+    JD
+</div>
+<div class="circle" style="margin-left: -5px" data-name="John Doe">
+    JD
+</div>
+<div class="circle" style="margin-left: -5px" data-name="Jane Smith">
+    JD
+</div>
+</div> */}

@@ -73,11 +73,13 @@ class Card1 extends HTMLElement {
                 }
                 .date {
                     color: black;
+                    font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 }
                 .month {
                     color: black;
+                    font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 }
@@ -100,11 +102,13 @@ class Card1 extends HTMLElement {
                     font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
                     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
+                    font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 }
                 .eventName {
                     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                     color: ${this.customizedData.fontSettings?.heading?.fontColor};
                     font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
+                    font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 }
                 .dividerLine {
                     margin-top: 12px;

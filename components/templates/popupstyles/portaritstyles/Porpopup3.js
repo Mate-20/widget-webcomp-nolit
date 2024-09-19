@@ -81,6 +81,7 @@ class Porpopup3 extends HTMLElement {
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color:  ${this.customizedData.fontSettings?.heading?.fontColor};
+    font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
     min-height: 55px;
     max-height: 55px;
     word-wrap: break-word;
@@ -94,6 +95,7 @@ class Porpopup3 extends HTMLElement {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -103,12 +105,14 @@ class Porpopup3 extends HTMLElement {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 .desc{
     width: 100%;
+    font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};

@@ -80,12 +80,14 @@ class ListCard1 extends HTMLElement {
             .date {
                 color: black;
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: 600;
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .month {
                 color: black;
                 font-size:${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: 400;
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .line {
                 height: 60px;
@@ -111,10 +113,12 @@ class ListCard1 extends HTMLElement {
                 color: ${this.customizedData.fontSettings?.heading?.fontColor};
                 font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
             }
             .description {
                 font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
+                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
                 height: 70px;
                 overflow: hidden;
                 max-width : 90%; 
