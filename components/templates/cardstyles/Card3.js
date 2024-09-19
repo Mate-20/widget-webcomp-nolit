@@ -19,7 +19,7 @@ class Card3 extends HTMLElement {
     formatDate(date) {
         const dateObj = new Date(date);
         const day = dateObj.getDate();
-        const month = dateObj.toLocaleString('en-US', { month: 'long' });
+        const month = dateObj.toLocaleString('en-US', { month: 'short' });
         const year = dateObj.getFullYear();
 
         // Function to get the appropriate suffix for the day
@@ -41,41 +41,45 @@ class Card3 extends HTMLElement {
         this.shadowRoot.innerHTML = `
         <style>
             .card {
-                display : block;
-                max-width: 300px;
+                box-sizing : border-box;
+                min-width: 300px;
                 min-height: 340px;
+                max-height: 340px;
+                max-width: 300px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
                 border-radius:  ${this.customizedData.cardBorderRadius}px;
                 background-color:${this.customizedData.cardBgColor};
                 padding: 12px 14px 24px 12px;
                 text-decoration : none;
             }
-
             .banner {
-                height: 192px;
+                min-height: 180px;
+                max-height: 180px;
                 width: 100%;
                 border-radius: 8px;
             }
-
             .eventName {
-                margin-top: 22px;
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: 700;
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
+                min-height: 60px;
+                max-height: 60px;
+                word-wrap: break-word;
+                overflow: hidden;
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
             }
-
             .location_dateContainer {
-                margin-top: 12px;
+                margin-top: 5px;
             }
-
             .locationContainer {
                 display: flex;
                 align-items: center;
                 gap: 8px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
-
             .dateContainer {
                 margin-top: 6px;
                 display: flex;
@@ -83,13 +87,13 @@ class Card3 extends HTMLElement {
                 gap: 8px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-                font-weight: 400;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
         </style>
 
         <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
             <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
-            <div class="eventName">${this.event.name}</div>
+            <div class="eventName">${this.event.name.substring(0,30)}</div>
             <div class="location_dateContainer">
                 <div class="locationContainer">
                    ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}

@@ -72,17 +72,22 @@ class ListCard3 extends HTMLElement {
                 border-radius: 8px;
             }
             .eventDetails {
-                height: 100%;
+                min-height: 100%;
+                max-height: 100%;
+                max-width: 50%;
+                word-wrap: break-word;
                 display: flex;
                 flex-direction: column;
+                gap: 10px;
             }
             .eventName {
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: 700;
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
+                height: 52px;
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
             }
-            .location_dateContainer {
-                margin-top: 12px;
+            .location_dateContainer{
+                height: 50px;
             }
             .locationContainer {
                 display: flex;
@@ -90,7 +95,7 @@ class ListCard3 extends HTMLElement {
                 gap: 8px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .dateContainer {
                 margin-top: 6px;
@@ -99,13 +104,14 @@ class ListCard3 extends HTMLElement {
                 gap: 8px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-                font-weight: 400;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .description {
-                margin-top: 30px;
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
-                font-weight: 500;
+                height: 92px;
+                overflow: hidden;
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
                 line-height: 19px;
             }
         </style>
@@ -116,7 +122,7 @@ class ListCard3 extends HTMLElement {
                 <div class="type">Workshop</div>
             </div>
             <div class="eventDetails">
-                <div class="eventName">${this.event.name}</div>
+                <div class="eventName">${this.event.name.substring(0,25)}</div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">
                         ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
@@ -127,7 +133,7 @@ class ListCard3 extends HTMLElement {
                         <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     </div>
                 </div>
-                <div class="description">${this.event.description.substring(0, 100)}</div>
+                <div class="description">${this.event.description.substring(0, 250)}</div>
             </div>
         </a>
     `;

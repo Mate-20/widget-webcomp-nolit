@@ -42,9 +42,13 @@ class Porpopup3 extends HTMLElement {
     }
 
     render() {
+        const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
+        this.customizedData.buttonSettings.primary : 
+        this.customizedData.buttonSettings.secondary;
         this.shadowRoot.innerHTML = `
         <style>
             .body{
+            box-sizing :border-box;
             position: fixed;
             top: 0;
             left: 0;
@@ -57,25 +61,34 @@ class Porpopup3 extends HTMLElement {
             z-index: 999;
         }
 .card {
-    width: 450px;
-    height: 530px;
+    max-width: 450px;
+    min-width: 450px;
+    max-height: 500px;
+    min-height: 500px;
     border-radius:  ${this.customizedData.cardBorderRadius}px;
     background-color:${this.customizedData.cardBgColor};
     padding: 12px 14px 24px 12px;
+    display : flex;
+    flex-direction : column;
+    gap : 10px;
 }
 .banner{
-    height: 240px;
+    height: 220px;
     width: 100%;
     border-radius: 8px;
 }
 .eventName{
-    margin-top: 20px;
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-    font-weight: 700;
+    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color:  ${this.customizedData.fontSettings?.heading?.fontColor};
+    min-height: 55px;
+    max-height: 55px;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 .location_dateContainer{
-    margin-top: 12px;
+    min-height: 40px;
+    max-height: 40px;
 }
 .locationContainer{
     display: flex;
@@ -83,7 +96,7 @@ class Porpopup3 extends HTMLElement {
     gap: 8px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-    font-weight: 500;
+    font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 .dateContainer{
     margin-top: 6px;
@@ -92,30 +105,33 @@ class Porpopup3 extends HTMLElement {
     gap: 8px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-    font-weight: 400;
+    font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 .desc{
     width: 100%;
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
-    font-weight: 500;
-    margin-top: 20px;
+    font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+    min-height: 90px;
+    max-height: 90px;
+    overflow :  hidden;
+    word-wrap : break-word;
+    line-height : 10px;
 }
 .btnContainer{
-    margin-top: 20px;
     width: 100%;
     display: flex;
     flex-direction : column;
-   align-items : center;
-   gap : 5px; 
+    align-items : center;
+    gap : 5px; 
 }
 .btn{
-    background-color: #6750A4;
-    border-radius: 3px;
+    background-color: ${buttonSettings.buttonColor};
+    border-radius: ${buttonSettings.borderRadius}px;
+    color: ${buttonSettings.fontColor};
     width : fit-content;
-    color: white;
+    border: 1px solid ${buttonSettings.borderColor};
     padding: 10px 20px;
-    border : none;
     text-decoration:none;
 }
 .closebtn{
@@ -130,7 +146,7 @@ class Porpopup3 extends HTMLElement {
         <div class="body">
             <div class="card">
                 <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
-                <div class="eventName">${this.event.name}</div>
+                <div class="eventName">${this.event.name.substring(0,40)}</div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">
                         ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
@@ -141,9 +157,9 @@ class Porpopup3 extends HTMLElement {
                         <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     </div>
                 </div>
-                <div class="desc">${this.event.description.substring(0, 100)}</div>
+                <div class="desc">${this.event.description.substring(0, 250)}</div>
                 <div class="btnContainer">
-                    <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">Register</a>
+                    <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
                     <button class="closebtn">Close</button>
                 </div>
             </div>

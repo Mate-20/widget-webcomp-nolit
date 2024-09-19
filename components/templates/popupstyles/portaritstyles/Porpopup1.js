@@ -40,9 +40,13 @@ class Porpopup1 extends HTMLElement {
     };
 
     render() {
+        const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
+        this.customizedData.buttonSettings.primary : 
+        this.customizedData.buttonSettings.secondary;
         this.shadowRoot.innerHTML = `
         <style>
             .body{
+            box-sizing :border-box;
             position: fixed;
             top: 0;
             left: 0;
@@ -55,8 +59,10 @@ class Porpopup1 extends HTMLElement {
             z-index: 999;
         }
             .card {
-                width: 453px;
-                height: 530px;
+                min-width: 450px;
+                max-width: 450px;
+                max-height: 480px;
+                min-height: 480px;
                 border-radius: ${this.customizedData.cardBorderRadius}px;
                 background-color: ${this.customizedData.cardBgColor};
                 display: flex;
@@ -66,7 +72,7 @@ class Porpopup1 extends HTMLElement {
             }
             .banner {
                 width: 95%;
-                height: 250px;
+                height: 220px;
                 border-bottom-left-radius: 50px;
                 border-bottom-right-radius: 50px;
                 filter: drop-shadow(1px 1px 4px rgb(111, 111, 111));
@@ -91,12 +97,12 @@ class Porpopup1 extends HTMLElement {
             .date {
                 color: black;
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: 600;
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .month {
                 color: black;
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: 400;
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .line {
                 height: 60px;
@@ -116,30 +122,36 @@ class Porpopup1 extends HTMLElement {
             .location {
                 font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .eventName {
-                font-weight: 700;
+                word-wrap: break-word;
+                min-height: 60px;
+                max-height: 60px;
+                overflow: hidden;
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color: ${this.customizedData.fontSettings?.heading?.fontColor};
                 font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
             }
             .dividerLine {
-                margin-top: 12px;
+                margin-top: 8px;
                 width: 100%;
                 border-top: 1px solid #E8EAF1;
             }
             .dateRange_typeContainer {
+                margin-top : 5px;
                 display: flex;
                 align-items: center;
                 width: 95%;
                 gap: 8px;
-                padding: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
             }
             .pill {
                 border-radius: 6px;
                 padding: 4px 8px;
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
             }
             .dateRange {
                 background-color: #F5F5F5;
@@ -154,15 +166,20 @@ class Porpopup1 extends HTMLElement {
                 color: #6750A4;
             }
             .desc {
-                width: 100%;
+                line-height : 1px;
+                min-height: 55px;
+                max-height: 55px;
+                width: 95%;
+                padding-left: 10px;
+                padding-right: 10px;
+                word-wrap: break-word;
+                overflow: hidden;
                 font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
-                font-weight: 400;
-                padding-left: 10px;
-                margin-top :10px;
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
             }
 .btnContainer{
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
     display: flex;
     flex-direction : column;
@@ -170,12 +187,12 @@ class Porpopup1 extends HTMLElement {
    gap : 5px; 
 }
 .btn{
-    background-color: #6750A4;
-    border-radius: 3px;
+    background-color: ${buttonSettings.buttonColor};
+    border-radius: ${buttonSettings.borderRadius}px;
+    color: ${buttonSettings.fontColor};
     width : fit-content;
-    color: white;
+    border: 1px solid ${buttonSettings.borderColor};
     padding: 10px 20px;
-    border : none;
     text-decoration:none;
 }
 .closebtn{
@@ -209,9 +226,9 @@ class Porpopup1 extends HTMLElement {
                     <div class="pill type1">Tradeshow</div>
                     <div class="pill type2">Attending</div>
                 </div>
-                <div class="desc">${this.event.description.substring(0,100)}</div>
+                <div class="desc">${this.event.description.substring(0,150)}</div>
                 <div class="btnContainer">
-                    <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">Register</a>
+                    <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
                     <button class="closebtn">Close</button>
                 </div>
             </div>

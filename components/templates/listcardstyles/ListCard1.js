@@ -30,19 +30,21 @@ class ListCard1 extends HTMLElement {
         this.shadowRoot.innerHTML = `
         <style>
             .card {
+                overflow: hidden;
                 width: 629px;
-                height: 211px;
+                min-height: 211px;
+                max-height: 211px;
                 display: flex;
-                gap: 25px;
-                align-items: center;
+                gap: 15px;
                 padding: 0px 12px 12px 10px;
                 background-color: ${this.customizedData.cardBgColor};
                 border-radius: ${this.customizedData.cardBorderRadius}px;
                 text-decoration : none;
             }
             .bannerContainer{
-                width: 35%;
-                height: 211px;
+                min-width: 260px;
+                max-width: 260px;
+                height: 210px;
                 border-bottom-left-radius: 50px;
                 border-bottom-right-radius: 50px;
                 filter: drop-shadow(1px 1px 4px rgb(109, 109, 109));
@@ -53,16 +55,17 @@ class ListCard1 extends HTMLElement {
                 height : 100%;
             }
             .detailsContainer {
-                width: 65%;
+                padding : 10px;
+                min-width: 57%;
+                max-width: 57%;
                 display: flex;
                 flex-direction: column;
-                gap: 14px;
+                justify-content : space-between;
             }
             .date_location_nameContainer {
-                width: 100%;
+                gap : 10px;
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
             }
             .dateContainer {
                 background-color: #F6F6F6;
@@ -102,18 +105,21 @@ class ListCard1 extends HTMLElement {
             .location {
                 font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .eventName {
-                font-weight: 700;
                 color: ${this.customizedData.fontSettings?.heading?.fontColor};
                 font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .description {
                 font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
-                font-weight: 500;
-                line-height: 14px;
+                height: 70px;
+                overflow: hidden;
+                max-width : 90%; 
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+                word-wrap: break-word;
             }
             .dateRange_typeContainer {
                 margin-top: 20px;
@@ -158,10 +164,10 @@ class ListCard1 extends HTMLElement {
                             ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
                              <div class="location">${this.event.location_city}</div>
                         </div>
-                       <div class="eventName">${this.event.name.substring(0,20)}</div>
+                       <div class="eventName">${this.event.name.substring(0, 20)}</div>
                     </div>
                 </div>
-                <div class="description">${this.event.description.substring(0,100)}</div>
+                <div class="description">${this.event.description.substring(0, 130)}</div>
                 <div class="dateRange_typeContainer">
                     <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     <div class="pill type1">Tradeshow</div>

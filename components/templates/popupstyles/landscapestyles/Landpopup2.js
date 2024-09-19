@@ -42,6 +42,9 @@ class Landpopup2 extends HTMLElement{
 
     
     render() {
+        const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
+        this.customizedData.buttonSettings.primary : 
+        this.customizedData.buttonSettings.secondary;
         this.shadowRoot.innerHTML = `
         <style>
             .body{
@@ -62,13 +65,16 @@ class Landpopup2 extends HTMLElement{
     display: flex;
     gap: 16px;
     padding: 12px;
+    overflow: hidden;
     border-radius:  ${this.customizedData.cardBorderRadius}px;
     background-color:${this.customizedData.cardBgColor};
 }
 .details{
     display: flex;
     flex-direction: column;
-    gap: 21px;
+    min-width: 50%;
+    max-width: 50%;
+    word-wrap: break-word;
 }
 .banner{
     width: 350px;
@@ -77,8 +83,11 @@ class Landpopup2 extends HTMLElement{
     filter: drop-shadow(1px 1px 4px rgb(109, 109, 109));
 }
 .eventName {
+    min-height: 70px;
+    max-height: 70px;
+    overflow: hidden;
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-    font-weight: 700;
+    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color:  ${this.customizedData.fontSettings?.heading?.fontColor};
 }
 .location_dateContainer {
@@ -96,7 +105,7 @@ class Landpopup2 extends HTMLElement{
 .location {
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-    font-weight: 500;
+    font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 
 .dateContainer {
@@ -109,15 +118,22 @@ class Landpopup2 extends HTMLElement{
 .date {
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
-    font-weight: 400;
+    font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
-.desc{
+.description{
+    margin-top : 10px;
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
-    font-weight: 500;
-    line-height: 20px;
+    font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+    line-height: 10px;
+    width : 100%;
+    overflow: hidden;
+    min-height: 130px;
+    max-height: 130px;
+    word-wrap : break-word;
 }
 .type_peopleContainer {
+    margin-top : 8px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -134,7 +150,7 @@ class Landpopup2 extends HTMLElement{
     border-radius: 6px;
     padding: 4px 8px;
     font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
-    font-weight: 500;
+    font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
 }
 
 .type1 {
@@ -197,14 +213,17 @@ class Landpopup2 extends HTMLElement{
     opacity: 1;
 }
 .btn{
-    margin-top: 20px;
-    background-color: #6750A4;
-    border-radius: 3px;
-    color: white;
-    border : none;
+    background-color: ${buttonSettings.buttonColor};
+    border-radius: ${buttonSettings.borderRadius}px;
+    color: ${buttonSettings.fontColor};
+    border: 1px solid ${buttonSettings.borderColor};
     padding: 10px 20px;
-}      
+    text-decoration:none;
+    margin-top : 20px;
+    text-align : center;
+}     
 .closebtn{
+    margin-top : 10px;
     background:none;
     color: black;
     border: none;
@@ -215,7 +234,7 @@ class Landpopup2 extends HTMLElement{
     <div class="card">
         <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
         <div class="details">
-            <div class="eventName">${this.event.name}</div>
+            <div class="eventName">${this.event.name.substring(0,40)}</div>
             <div class="location_dateContainer">
                 <div class="locationContainer">
                     ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
@@ -238,8 +257,8 @@ class Landpopup2 extends HTMLElement{
                     <div class="circle" style="margin-left: -5px;" data-name="Jane Smith">JD</div>
                 </div>
             </div>
-            <div class="desc">${this.event.description.substring(0,100)}</div>
-            <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">Register</a>
+            <div class="description" innerHTML ={{ __html: ${this.event.description.substring(0,250)} }}></div>
+            <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
             <button class="closebtn">Close</button>
         </div> 
     </div> 

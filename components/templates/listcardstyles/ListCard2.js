@@ -43,21 +43,26 @@ class ListCard2 extends HTMLElement {
                 text-decoration : none;
             }
             .details{
-                min-width : 55%;
                 display: flex;
                 flex-direction: column;
-                gap: 21px;
+                min-height: 100%;
+                max-height: 100%;
+                max-width: 53%;
+                word-wrap: break-word;
+                gap: 10px;
             }
             .banner{
-                min-width: 40%;
+                min-width: 260px;
+                max-width: 260px;
                 height: 100%;
                 border-radius: 8px;
                 filter: drop-shadow(1px 1px 4px rgb(109, 109, 109));
             }
             .eventName {
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: 700;
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
+                height : 40px;
             }
             .location_dateContainer {
                 margin-top: 8px;
@@ -72,7 +77,7 @@ class ListCard2 extends HTMLElement {
             .location {
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .dateContainer {
                 margin-top: 8px;
@@ -83,13 +88,15 @@ class ListCard2 extends HTMLElement {
             .date {
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
-                font-weight: 400;
+                font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .description{
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
                 line-height: 14px;
+                height: 70px;
+                overflow: hidden;
             }
             .type_peopleContainer {
                 display: flex;
@@ -165,7 +172,7 @@ class ListCard2 extends HTMLElement {
        <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
             <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
             <div class="details">
-                <div class="eventName">${this.event.name}</div>
+                <div class="eventName">${this.event.name.substring(0, 25)}</div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">
                         ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
@@ -176,7 +183,7 @@ class ListCard2 extends HTMLElement {
                         <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     </div>
                 </div>
-                <div class="description">${this.event.description.substring(0,100)}</div>
+                <div class="description">${this.event.description.substring(0,130)}</div>
                 <div class="type_peopleContainer">
                     <div class="typeContainer">
                         <div class="pill type1">Tradeshow</div>

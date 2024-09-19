@@ -39,6 +39,9 @@ class Landpopup1 extends HTMLElement {
 
 
     render() {
+        const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
+        this.customizedData.buttonSettings.primary : 
+        this.customizedData.buttonSettings.secondary;
         this.shadowRoot.innerHTML = `
         <style>
             .body{
@@ -58,9 +61,8 @@ class Landpopup1 extends HTMLElement {
     height:400px;
     display: flex;
     gap: 10px;
-    align-items: flex-start;
     padding-left: 10px;
-    /* padding: 0px 12px 12px 10px; */
+    overflow : hidden;
     border-radius: ${this.customizedData.cardBorderRadius}px;
     background-color: ${this.customizedData.cardBgColor};
 }
@@ -71,11 +73,13 @@ class Landpopup1 extends HTMLElement {
     border-bottom-right-radius: 100px;
     filter: drop-shadow(1px 1px 4px rgb(109, 109, 109));
 }
-.detailsContainer{
+.details{
     display: flex;
     flex-direction: column;
-    gap: 14px;
     padding: 10px;
+    min-width: 43%;
+    max-width: 43%;
+    word-wrap: break-word;
 }
 .date_location_nameContainer{
     width: 100%;
@@ -96,12 +100,12 @@ class Landpopup1 extends HTMLElement {
 .date{
     color: black;
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-    font-weight: 600;
+    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
 }
 .month{
     color: black;
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-    font-weight: 400;
+    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
 }
 .line{
     height: 70px;
@@ -121,21 +125,26 @@ class Landpopup1 extends HTMLElement {
 .location{
     font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
-    font-weight: 500;
+    font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 .eventName{
-    font-weight: 700;
+    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color: ${this.customizedData.fontSettings?.heading?.fontColor};
     font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
 }
 .description{
+    margin-top : 10px;
     font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-weight: 500;
     line-height: 20px;
+    overflow: hidden;
+    min-height : 160px;
+    max-height: 160px;
+    word-wrap : break-word;
 }
 .dateRange_typeContainer{
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -160,15 +169,18 @@ class Landpopup1 extends HTMLElement {
     color: #6750A4;
 }
 .btn{
-    margin-top: 20px;
-    background-color: #6750A4;
-    border-radius: 3px;
-    color: white;
+    background-color: ${buttonSettings.buttonColor};
+    border-radius: ${buttonSettings.borderRadius}px;
+    color: ${buttonSettings.fontColor};
+    border: 1px solid ${buttonSettings.borderColor};
     padding: 10px 20px;
-    border : none;
-    text-decoration : none;
+    text-decoration:none;
+    margin-top : 10px;
+    width: 100%;
+    text-align : center;
 }
     .closebtn{
+        margin-top : 10px;
     background:none;
     color: black;
     border: none;
@@ -178,29 +190,29 @@ class Landpopup1 extends HTMLElement {
     <div class="body">
         <div class="card">
             <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
-            <div class="detailsContainer">
+            <div class = "details">
                 <div class="date_location_nameContainer">
                     <div class="dateContainer">
                         <span class="date">${this.day_month.day}</span>
                         <span class="month">${this.day_month.month}</span>
                     </div>
-                <div class="line"></div>
-                <div class="name_locationContainer">
-                    <div class="locationContainer">
-                        ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
-                        <div class="location">${this.event.location_city}</div>
+                    <div class="line"></div>
+                    <div class="name_locationContainer">
+                        <div class="locationContainer">
+                            ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
+                            <div class="location">${this.event.location_city}</div>
+                        </div>
+                        <div class="eventName">${this.event.name.substring(0,20)}</div>
                     </div>
-                    <div class="eventName">${this.event.name.substring(0,20)}</div>
                 </div>
-            </div>
-            <div class="description">${this.event.description.substring(0,100)}</div>
-            <div class="dateRange_typeContainer">
-                <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
-                <div class="pill type1">Tradeshow</div>
-                <div class="pill type2">Attending</div>
-            </div>
-            <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">Register</a>
-            <button class="closebtn">Close</button>
+                <div class="description" innerHTML ={{ __html: ${this.event.description.substring(0,360)} }}></div>
+                <div class="dateRange_typeContainer">
+                    <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
+                    <div class="pill type1">Tradeshow</div>
+                    <div class="pill type2">Attending</div>
+                </div>
+                <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
+                <button class="closebtn">Close</button>
             </div>
         </div>
     </div>

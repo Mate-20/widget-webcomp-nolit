@@ -34,7 +34,10 @@ class Card1 extends HTMLElement {
         this.shadowRoot.innerHTML = `
     <style>
                 .card {
+                    box-sizing : border-box;    
                     max-width: 305px;
+                    max-height: 337px;
+                    min-width: 305px;
                     min-height: 337px;
                     border-radius: ${this.customizedData.cardBorderRadius}px;
                     background-color: ${this.customizedData.cardBgColor};
@@ -71,12 +74,12 @@ class Card1 extends HTMLElement {
                 .date {
                     color: black;
                     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                    font-weight: 600;
+                    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 }
                 .month {
                     color: black;
                     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                    font-weight: 400;
+                    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 }
                 .line {
                     height: 60px;
@@ -96,10 +99,10 @@ class Card1 extends HTMLElement {
                 .location {
                     font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
                     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
-                    font-weight: 500;
+                    font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
                 }
                 .eventName {
-                    font-weight: 700;
+                    font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                     color: ${this.customizedData.fontSettings?.heading?.fontColor};
                     font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 }

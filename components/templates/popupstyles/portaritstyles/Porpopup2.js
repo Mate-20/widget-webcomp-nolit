@@ -27,7 +27,7 @@ class Porpopup2 extends HTMLElement{
     formatDate(date) {
         const dateObj = new Date(date);
         const day = dateObj.getDate();
-        const month = dateObj.toLocaleString('en-US', { month: 'long' });
+        const month = dateObj.toLocaleString('en-US', { month: 'short' });
         const year = dateObj.getFullYear();
 
         // Function to get the appropriate suffix for the day
@@ -41,9 +41,13 @@ class Porpopup2 extends HTMLElement{
     };
     
     render() {
+        const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
+        this.customizedData.buttonSettings.primary : 
+        this.customizedData.buttonSettings.secondary;
         this.shadowRoot.innerHTML = `
         <style>
     .body {
+        box-sizing :border-box;
         position: fixed;
         top: 0;
         left: 0;
@@ -57,20 +61,25 @@ class Porpopup2 extends HTMLElement{
     }
     
     .card {
-        width: 453px;
-        height: 520px;
+        min-width: 450px;
+        max-width: 450px;
+        min-height: 500px;
+        max-height: 500px;
         border-radius: ${this.customizedData.cardBorderRadius}px;
         background-color: ${this.customizedData.cardBgColor};
         padding: 22px 12px;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap : 10px;
     }
     
     .eventName {
         font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
-        font-weight: 700;
+        font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
         color: ${this.customizedData.fontSettings?.heading?.fontColor};
+        min-height: 40px;
+        max-height: 40px;
+        overflow: hidden;
     }
     
     .banner {
@@ -80,7 +89,8 @@ class Porpopup2 extends HTMLElement{
     }
     
     .location_dateContainer {
-        margin-top: 8px;
+        min-height: 40px;
+        max-height: 40px;
         display: flex;
         flex-direction: column;
     }
@@ -94,7 +104,7 @@ class Porpopup2 extends HTMLElement{
     .location {
         color: ${this.customizedData.fontSettings?.subheading?.fontColor};
         font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
-        font-weight: 500;
+        font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
     }
     
     .dateContainer {
@@ -107,7 +117,7 @@ class Porpopup2 extends HTMLElement{
     .date {
         font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
         color: ${this.customizedData.fontSettings?.subheading?.fontColor};
-        font-weight: 400;
+        font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
     }
     
     .dividerLine {
@@ -132,7 +142,7 @@ class Porpopup2 extends HTMLElement{
         border-radius: 6px;
         padding: 4px 8px;
         font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
-        font-weight: 500;
+        font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
     }
     
     .type1 {
@@ -197,8 +207,12 @@ class Porpopup2 extends HTMLElement{
         width: 100%;
         color: ${this.customizedData.fontSettings?.body?.fontColor};
         font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
-        font-weight: 300;
-        padding: 10px;
+        font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+        line-height : 10px;
+        min-height: 70px;
+        max-height: 70px;
+        word-wrap: break-word;
+        overflow: hidden;
     }
     .btnContainer {
         width: 100%;
@@ -207,15 +221,15 @@ class Porpopup2 extends HTMLElement{
         align-items: center;
         gap: 5px;
     }
-    .btn {
-        background-color: #6750A4;
-        border-radius: 3px;
-        width: fit-content;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        text-decoration:none;
-    }
+    .btn{
+    background-color: ${buttonSettings.buttonColor};
+    border-radius: ${buttonSettings.borderRadius}px;
+    color: ${buttonSettings.fontColor};
+    width : fit-content;
+    border: 1px solid ${buttonSettings.borderColor};
+    padding: 10px 20px;
+    text-decoration:none;
+}
     .closebtn {
         width: fit-content;
         background: none;
@@ -227,7 +241,7 @@ class Porpopup2 extends HTMLElement{
 
 <div class="body">
     <div class="card">
-        <div class="eventName">${this.event.name}</div>
+        <div class="eventName">${this.event.name.substring(0,30)}</div>
         <div class="location_dateContainer">
             <div class="locationContainer">
                 ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
@@ -252,9 +266,9 @@ class Porpopup2 extends HTMLElement{
                 <div class="circle" data-name="Jane Smith" style="margin-left: -5px;">JD</div>
             </div>
         </div>
-         <div class="desc">${this.event.description.substring(0,100)}</div>
+         <div class="desc">${this.event.description.substring(0,250)}</div>
         <div class="btnContainer">
-            <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">Register</a>
+            <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
             <button class="closebtn">Close</button>
         </div>
     </div>
