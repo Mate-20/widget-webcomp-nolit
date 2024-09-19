@@ -83,6 +83,7 @@ class ListCard3 extends HTMLElement {
             .eventName {
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
+                line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 height: 52px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
@@ -94,6 +95,7 @@ class ListCard3 extends HTMLElement {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
@@ -104,12 +106,14 @@ class ListCard3 extends HTMLElement {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
             }
             .description {
+                line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;

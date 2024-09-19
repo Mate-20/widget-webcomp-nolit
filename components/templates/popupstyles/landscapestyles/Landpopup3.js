@@ -103,6 +103,7 @@ class Landpopup3 extends HTMLElement{
     min-height: 80px;
     max-height: 80px;
     overflow: hidden;
+    line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
@@ -112,6 +113,7 @@ class Landpopup3 extends HTMLElement{
     display: flex;
     align-items: center;
     gap: 8px;
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;;
@@ -122,6 +124,7 @@ class Landpopup3 extends HTMLElement{
     display: flex;
     align-items: center;
     gap: 8px;
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
@@ -133,10 +136,11 @@ class Landpopup3 extends HTMLElement{
     min-height: 130px;
     max-height: 130px;
     overflow: hidden;
+    line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
-   font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+    font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
 }
 .btn{
     background-color: ${buttonSettings.buttonColor};

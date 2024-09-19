@@ -99,11 +99,13 @@ class Landpopup1 extends HTMLElement {
 }
 .date{
     color: black;
+    line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
 }
 .month{
     color: black;
+    line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
 }
@@ -123,12 +125,14 @@ class Landpopup1 extends HTMLElement {
     gap: 8px;
 }
 .location{
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 .eventName{
+    line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color: ${this.customizedData.fontSettings?.heading?.fontColor};
     font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
@@ -136,6 +140,7 @@ class Landpopup1 extends HTMLElement {
 }
 .description{
     margin-top : 10px;
+    line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
@@ -156,6 +161,7 @@ class Landpopup1 extends HTMLElement {
 .pill{
     border-radius: 6px;
     padding: 4px 8px;
+    line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-weight: 500;
 }

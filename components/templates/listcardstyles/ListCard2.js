@@ -59,6 +59,7 @@ class ListCard2 extends HTMLElement {
                 filter: drop-shadow(1px 1px 4px rgb(109, 109, 109));
             }
             .eventName {
+                line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
@@ -76,6 +77,7 @@ class ListCard2 extends HTMLElement {
                 gap: 8px;
             }
             .location {
+                line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -88,12 +90,14 @@ class ListCard2 extends HTMLElement {
                 gap: 8px;
             }
             .date {
+                line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
                 font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
             }
             .description{
+                line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.body?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
@@ -116,7 +120,9 @@ class ListCard2 extends HTMLElement {
             .pill {
                 border-radius: 6px;
                 padding: 4px 8px;
+                line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
                 font-weight: 500;
             }
             .type1 {

@@ -54,6 +54,7 @@ class Card2 extends HTMLElement {
                 text-decoration : none;
             }
             .eventName {
+                line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
@@ -79,6 +80,7 @@ class Card2 extends HTMLElement {
             }
 
             .location {
+                line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
@@ -93,6 +95,7 @@ class Card2 extends HTMLElement {
             }
 
             .date {
+                line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};  
                 font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
@@ -120,8 +123,9 @@ class Card2 extends HTMLElement {
             .pill {
                 border-radius: 6px;
                 padding: 4px 8px;
+                line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
-                font-weight: 500;
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
             }
 
             .type1 {

@@ -96,12 +96,14 @@ class Porpopup1 extends HTMLElement {
             }
             .date {
                 color: black;
+                line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .month {
                 color: black;
+                line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
@@ -122,6 +124,7 @@ class Porpopup1 extends HTMLElement {
                 gap: 8px;
             }
             .location {
+                line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -132,6 +135,7 @@ class Porpopup1 extends HTMLElement {
                 min-height: 60px;
                 max-height: 60px;
                 overflow: hidden;
+                line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color: ${this.customizedData.fontSettings?.heading?.fontColor};
@@ -154,6 +158,7 @@ class Porpopup1 extends HTMLElement {
             .pill {
                 border-radius: 6px;
                 padding: 4px 8px;
+                line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
                 font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};

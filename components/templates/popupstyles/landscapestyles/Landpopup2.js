@@ -86,6 +86,7 @@ class Landpopup2 extends HTMLElement{
     min-height: 70px;
     max-height: 70px;
     overflow: hidden;
+    line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
@@ -104,7 +105,8 @@ class Landpopup2 extends HTMLElement{
 }
 
 .location {
-font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
@@ -118,13 +120,15 @@ font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
 }
 
 .date {
-font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
     font-size: ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     color: ${this.customizedData.fontSettings?.subheading?.fontColor};
     font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
 }
 .description{
     margin-top : 10px;
+    line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
     color: ${this.customizedData.fontSettings?.body?.fontColor};
     font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
@@ -153,6 +157,7 @@ font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
 .pill {
     border-radius: 6px;
     padding: 4px 8px;
+    line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
     font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
 }
