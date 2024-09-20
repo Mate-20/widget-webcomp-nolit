@@ -222,6 +222,8 @@ class Landpopup2 extends HTMLElement{
     opacity: 1;
 }
 .btn{
+    font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;  
     background-color: ${buttonSettings.buttonColor};
     border-radius: ${buttonSettings.borderRadius}px;
     color: ${buttonSettings.fontColor};
@@ -240,6 +242,7 @@ class Landpopup2 extends HTMLElement{
 }
 </style>
     <div class="body">
+                <button class="closebtn">Close</button>
     <div class="card">
         <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
         <div class="details">
@@ -263,7 +266,7 @@ class Landpopup2 extends HTMLElement{
             </div>
             <div class="description" innerHTML ={{ __html: ${this.event.description.substring(0,250)} }}></div>
             <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
-            <button class="closebtn">Close</button>
+
         </div> 
     </div> 
 </div> 

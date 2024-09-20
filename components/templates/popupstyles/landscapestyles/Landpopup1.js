@@ -178,6 +178,8 @@ class Landpopup1 extends HTMLElement {
     color: #6750A4;
 }
 .btn{
+    font-size : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     background-color: ${buttonSettings.buttonColor};
     border-radius: ${buttonSettings.borderRadius}px;
     color: ${buttonSettings.fontColor};
@@ -189,9 +191,9 @@ class Landpopup1 extends HTMLElement {
     text-align : center;
 }
     .closebtn{
-        margin-top : 10px;
+    color : black;
+    margin-top : 10px;
     background:none;
-    color: black;
     border: none;
     cursor: pointer;
 }

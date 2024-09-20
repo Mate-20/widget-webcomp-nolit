@@ -143,6 +143,8 @@ class Landpopup3 extends HTMLElement{
     font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
 }
 .btn{
+    font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     background-color: ${buttonSettings.buttonColor};
     border-radius: ${buttonSettings.borderRadius}px;
     color: ${buttonSettings.fontColor};

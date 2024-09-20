@@ -137,6 +137,8 @@ class Porpopup3 extends HTMLElement {
     background-color: ${buttonSettings.buttonColor};
     border-radius: ${buttonSettings.borderRadius}px;
     color: ${buttonSettings.fontColor};
+    font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
     width : fit-content;
     border: 1px solid ${buttonSettings.borderColor};
     padding: 10px 20px;
