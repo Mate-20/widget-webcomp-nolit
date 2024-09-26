@@ -42,7 +42,7 @@ class Sectionwidget extends HTMLElement {
 
     async fetchData() {
         try {
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.sectionid}`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/cm1itzt0b000j1e8mbsn9cy6b`);
             const responseData = await response.json();
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
             const eventData = responseData.data.eventData;
