@@ -205,8 +205,9 @@ class Card2 extends HTMLElement {
             <div class="dividerLine"></div>
             <div class="type_peopleContainer">
                 <div class="typeContainer">
+                    <div class="pill type1">${this.event.type === "MAIN" ? "Main Event" : "Side Event"}</div>  
                     <div class="pill type1">${this.event.event_type}</div>
-                    <div class="pill type2">${this.event.participationType}</div>
+                    <div class="pill type2">${this.event.format}</div>
                 </div>
             </div>
         </a>

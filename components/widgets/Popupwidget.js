@@ -27,7 +27,7 @@ class Popupwidget extends HTMLElement {
     };
     async fetchData() {
         try {
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/cm226q7k40003k13ec0v7n5iu`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.popupid}`);
             const responseData = await response.json();
             const otherDataEvents = responseData.data.widgetData.otherdata.event;
             const eventData = responseData.data.eventData;

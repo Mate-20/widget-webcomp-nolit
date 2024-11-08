@@ -40,7 +40,7 @@ class Pagewidget extends HTMLElement {
 
     async fetchData() {
         try {
-            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/cm21o79jv000rkxdetaetu7ma`);
+            const response = await fetch(`https://api.dev.eventgeni.com/public/widget/${this.pageid}`);
             const responseData = await response.json();
             console.log("data is : ", responseData)
             const otherDataEvents = responseData.data.widgetData.otherdata.event;

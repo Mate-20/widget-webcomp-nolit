@@ -75,21 +75,32 @@ class Landpopup3 extends HTMLElement{
     width: 400px;
     position: relative;
 }
-.type{
-    position: absolute;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 15px;
-    color: #6750A4;
-    background-color: #F7EFFF;
-    bottom: 5px;
-    right: 9px;
-}
+
 .banner{
     height: 100%;
     width: 400px;
     border-radius: 8px;
 }
+        .type {
+                position: absolute;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #6750A4;
+                background-color: #F7EFFF;
+                bottom: 5px;
+                right: 9px;
+            }
+            .typeTwo {
+                position: absolute;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #6750A4;
+                background-color: #F7EFFF;
+                bottom: 5px;
+                left: 9px;
+            }
 .eventDetails{
     height: 100%;
     display: flex;
@@ -175,11 +186,12 @@ class Landpopup3 extends HTMLElement{
 }
 </style>
     <div class="body">
-          <div class="card">
-        <div class="bannerContainer">
-          <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
-          <div class="type">Workshop</div>
-        </div>
+        <div class="card">
+            <div class="bannerContainer">
+                <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
+                <div class="type">${this.event.event_type}</div>
+                <div class="typeTwo">${this.event.type === "MAIN" ? "Main Event" : "Side Event"}</div>
+            </div>
         <div class="eventDetails">
           <div class="eventName">${this.event.name.substring(0,40)}</div>
           <div class="location_dateContainer">

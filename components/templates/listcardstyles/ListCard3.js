@@ -66,6 +66,16 @@ class ListCard3 extends HTMLElement {
                 bottom: 5px;
                 right: 9px;
             }
+            .typeTwo {
+                position: absolute;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #6750A4;
+                background-color: #F7EFFF;
+                bottom: 5px;
+                left: 9px;
+            }
             .banner {
                 height: 100%;
                 width: 271px;
@@ -127,7 +137,8 @@ class ListCard3 extends HTMLElement {
       <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
             <div class="bannerContainer">
                 <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
-                <div class="type">Workshop</div>
+                <div class="type">${this.event.event_type}</div>
+                <div class="typeTwo">${this.event.type === "MAIN" ? "Main Event" : "Side Event"}</div>
             </div>
             <div class="eventDetails">
                 <div class="eventName">${this.event.name.substring(0,25)}</div>

@@ -74,11 +74,36 @@ class Porpopup3 extends HTMLElement {
     flex-direction : column;
     gap : 10px;
 }
+    .bannerContainer {
+                height: 220px;
+                width: 100%;
+                position: relative;
+            }
 .banner{
     height: 220px;
     width: 100%;
     border-radius: 8px;
 }
+    .type {
+                position: absolute;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #6750A4;
+                background-color: #F7EFFF;
+                bottom: 5px;
+                right: 9px;
+            }
+            .typeTwo {
+                position: absolute;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #6750A4;
+                background-color: #F7EFFF;
+                bottom: 5px;
+                left: 9px;
+            }
 .eventName{
     line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
@@ -160,7 +185,11 @@ class Porpopup3 extends HTMLElement {
 
         <div class="body">
             <div class="card">
-                <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
+                <div class="bannerContainer">
+                    <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
+                    <div class="type">${this.event.event_type}</div>
+                    <div class="typeTwo">${this.event.type === "MAIN" ? "Main Event" : "Side Event"}</div>
+                </div>
                 <div class="eventName">${this.event.name.substring(0,40)}</div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">

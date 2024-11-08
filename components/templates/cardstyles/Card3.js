@@ -54,11 +54,36 @@ class Card3 extends HTMLElement {
                 padding: 12px 14px 24px 12px;
                 text-decoration : none;
             }
+            .bannerContainer {
+                height: 180px;
+                width: 100%;
+                position: relative;
+            }
             .banner {
                 min-height: 180px;
                 max-height: 180px;
                 width: 100%;
                 border-radius: 8px;
+            }
+            .type {
+                position: absolute;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #6750A4;
+                background-color: #F7EFFF;
+                bottom: 5px;
+                right: 9px;
+            }
+            .typeTwo {
+                position: absolute;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #6750A4;
+                background-color: #F7EFFF;
+                bottom: 5px;
+                left: 9px;
             }
             .eventName {
                 line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
@@ -98,7 +123,11 @@ class Card3 extends HTMLElement {
         </style>
 
         <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
-            <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
+            <div class="bannerContainer">
+                <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
+                <div class="type">${this.event.event_type}</div>
+                <div class="typeTwo">${this.event.type === "MAIN" ? "Main Event" : "Side Event"}</div>
+            </div>
             <div class="eventName">${this.event.name.substring(0,30)}</div>
             <div class="location_dateContainer">
                 <div class="locationContainer">
