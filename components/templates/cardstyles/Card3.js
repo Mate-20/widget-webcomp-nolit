@@ -98,7 +98,7 @@ class Card3 extends HTMLElement {
         </style>
 
         <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
-            <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
+            <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
             <div class="eventName">${this.event.name.substring(0,30)}</div>
             <div class="location_dateContainer">
                 <div class="locationContainer">

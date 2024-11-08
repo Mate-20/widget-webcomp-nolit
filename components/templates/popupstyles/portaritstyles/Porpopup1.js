@@ -40,9 +40,13 @@ class Porpopup1 extends HTMLElement {
     };
 
     render() {
-        const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
-        this.customizedData.buttonSettings.primary : 
-        this.customizedData.buttonSettings.secondary;
+        const buttonSettings = this.customizedData.selectedBtn === "primary" ?
+            this.customizedData.buttonSettings.primary :
+            this.customizedData.buttonSettings.secondary;
+
+        // const closeButtonSettings = this.customizedData.selectedBtn === "primary" ? 
+        // this.customizedData.closeButtonSetting.primary : 
+        // this.customizedData.closeButtonSetting.secondary;
         this.shadowRoot.innerHTML = `
         <style>
             .body{
@@ -176,7 +180,7 @@ class Porpopup1 extends HTMLElement {
                 color: #6750A4;
             }
             .desc {
-                line-height : 10px;
+                line-height : 20px;
                 min-height: 55px;
                 max-height: 55px;
                 width: 95%;
@@ -193,8 +197,9 @@ class Porpopup1 extends HTMLElement {
     margin-top: 10px;
     width: 100%;
     display: flex;
-    flex-direction : column;
+    flex-direction : row;
    align-items : center;
+   justify-content:center;
    gap : 5px; 
 }
 .btn{
@@ -210,15 +215,17 @@ class Porpopup1 extends HTMLElement {
 }
 .closebtn{
     width : fit-content;
-    background:none;
-    color: black;
+    background-color: #8F8F8F1F;
+    color: #171717;
+    border-radius: 4px;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
 }
         </style>
         <div class="body">
             <div class="card">
-                <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
+                <img src=${this.event.logoUrl} alt="placeholder" class="banner"/>
                 <div class="date_location_nameContainer">
                     <div class="dateContainer">
                         <span class="date">${this.day_month.day}</span>
@@ -230,16 +237,16 @@ class Porpopup1 extends HTMLElement {
                             ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
                             <div class="location">${this.event.location_city}</div>
                         </div>
-                        <div class="eventName">${this.event.name.substring(0,20)}</div>
+                        <div class="eventName">${this.event.name.substring(0, 20)}</div>
                     </div>
                 </div>
                 <div class="dividerLine"></div>
                 <div class="dateRange_typeContainer">
                     <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
-                    <div class="pill type1">Tradeshow</div>
-                    <div class="pill type2">Attending</div>
+                    <div class="pill type1">${this.event.event_type}</div>
+                    <div class="pill type2">${this.event.participationType}</div>
                 </div>
-                <div class="desc">${this.event.description.substring(0,150)}</div>
+                <div class="desc">${this.event.description}</div>
                 <div class="btnContainer">
                     <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
                     <button class="closebtn">Close</button>

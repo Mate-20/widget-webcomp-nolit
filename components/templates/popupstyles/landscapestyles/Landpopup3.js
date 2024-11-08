@@ -152,19 +152,32 @@ class Landpopup3 extends HTMLElement{
     padding: 10px 20px;
     text-decoration:none;
     text-align : center;
+    width : 100%;
 }  
-.closebtn{
-    margin-top : 8px;
-    background:none;
-    color: black;
+    .btnContainer{
+    margin-top: 20px;
+    width : 100%;
+    display: flex;
+   justify-content:center;
+    align-items : center;
+    flex-direction : row;
+    gap : 5px; 
+}
+
+  .closebtn{
+     width : 100%;
+    background-color: #8F8F8F1F;
+    color: #171717;
+    border-radius: 4px;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
-        }
+}
 </style>
     <div class="body">
           <div class="card">
         <div class="bannerContainer">
-          <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
+          <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
           <div class="type">Workshop</div>
         </div>
         <div class="eventDetails">
@@ -179,9 +192,11 @@ class Landpopup3 extends HTMLElement{
                 <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
             </div>
           </div>
-          <div class="description" innerHTML ={{ __html: ${this.event.description.substring(0,250)} }}></div>
-          <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
-          <button class="closebtn">Close</button>
+           <div class="description"> ${this.event.description.substring(0, 200)+ '...'}</div>
+           <div class="btnContainer">
+                <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
+                <button class="closebtn">Close</button>
+            </div>
         </div>
       </div>
     </div>

@@ -39,6 +39,7 @@ import './components/templates/calendar/YearCalendar.js'
 import './components/templates/calendar/WeekCalendar.js'
 import './components/templates/ScrollViewHorizontal.js'
 import './components/templates/ScrollViewVertical.js'
+import './components/templates/StickyView.js'
 // import { handlePopupDisplay } from './components/templates/popupstyles/PopupController.js';
 
 // handlePopupDisplay()

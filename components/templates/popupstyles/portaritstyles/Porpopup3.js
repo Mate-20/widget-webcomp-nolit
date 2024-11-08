@@ -36,7 +36,6 @@ class Porpopup3 extends HTMLElement {
         this.shadowRoot.querySelector('.closebtn').addEventListener('click', () => this.closePopup());
     }
     closePopup() {
-        // Setting it true so that it can know that popup was already shown once
         localStorage.setItem('popupShown', 'true');
         this.remove(); // Remove the popup from the DOM
     }
@@ -45,6 +44,9 @@ class Porpopup3 extends HTMLElement {
         const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
         this.customizedData.buttonSettings.primary : 
         this.customizedData.buttonSettings.secondary;
+        // const closeButtonSettings = this.customizedData.selectedBtn === "primary" ? 
+        // this.customizedData.closeButtonSetting.primary : 
+        // this.customizedData.closeButtonSetting.secondary;
         this.shadowRoot.innerHTML = `
         <style>
             .body{
@@ -129,7 +131,8 @@ class Porpopup3 extends HTMLElement {
 .btnContainer{
     width: 100%;
     display: flex;
-    flex-direction : column;
+    flex-direction : row;
+    justify-content:center;
     align-items : center;
     gap : 5px; 
 }
@@ -145,17 +148,19 @@ class Porpopup3 extends HTMLElement {
     text-decoration:none;
 }
 .closebtn{
-    width : fit-content;
-    background:none;
-    color: black;
+   width : fit-content;
+    background-color: #8F8F8F1F;
+    color: #171717;
+    border-radius: 4px;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
         }
 </style>
 
         <div class="body">
             <div class="card">
-                <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
+                <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
                 <div class="eventName">${this.event.name.substring(0,40)}</div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">

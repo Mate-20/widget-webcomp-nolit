@@ -190,23 +190,23 @@ class Card2 extends HTMLElement {
         </style>
 
       <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
-            <div class="eventName">${this.event.name.substring(0,30)}</div>
+            <div class="eventName">${this.event.name.substring(0, 30)}</div>
             <div class="location_dateContainer">
                 <div class="locationContainer">
                     ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
-                    <div class="location">${this.event.location_city}</div>
+                    <div class="location">${this.event.location_city} ${this.event.location_country}</div>
                 </div>
                 <div class="dateContainer">
                     ${this.dateIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
-                    <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
+                    <div class="date">${this.formatDate(this.event.start_date)} - ${this.formatDate(this.event.end_date)}</div>
                 </div>
             </div>
-            <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
+            <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
             <div class="dividerLine"></div>
             <div class="type_peopleContainer">
                 <div class="typeContainer">
-                    <div class="pill type1">Tradeshow</div>
-                    <div class="pill type2">Attending</div>
+                    <div class="pill type1">${this.event.event_type}</div>
+                    <div class="pill type2">${this.event.participationType}</div>
                 </div>
             </div>
         </a>
@@ -225,19 +225,3 @@ class Card2 extends HTMLElement {
 }
 
 customElements.define('card-view2', Card2);
-
-
-{/* <div class="circles">
-<div class="circle" data-name="John Doe">
-    JD
-</div>
- <div class="circle" data-name="Alvin Doe">
-    AD
-</div>
-<div class="circle" data-name="John Doe">
-    JD
-</div>
-<div class="circle" data-name="John Doe">
-    JD
-</div>
-</div> */}

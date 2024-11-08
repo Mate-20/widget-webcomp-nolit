@@ -186,21 +186,31 @@ class Landpopup1 extends HTMLElement {
     border: 1px solid ${buttonSettings.borderColor};
     padding: 10px 20px;
     text-decoration:none;
-    margin-top : 10px;
-    width: 100%;
+    width : 100%;
     text-align : center;
 }
+    .btnContainer{
+    margin-top: 20px;
+    width : 100%;
+    display: flex;
+   justify-content:center;
+    align-items : center;
+    flex-direction : row;
+    gap : 5px; 
+}
     .closebtn{
-    color : black;
-    margin-top : 10px;
-    background:none;
+     width : 100%;
+    background-color: #8F8F8F1F;
+    color: #171717;
+    border-radius: 4px;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
 }
         </style>
     <div class="body">
         <div class="card">
-            <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
+            <img src=${this.event.logoUrl} alt="placeholder" class="banner"/>
             <div class = "details">
                 <div class="date_location_nameContainer">
                     <div class="dateContainer">
@@ -216,14 +226,16 @@ class Landpopup1 extends HTMLElement {
                         <div class="eventName">${this.event.name.substring(0,20)}</div>
                     </div>
                 </div>
-                <div class="description" innerHTML ={{ __html: ${this.event.description.substring(0,360)} }}></div>
+               <div class="description"> ${this.event.description.substring(0, 200)+ '...'}</div>
                 <div class="dateRange_typeContainer">
                     <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
-                    <div class="pill type1">Tradeshow</div>
-                    <div class="pill type2">Attending</div>
+                    <div class="pill type1">${this.event.event_type}</div>
+                    <div class="pill type2">${this.event.participationType}</div>
                 </div>
-                <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
-                <button class="closebtn">Close</button>
+                <div class="btnContainer">
+                    <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
+                    <button class="closebtn">Close</button>
+                </div>
             </div>
         </div>
     </div>

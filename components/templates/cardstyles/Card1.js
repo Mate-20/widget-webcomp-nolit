@@ -148,7 +148,7 @@ class Card1 extends HTMLElement {
             </style>
 
       <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
-        <img src=${this.event.bannerUrl} alt="placeholder" class="banner"/>
+        <img src=${this.event.logoUrl} alt="placeholder" class="banner"/>
                 <div class="date_location_nameContainer">
                     <div class="dateContainer">
                         <span class="date">${this.day_month.day}</span>
@@ -165,9 +165,9 @@ class Card1 extends HTMLElement {
                 </div>
                 <div class="dividerLine"></div>
                 <div class="dateRange_typeContainer">
-                    <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
-                    <div class="pill type1">Tradeshow</div>
-                    <div class="pill type2">Attending</div>
+                    <div class="pill dateRange">${this.formatDate(this.event.start_date)} - ${this.formatDate(this.event.end_date)}</div>
+                    <div class="pill type1">${this.event.event_type}</div>
+                    <div class="pill type2">${this.event.participationType}</div>
                 </div>
       </a>
     `;
@@ -180,3 +180,4 @@ class Card1 extends HTMLElement {
 }
 
 customElements.define('card-view1', Card1);
+

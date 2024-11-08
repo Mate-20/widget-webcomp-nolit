@@ -126,7 +126,7 @@ class ListCard3 extends HTMLElement {
 
       <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
             <div class="bannerContainer">
-                <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
+                <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
                 <div class="type">Workshop</div>
             </div>
             <div class="eventDetails">
@@ -141,7 +141,7 @@ class ListCard3 extends HTMLElement {
                         <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     </div>
                 </div>
-                <div class="description">${this.event.description.substring(0, 250)}</div>
+                <div class="description">${this.event.description}</div>
             </div>
         </a>
     `;

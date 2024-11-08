@@ -44,6 +44,10 @@ class Porpopup2 extends HTMLElement{
         const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
         this.customizedData.buttonSettings.primary : 
         this.customizedData.buttonSettings.secondary;
+
+        // const closeButtonSettings = this.customizedData.selectedBtn === "primary" ? 
+        // this.customizedData.closeButtonSetting.primary : 
+        // this.customizedData.closeButtonSetting.secondary;
         this.shadowRoot.innerHTML = `
         <style>
     .body {
@@ -226,7 +230,8 @@ class Porpopup2 extends HTMLElement{
     .btnContainer {
         width: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction : row;
+        justify-content:center;
         align-items: center;
         gap: 5px;
     }
@@ -242,11 +247,13 @@ class Porpopup2 extends HTMLElement{
     text-decoration:none;
 }
     .closebtn {
-        width: fit-content;
-        background: none;
-        color: black;
-        border: none;
-        cursor: pointer;
+    width : fit-content;
+    background-color: #8F8F8F1F;
+    color: #171717;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
     }
 </style>
 
@@ -263,19 +270,19 @@ class Porpopup2 extends HTMLElement{
                 <div class="date">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
             </div>
         </div>
-        <img src=${this.event.bannerUrl} alt="placeholder" class="banner" />
+        <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
         <div class="dividerLine"></div>
         <div class="type_peopleContainer">
             <div class="typeContainer">
-                <div class="pill type1">Tradeshow</div>
-                <div class="pill type2">Attending</div>
+                <div class="pill type1">${this.event.event_type}</div>
+                <div class="pill type2">${this.event.participationType}</div>
             </div>
 
         </div>
          <div class="desc">${this.event.description.substring(0,250)}</div>
         <div class="btnContainer">
             <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
-            <button class="closebtn">Close</button>
+           <button class="closebtn">Close</button>
         </div>
     </div>
 </div>

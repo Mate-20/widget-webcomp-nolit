@@ -1,4 +1,4 @@
-class ListCard1 extends HTMLElement {
+class StickyView extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -13,7 +13,19 @@ class ListCard1 extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log("Card1")
+        if (!localStorage.getItem('popupShown')) {
+            console.log("popup")
+            this.render();
+            this.addEventListeners(); // Add event listeners after rendering
+        }
+    }
+    addEventListeners() {
+        this.shadowRoot.querySelector('.closebtn').addEventListener('click', () => this.closePopup());
+    }
+    closePopup() {
+        // Setting it true so that it can know that popup was already shown once
+        localStorage.setItem('popupShown', 'true');
+        this.remove(); // Remove the popup from the DOM
     }
     formatStartDate(dateString) {
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -26,52 +38,61 @@ class ListCard1 extends HTMLElement {
         const options = { day: '2-digit', month: 'short' };
         return new Date(date).toLocaleDateString('en-US', options);
     };
+
     render() {
+        const buttonSettings = this.customizedData.selectedBtn === "primary" ? 
+        this.customizedData.buttonSettings.primary : 
+        this.customizedData.buttonSettings.secondary;
+
+        const closeButtonSettings = this.customizedData.selectedBtn === "primary" ? 
+        this.customizedData.closeButtonSetting.primary : 
+        this.customizedData.closeButtonSetting.secondary;
         this.shadowRoot.innerHTML = `
         <style>
+            .body{
+            box-sizing :border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
             .card {
-                overflow: hidden;
-                width: 629px;
-                min-height: 211px;
-                max-height: 211px;
-                display: flex;
-                gap: 15px;
-                padding: 0px 12px 12px 10px;
-                background-color: ${this.customizedData.cardBgColor};
+                min-width: 450px;
+                max-width: 450px;
+                max-height: 480px;
+                min-height: 480px;
                 border-radius: ${this.customizedData.cardBorderRadius}px;
-                text-decoration : none;
-            }
-            .bannerContainer{
-                min-width: 260px;
-                max-width: 260px;
-                height: 210px;
-                border-bottom-left-radius: 50px;
-                border-bottom-right-radius: 50px;
-                filter: drop-shadow(1px 1px 4px rgb(109, 109, 109));
-                overflow : hidden;
-            }
-            .banner {
-                width : 100%;
-                height : 100%;
-            }
-            .detailsContainer {
-                padding : 10px;
-                min-width: 57%;
-                max-width: 57%;
+                background-color: ${this.customizedData.cardBgColor};
                 display: flex;
                 flex-direction: column;
-                justify-content : space-between;
+                align-items: center;
+                overflow: hidden;
+            }
+            .banner {
+                width: 95%;
+                height: 220px;
+                border-bottom-left-radius: 50px;
+                border-bottom-right-radius: 50px;
+                filter: drop-shadow(1px 1px 4px rgb(111, 111, 111));
             }
             .date_location_nameContainer {
-                gap : 10px;
+                padding: 10px 14px 0px 14px;
+                width: 100%;
                 display: flex;
                 align-items: center;
+                justify-content: space-evenly;
             }
             .dateContainer {
-                background-color: #F6F6F6;
+                background-color: #e3e2e1;
                 border-radius: 9px;
-                width: 50px;
-                height: 68px;
+                width: 60px;
+                height: 78px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -80,20 +101,20 @@ class ListCard1 extends HTMLElement {
             .date {
                 color: black;
                 line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
+                font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .month {
                 color: black;
                 line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-size:${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
+                font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
             }
             .line {
                 height: 60px;
-                border-left: 1px solid #F6F6F6;
+                border-left: 1px solid #e3e2e1;
             }
             .name_locationContainer {
                 display: flex;
@@ -111,37 +132,39 @@ class ListCard1 extends HTMLElement {
                 font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
                 color: ${this.customizedData.fontSettings?.subheading?.fontColor};
                 font-weight: ${this.customizedData.fontSettings?.subheading?.fontWeight};
+                font-family : ${this.customizedData.fontSettings?.subheading?.fontFamily};
             }
             .eventName {
+                word-wrap: break-word;
+                min-height: 60px;
+                max-height: 60px;
+                overflow: hidden;
                 line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
+                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
+                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color: ${this.customizedData.fontSettings?.heading?.fontColor};
                 font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
-                font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
-                font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
             }
-            .description {
-                line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
-                font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
-                color: ${this.customizedData.fontSettings?.body?.fontColor};
-                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
-                height: 70px;
-                overflow: hidden;
-                max-width : 90%; 
-                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
-                word-wrap: break-word;
+            .dividerLine {
+                margin-top: 8px;
+                width: 100%;
+                border-top: 1px solid #E8EAF1;
             }
             .dateRange_typeContainer {
-                margin-top: 20px;
+                margin-top : 5px;
                 display: flex;
                 align-items: center;
-                width: 100%;
-                gap: 7px;
+                width: 95%;
+                gap: 8px;
+                padding-left: 10px;
+                padding-right: 10px;
             }
             .pill {
                 border-radius: 6px;
                 padding: 4px 8px;
                 line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
-                font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;;
+                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
+                font-size: ${this.customizedData.fontSettings?.body?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
             }
             .dateRange {
@@ -156,13 +179,53 @@ class ListCard1 extends HTMLElement {
                 background-color: #F7E5EE;
                 color: #6750A4;
             }
+            .desc {
+                line-height : 20px;
+                min-height: 55px;
+                max-height: 55px;
+                width: 95%;
+                padding-left: 10px;
+                padding-right: 10px;
+                word-wrap: break-word;
+                overflow: hidden;
+                font-family : ${this.customizedData.fontSettings?.body?.fontFamily};
+                font-size:${this.customizedData.fontSettings?.body?.fontSize}px;
+                color: ${this.customizedData.fontSettings?.body?.fontColor};
+                font-weight: ${this.customizedData.fontSettings?.body?.fontWeight};
+            }
+.btnContainer{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction : row;
+   align-items : center;
+   justify-content:center;
+   gap : 5px; 
+}
+.btn{
+    background-color: ${buttonSettings.buttonColor};
+    font-size:${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    line-height : ${this.customizedData.fontSettings?.subheading?.fontSize}px;
+    border-radius: ${buttonSettings.borderRadius}px;
+    color: ${buttonSettings.fontColor};
+    width : fit-content;
+    border: 1px solid ${buttonSettings.borderColor};
+    padding: 10px 20px;
+    text-decoration:none;
+}
+.closebtn{
+    width : fit-content;
+    background-color: ${closeButtonSettings.buttonColor};
+    color: ${closeButtonSettings.fontColor};
+     border-radius: ${closeButtonSettings.borderRadius}px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
         </style>
-
-        <a href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
-            <div class="bannerContainer">
+        <div class="body">
+            <div class="card">
                 <img src=${this.event.logoUrl} alt="placeholder" class="banner"/>
-            </div>
-            <div class="detailsContainer">
                 <div class="date_location_nameContainer">
                     <div class="dateContainer">
                         <span class="date">${this.day_month.day}</span>
@@ -172,20 +235,25 @@ class ListCard1 extends HTMLElement {
                     <div class="name_locationContainer">
                         <div class="locationContainer">
                             ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
-                             <div class="location">${this.event.location_city}</div>
+                            <div class="location">${this.event.location_city}</div>
                         </div>
-                       <div class="eventName">${this.event.name.substring(0, 20)}</div>
+                        <div class="eventName">${this.event.name.substring(0,20)}</div>
                     </div>
                 </div>
-                <div class="description">${this.event.description}</div>
+                <div class="dividerLine"></div>
                 <div class="dateRange_typeContainer">
                     <div class="pill dateRange">${this.formatDate(this.event.start_date)}-${this.formatDate(this.event.end_date)}</div>
                     <div class="pill type1">${this.event.event_type}</div>
                     <div class="pill type2">${this.event.participationType}</div>
                 </div>
+                <div class="desc">${this.event.description}</div>
+                <div class="btnContainer">
+                    <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
+                    <button class="closebtn">${closeButtonSettings.buttonText}</button>
+                </div>
             </div>
-        </a>
-    `;
+        </div>
+        `;
     }
     locationIcon(color) {
         return `
@@ -194,4 +262,4 @@ class ListCard1 extends HTMLElement {
     }
 }
 
-customElements.define('listview-card1', ListCard1);
+customElements.define('', StickyView);
