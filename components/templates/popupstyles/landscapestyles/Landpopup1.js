@@ -232,7 +232,7 @@ class Landpopup1 extends HTMLElement {
                     <div class="pill type2">${this.event.participationType}</div>
                 </div>
                 <div class="btnContainer">
-                    <a class="btn" href=${`https://console.eventgeni.com/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
+                    <a class="btn" href=${`https://console.whr.ai/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank">${buttonSettings.buttonText}</a>
                     <button class="closebtn">Close</button>
                 </div>
             </div>
