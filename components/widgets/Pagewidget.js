@@ -188,28 +188,6 @@ class Pagewidget extends HTMLElement {
                 <div>This pannel is only visible to the owner</div>
                 <a class="editBtn" href="https://console.eventgeni.com/templates/edit/3763g?preview=sehb" target="_blank">Edit</a>
             </div>
-            <div class="navbarBtns">
-                <div class="dropdown">
-                    <button class="dropbtn">Participation Filter</button>
-                    <div class="dropdown-content">
-                        <div class="filterOption" data-filter="Speaking">Speaking</div>
-                        <div class="filterOption" data-filter="Exhibiting">Exhibiting</div>
-                        <div class="filterOption" data-filter="Sponsoring">Sponsoring</div>
-                        <div class="filterOption" data-filter="Attending">Attending</div>
-                        <div class="filterOption" data-filter="All">All</div>
-                    </div>
-                </div>
-                <div class="viewBtns">
-                    <div class="viewBtn ${this.activeView === 'Your View' ? 'active' : ''}">Your View</div>
-                    <div class="viewBtn ${this.activeView === 'Map' ? 'active' : ''}">Map</div>
-                    <div class="viewBtn ${this.activeView === 'Calendar' ? 'active' : ''}">Calendar</div>
-                </div>
-                <div class="sortContainer">
-                    <input type="date"/>
-                </div>
-            </div>
-
-            <div class="heading">Meet us here</div>
 
             <div class="view">
                 ${activeContent}
@@ -221,3 +199,26 @@ class Pagewidget extends HTMLElement {
 
 }
 customElements.define('page-widget', Pagewidget);
+
+{/* <div class="navbarBtns">
+<div class="dropdown">
+    <button class="dropbtn">Participation Filter</button>
+    <div class="dropdown-content">
+        <div class="filterOption" data-filter="Speaking">Speaking</div>
+        <div class="filterOption" data-filter="Exhibiting">Exhibiting</div>
+        <div class="filterOption" data-filter="Sponsoring">Sponsoring</div>
+        <div class="filterOption" data-filter="Attending">Attending</div>
+        <div class="filterOption" data-filter="All">All</div>
+    </div>
+</div>
+<div class="viewBtns">
+    <div class="viewBtn ${this.activeView === 'Your View' ? 'active' : ''}">Your View</div>
+    <div class="viewBtn ${this.activeView === 'Map' ? 'active' : ''}">Map</div>
+    <div class="viewBtn ${this.activeView === 'Calendar' ? 'active' : ''}">Calendar</div>
+</div>
+<div class="sortContainer">
+    <input type="date"/>
+</div>
+</div>
+
+<div class="heading">Meet us here</div> */}
