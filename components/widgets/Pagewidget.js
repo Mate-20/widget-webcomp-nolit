@@ -184,11 +184,6 @@ class Pagewidget extends HTMLElement {
             }
         </style>
         <div class="body">
-            <div class="ownerEditBtn">
-                <div>This pannel is only visible to the owner</div>
-                <a class="editBtn" href="https://console.eventgeni.com/templates/edit/3763g?preview=sehb" target="_blank">Edit</a>
-            </div>
-
             <div class="view">
                 ${activeContent}
             </div>
@@ -200,6 +195,10 @@ class Pagewidget extends HTMLElement {
 }
 customElements.define('page-widget', Pagewidget);
 
+{/* <div class="ownerEditBtn">
+<div>This pannel is only visible to the owner</div>
+<a class="editBtn" href="https://console.eventgeni.com/templates/edit/3763g?preview=sehb" target="_blank">Edit</a>
+</div> */}
 {/* <div class="navbarBtns">
 <div class="dropdown">
     <button class="dropbtn">Participation Filter</button>
