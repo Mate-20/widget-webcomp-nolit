@@ -11,17 +11,17 @@ class Porpopup2 extends HTMLElement{
         this.render();
     }
     connectedCallback() {
-        if (!localStorage.getItem('popupShown')) {
+        // if (!localStorage.getItem('popupShown')) {
             this.render();
             this.addEventListeners(); // Add event listeners after rendering
-        }
+        // }
     }
     addEventListeners() {
         this.shadowRoot.querySelector('.closebtn').addEventListener('click', () => this.closePopup());
     }
     closePopup() {
         // Setting it true so that it can know that popup was already shown once
-        localStorage.setItem('popupShown', 'true');
+        // localStorage.setItem('popupShown', 'true');
         this.remove(); // Remove the popup from the DOM
     }
     formatDate(date) {
