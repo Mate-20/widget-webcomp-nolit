@@ -135,9 +135,8 @@ class CarouselView extends HTMLElement {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    background-color: white;
+                    background-color: rgb(231, 228, 228);
                     border-radius: 50px;
-                    filter: drop-shadow(1px 1px 2px rgb(23, 23, 23));
                 }
                 .navButton:first-of-type {
                     left: 1px;
