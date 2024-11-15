@@ -97,6 +97,27 @@ class ListCard3 extends HTMLElement {
                 height: 52px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
+                position: relative;
+            }
+            .eventName::before{
+                content: attr(data-name);
+                position: absolute;
+                top: 60%;
+                left: 30%;
+                transform: translateX(-50%);
+                background-color: rgba(0, 0, 0, 0.8);
+                color: #fff;
+                max-width : 200px;
+                padding: 3px 5px;
+                border-radius: 5px;
+                font-size: 12px;
+                opacity: 0;
+                font-weight : 400;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+            }
+            .eventName:hover::before {
+                opacity: 1;
             }
             .location_dateContainer{
                 height: 50px;
@@ -141,7 +162,9 @@ class ListCard3 extends HTMLElement {
                 <div class="typeTwo">${this.event.type === "MAIN" ? "Main Event" : "Side Event"}</div>
             </div>
             <div class="eventDetails">
-                <div class="eventName">${this.event.name.substring(0,25)}</div>
+                <div class="eventName" data-name="${this.event.name}">
+                ${this.event.name.length > 25 ? `${this.event.name.substring(0, 25)}...`:this.event.name}
+                </div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">
                         ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}

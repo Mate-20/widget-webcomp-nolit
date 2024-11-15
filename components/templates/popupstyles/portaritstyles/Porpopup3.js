@@ -113,7 +113,27 @@ class Porpopup3 extends HTMLElement {
     min-height: 55px;
     max-height: 55px;
     word-wrap: break-word;
-    overflow: hidden;
+    position: relative;
+}
+.eventName::before{
+    content: attr(data-name);
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    max-width : 200px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    font-weight : 400;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+.eventName:hover::before {
+    opacity: 1;
 }
 .location_dateContainer{
     min-height: 40px;
@@ -190,7 +210,9 @@ class Porpopup3 extends HTMLElement {
                     <div class="type">${this.event.event_type}</div>
                     <div class="typeTwo">${this.event.type === "MAIN" ? "Main Event" : "Side Event"}</div>
                 </div>
-                <div class="eventName">${this.event.name.substring(0,40)}</div>
+                <div class="eventName" data-name="${this.event.name}">
+                ${this.event.name.length > 40 ? `${this.event.name.substring(0, 40)}...`:this.event.name}
+                </div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">
                         ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}

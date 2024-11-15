@@ -65,6 +65,27 @@ class ListCard2 extends HTMLElement {
                 color:  ${this.customizedData.fontSettings?.heading?.fontColor};
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 height : 40px;
+                position: relative;
+            }
+            .eventName::before{
+                content: attr(data-name);
+                position: absolute;
+                top: 80%;
+                left: 30%;
+                transform: translateX(-50%);
+                background-color: rgba(0, 0, 0, 0.8);
+                color: #fff;
+                max-width : 200px;
+                padding: 3px 5px;
+                border-radius: 5px;
+                font-size: 12px;
+                opacity: 0;
+                font-weight : 400;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+            }
+            .eventName:hover::before {
+                opacity: 1;
             }
             .location_dateContainer {
                 margin-top: 8px;
@@ -182,7 +203,9 @@ class ListCard2 extends HTMLElement {
        <a href=${`https://console.whr.ai/detailpage?widgetId=${this.customizedData.widgetId}&eventId=${this.event.id}`} target="_blank" class="card">
             <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
             <div class="details">
-                <div class="eventName">${this.event.name.substring(0, 25)}</div>
+                <div class="eventName" data-name="${this.event.name}">
+                ${this.event.name.length > 25 ? `${this.event.name.substring(0, 25)}...`:this.event.name}
+                </div>
                 <div class="location_dateContainer">
                     <div class="locationContainer">
                         ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}

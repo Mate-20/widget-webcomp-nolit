@@ -113,7 +113,28 @@ class Card1 extends HTMLElement {
                     color: ${this.customizedData.fontSettings?.heading?.fontColor};
                     font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                     font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
+                    position: relative;
                 }
+               .eventName::before{
+                    content: attr(data-name);
+                    position: absolute;
+                    bottom : 100%;
+                    left: 30%;
+                    transform: translateX(-50%);
+                    background-color: rgba(0, 0, 0, 0.8);
+                    color: #fff;
+                    max-width : 200px;
+                    padding: 3px 5px;
+                    border-radius: 5px;
+                    font-size: 12px;
+                    opacity: 0;
+                    font-weight : 400;
+                    pointer-events: none;
+                    transition: opacity 0.2s ease;
+                }
+                .eventName:hover::before {
+                    opacity: 1;
+                }         
                 .dividerLine {
                     margin-top: 12px;
                     width: 100%;
@@ -159,7 +180,9 @@ class Card1 extends HTMLElement {
                             ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
                             <div class="location">${this.event.location_city.substring(0, 20)}</div>
                         </div>
-                        <div class="eventName">${this.event.name.substring(0, 15)}</div>
+                        <div class="eventName" data-name="${this.event.name}">
+                        ${this.event.name.length > 15 ? `${this.event.name.substring(0, 15)}...`:this.event.name}
+                        </div>
                     </div>
                 </div>
                 <div class="dividerLine"></div>

@@ -138,12 +138,32 @@ class Porpopup1 extends HTMLElement {
                 word-wrap: break-word;
                 min-height: 60px;
                 max-height: 60px;
-                overflow: hidden;
+                position: relative;
                 line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 color: ${this.customizedData.fontSettings?.heading?.fontColor};
                 font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
+            }
+            .eventName::before{
+                content: attr(data-name);
+                position: absolute;
+                top: 40%;
+                left: 30%;
+                transform: translateX(-50%);
+                background-color: rgba(0, 0, 0, 0.8);
+                color: #fff;
+                max-width : 200px;
+                padding: 3px 5px;
+                border-radius: 5px;
+                font-size: 12px;
+                opacity: 0;
+                font-weight : 400;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+            }
+            .eventName:hover::before {
+                opacity: 1;
             }
             .dividerLine {
                 margin-top: 8px;
@@ -236,7 +256,9 @@ class Porpopup1 extends HTMLElement {
                             ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
                             <div class="location">${this.event.location_city}</div>
                         </div>
-                        <div class="eventName">${this.event.name.substring(0, 20)}</div>
+                        <div class="eventName" data-name="${this.event.name}">
+                        ${this.event.name.length > 30 ? `${this.event.name.substring(0, 30)}...`:this.event.name}
+                        </div>
                     </div>
                 </div>
                 <div class="dividerLine"></div>

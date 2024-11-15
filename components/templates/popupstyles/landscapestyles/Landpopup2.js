@@ -85,12 +85,32 @@ class Landpopup2 extends HTMLElement{
 .eventName {
     min-height: 70px;
     max-height: 70px;
-    overflow: hidden;
     line-height : ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
     font-size: ${this.customizedData.fontSettings?.heading?.fontSize}px;
     font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
     color:  ${this.customizedData.fontSettings?.heading?.fontColor};
+    position: relative;
+}
+.eventName::before{
+    content: attr(data-name);
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    max-width : 200px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    font-weight : 400;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+.eventName:hover::before {
+    opacity: 1;
 }
 .location_dateContainer {
     margin-top: 8px;
@@ -258,7 +278,9 @@ class Landpopup2 extends HTMLElement{
     <div class="card">
         <img src=${this.event.logoUrl} alt="placeholder" class="banner" />
         <div class="details">
-            <div class="eventName">${this.event.name.substring(0,40)}</div>
+            <div class="eventName" data-name="${this.event.name}">
+            ${this.event.name.length > 50 ? `${this.event.name.substring(0, 50)}...`:this.event.name}
+            </div>
             <div class="location_dateContainer">
                 <div class="locationContainer">
                     ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}

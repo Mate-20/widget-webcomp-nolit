@@ -118,6 +118,27 @@ class ListCard1 extends HTMLElement {
                 font-size : ${this.customizedData.fontSettings?.heading?.fontSize}px;
                 font-weight: ${this.customizedData.fontSettings?.heading?.fontWeight};
                 font-family : ${this.customizedData.fontSettings?.heading?.fontFamily};
+                position : relative;
+            }
+            .eventName::before{
+                content: attr(data-name);
+                position: absolute;
+                top: 120%;
+                left: 30%;
+                transform: translateX(-50%);
+                background-color: rgba(0, 0, 0, 0.8);
+                color: #fff;
+                max-width : 200px;
+                padding: 3px 5px;
+                border-radius: 5px;
+                font-size: 12px;
+                opacity: 0;
+                font-weight : 400;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+            }
+            .eventName:hover::before {
+                opacity: 1;
             }
             .description {
                 line-height : ${this.customizedData.fontSettings?.body?.fontSize}px;
@@ -173,7 +194,9 @@ class ListCard1 extends HTMLElement {
                             ${this.locationIcon(this.customizedData.fontSettings?.subheading?.fontColor)}
                              <div class="location">${this.event.location_city}</div>
                         </div>
-                       <div class="eventName">${this.event.name.substring(0, 20)}</div>
+                       <div class="eventName" data-name="${this.event.name}">
+                       ${this.event.name.length > 20 ? `${this.event.name.substring(0, 20)}...`:this.event.name}
+                       </div>
                     </div>
                 </div>
                 <div class="description">${this.event.description}</div>
